@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.bookstore.webservice.JDBCTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-12-21T12:49:36" hostname="SeongBeom.local" time="0.213">
+  <properties/>
+  <testcase name="testConnection()" classname="com.bookstore.webservice.JDBCTest" time="0.213"/>
+  <system-out><![CDATA[oracle.jdbc.driver.T4CConnection@586e8d50
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

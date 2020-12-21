@@ -37,6 +37,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation files('libs/ojdbc6.jar')
 
+    //JSP 설정
+    compile('org.apache.tomcat.embed:tomcat-embed-jasper')
+    compile('javax.servlet:jstl:1.2')
+
 
 }
 

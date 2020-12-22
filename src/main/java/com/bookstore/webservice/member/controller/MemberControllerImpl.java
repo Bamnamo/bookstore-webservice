@@ -23,8 +23,10 @@ public class MemberControllerImpl implements MemberController {
     @Override
     @RequestMapping(value = "/member/listMembers.do", method = RequestMethod.GET)
     public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String viewName = (String) request.getAttribute("viewName");
         List membersList = memberService.listMembers();
-        ModelAndView mav = new ModelAndView("/member/listMembers");
+        ModelAndView mav = new ModelAndView(viewName);
+        //ModelAndView mav = new ModelAndView("/member/listMembers");
         mav.addObject("membersList", membersList);
         return mav;
     }

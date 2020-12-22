@@ -9,6 +9,5 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface MemberController {
 
-    @RequestMapping(value = "/member/listMembers.do", method = RequestMethod.GET)
-    ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

@@ -20,5 +20,5 @@ public class MemberVO {
     public MemberVO() {
         System.out.println("MemberVO 생성자 호출");
     }
-    
+
 }

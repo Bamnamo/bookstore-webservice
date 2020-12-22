@@ -1,72 +1,66 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" isELIgnored="false"
+<%@ page language="java" contentType="text/html; charset=utf-8"
+         pageEncoding="utf-8"
+         isELIgnored="false"
 %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%
+    request.setCharacterEncoding("utf-8");
+%>
 
-<!DOCTYPE html>
-<html>
 <head>
-    <meta charset="UTF-8">
-    <style>
-        #container {
-            width: 100%;
-            margin: 0px auto;
-            text-align: center;
-            border: 0px solid #bcbcbc;
-        }
-
-        #header {
-            padding: 5px;
-            margin-bottom: 5px;
-            border: 0px solid #bcbcbc;
-            background-color: lightgreen;
-        }
-
-        #sidebar-left {
-            width: 15%;
-            height: 700px;
-            padding: 5px;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            float: left;
-            background-color: yellow;
-            border: 0px solid #bcbcbc;
-            font-size: 10px;
-        }
-
-        #content {
-            width: 75%;
-            padding: 5px;
-            margin-right: 5px;
-            float: left;
-            border: 0px solid #bcbcbc;
-        }
-
-        #footer {
-            clear: both;
-            padding: 5px;
-            border: 0px solid #bcbcbc;
-            background-color: lightblue;
-        }
-
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="${contextPath}/css/main.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="${contextPath}/css/basic-jquery-slider.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="${contextPath}/css/mobile.css" rel="stylesheet" type="text/css">
+    <script src="${contextPath}/jquery/jquery-1.6.2.min.js" type="text/javascript"></script>
+    <script src="${contextPath}/jquery/jquery.easing.1.3.js" type="text/javascript"></script>
+    <script src="${contextPath}/jquery/stickysidebar.jquery.js" type="text/javascript"></script>
+    <script src="${contextPath}/jquery/basic-jquery-slider.js" type="text/javascript"></script>
+    <script src="${contextPath}/jquery/tabs.js" type="text/javascript"></script>
+    <script src="${contextPath}/jquery/carousel.js" type="text/javascript"></script>
+    <script>
+        // 슬라이드
+        $(document).ready(function () {
+            $('#ad_main_banner').bjqs({
+                'width': 775,
+                'height': 145,
+                'showMarkers': true,
+                'showControls': false,
+                'centerMarkers': false
+            });
+        });
+        // 스티키
+        $(function () {
+            $("#sticky").stickySidebar({
+                timer: 100,
+                easing: "easeInBounce"
+            });
+        });
+    </script>
     <title><tiles:insertAttribute name="title"/></title>
+
 </head>
 <body>
-<div id="container">
-    <div id="header">
-        <tiles:insertAttribute name="header"/>
+<div id="outer_wrap">
+    <div id="wrap">
+        <header>
+            <tiles:insertAttribute name="header"/>
+        </header>
+        <div class="clear"></div>
+        <aside>
+            <tiles:insertAttribute name="side"/>
+        </aside>
+        <article>
+            <tiles:insertAttribute name="body"/>
+        </article>
+        <div class="clear"></div>
+        <footer>
+            <tiles:insertAttribute name="footer"/>
+        </footer>
     </div>
-    <div id="sidebar-left">
-        <tiles:insertAttribute name="side"/>
-    </div>
-    <div id="content">
-        <tiles:insertAttribute name="body"/>
-    </div>
-    <div id="footer">
-        <tiles:insertAttribute name="footer"/>
-    </div>
+    <tiles:insertAttribute name="quickMenu"/>
 </div>
 </body>
-</html>

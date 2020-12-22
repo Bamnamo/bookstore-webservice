@@ -13,7 +13,7 @@ public class TilesConfig implements WebMvcConfigurer {
     @Bean
     public TilesConfigurer tilesConfigurer() {
         final TilesConfigurer configurer = new TilesConfigurer();
-        configurer.setDefinitions(new String[]{"WEB-INF/tiles/tiles_member.xml"});
+        configurer.setDefinitions(new String[]{"WEB-INF/tiles/tiles_member.xml","WEB-INF/tiles/tiles_main.xml"});
         //configurer.setDefinitions(new String[] {"WEB-INF/tiles/tiles_member.xml","WEB-INF/tiles/tiles_board.xml"});
         configurer.setCheckRefresh(true);
         return configurer;

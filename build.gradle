@@ -53,6 +53,13 @@ dependencies {
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.2.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
 
+    //Thumbnail
+    compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
+
+    //aspectj
+    runtime group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.5'
+    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.2'
+
 
 }
 

@@ -2,6 +2,7 @@ package com.bookstore.webservice.goods.service;
 
 import com.bookstore.webservice.goods.dao.GoodsDAO;
 import com.bookstore.webservice.goods.vo.GoodsVO;
+import com.bookstore.webservice.goods.vo.ImageFileVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -31,6 +32,16 @@ public class GoodsServiceImpl implements GoodsService {
         goodsList = goodsDAO.selectGoodsList("steadyseller");
         goodsMap.put("steadyseller", goodsList);
 
+        return goodsMap;
+    }
+
+
+    public Map goodsDetail(String _goods_id) throws Exception {
+        Map goodsMap=new HashMap();
+        GoodsVO goodsVO = goodsDAO.selectGoodsDetail(_goods_id);
+        goodsMap.put("goodsVO", goodsVO);
+        List<ImageFileVO> imageList =goodsDAO.selectGoodsDetailImage(_goods_id);
+        goodsMap.put("imageList", imageList);
         return goodsMap;
     }
 }

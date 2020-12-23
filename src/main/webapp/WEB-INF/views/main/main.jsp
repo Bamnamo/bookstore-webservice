@@ -94,7 +94,7 @@
         </div>
         <c:if test="${goods_count==15   }">
             <div class="book">
-                <font size=20> <a href="#">more</a></font>
+                <font size=20> <a href="#">더 보기</a></font>
             </div>
         </c:if>
     </c:forEach>

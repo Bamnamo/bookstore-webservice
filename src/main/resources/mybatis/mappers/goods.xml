@@ -40,14 +40,16 @@
         <![CDATA[
 
 
-                         select t.*
-                          from(
-                            select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
-                            where g.goods_id=d.goods_id
-                            and d.filetype='main_image'
-                            and goods_status=#{goodsStatus}
-                            order by g.goods_creDate desc)  t
-                                 where   rowNum <16
+
+                                 select t.*
+                                  from(
+                                    select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
+                                    where g.goods_id=d.goods_id
+                                    and d.filetype='main_image'
+                                    and goods_status=#{goodsStatus}
+                                    order by g.goods_creDate desc)  t
+                                         where   rowNum <16
+
 
 
         ]]>
@@ -57,11 +59,13 @@
 	    <![CDATA[
 
 
-                             select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
-                            where g.goods_id=d.goods_id
-                            and d.filetype='main_image'
-                            and g.goods_id=#{goods_id}
-                            order by g.goods_id
+
+                                     select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
+                                    where g.goods_id=d.goods_id
+                                    and d.filetype='main_image'
+                                    and g.goods_id=#{goods_id}
+                                    order by g.goods_id
+
 
 
         ]]>
@@ -70,9 +74,11 @@
 	    <![CDATA[
 
 
-                                select * from  t_goods_detail_image
-                                where  fileType!='main_image'
-                                and goods_id=#{goods_id}
+
+                                        select * from  t_goods_detail_image
+                                        where  fileType!='main_image'
+                                        and goods_id=#{goods_id}
+
 
 
         ]]>
@@ -82,11 +88,13 @@
      <![CDATA[
 
 
-                                select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
-                            where g.goods_id=d.goods_id
-                            and d.filetype='main_image'
-                            and g.goods_title like '%'|| #{searchWord} || '%'
-                            order by g.goods_creDate desc
+
+                                        select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
+                                    where g.goods_id=d.goods_id
+                                    and d.filetype='main_image'
+                                    and g.goods_title like '%'|| #{searchWord} || '%'
+                                    order by g.goods_creDate desc
+
 
 
         ]]>
@@ -96,10 +104,12 @@
 	    <![CDATA[
 
 
-                        select goods_title from t_shopping_goods
-                        where
-                        goods_title like '%'|| #{keyword} || '%'
-                        order by goods_creDate desc
+
+                                select goods_title from t_shopping_goods
+                                where
+                                goods_title like '%'|| #{keyword} || '%'
+                                order by goods_creDate desc
+
 
 
         ]]>

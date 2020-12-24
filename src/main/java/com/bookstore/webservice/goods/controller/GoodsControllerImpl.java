@@ -5,6 +5,7 @@ import com.bookstore.webservice.goods.vo.GoodsVO;
 import com.bookstore.webservice.main.BaseController;
 
 
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 
 @Controller("goodsController")
 @RequestMapping(value = "/goods")
@@ -36,51 +38,33 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
         ModelAndView mav = new ModelAndView(viewName);
         mav.addObject("goodsMap", goodsMap);
         GoodsVO goodsVO = (GoodsVO) goodsMap.get("goodsVO");
-        // addGoodsInQuick(goods_id, goodsVO, session);
         return mav;
     }
 
     @Override
-    public String keywordSearch(String keyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return null;
+    @RequestMapping(value = "/keywordSearch.do", method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
+    public String keywordSearch(@RequestParam("keyword") String keyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("utf-8");
+        if (keyword == null || keyword.equals(""))
+            return null;
+
+        keyword = keyword.toUpperCase();
+        List keywordList = goodsService.keywordSearch(keyword);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("keyword", keywordList);
+        String jsonInfo = jsonObject.toString();
+        return jsonInfo;
     }
 
     @Override
-    public ModelAndView searchGoods(String searchWord, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return null;
+    @RequestMapping(value = "/searchGoods.do", method = RequestMethod.GET)
+    public ModelAndView searchGoods(@RequestParam("searchWord") String searchWord, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String viewName = (String) request.getAttribute("viewName");
+        List goodsList = goodsService.searchGoods(searchWord);
+        ModelAndView mav = new ModelAndView(viewName);
+        mav.addObject("goodsList", goodsList);
+        return mav;
     }
-
-
-    /*
-    private void addGoodsInQuick(String goods_id, GoodsVO goodsVO, HttpSession session) {
-        boolean already_existed = false;
-        List<GoodsVO> quickGoodsList; //최근 본 상품 저장 ArrayList
-        quickGoodsList = (ArrayList<GoodsVO>) session.getAttribute("quickGoodsList");
-
-        if (quickGoodsList != null) {
-            if (quickGoodsList.size() < 4) { //미리본 상품 리스트에 상품개수가 세개 이하인 경우
-                for (int i = 0; i < quickGoodsList.size(); i++) {
-                    GoodsVO _goodsBean = (GoodsVO) quickGoodsList.get(i);
-                    if (goods_id.equals(_goodsBean.getGoods_id())) {
-                        already_existed = true;
-                        break;
-                    }
-                }
-                if (already_existed == false) {
-                    quickGoodsList.add(goodsVO);
-                }
-            }
-
-        } else {
-            quickGoodsList = new ArrayList<GoodsVO>();
-            quickGoodsList.add(goodsVO);
-
-        }
-        session.setAttribute("quickGoodsList", quickGoodsList);
-        session.setAttribute("quickGoodsListNum", quickGoodsList.size());
-    }
-
-     */
-
 
 }

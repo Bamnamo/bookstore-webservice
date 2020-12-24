@@ -37,11 +37,23 @@ public class GoodsServiceImpl implements GoodsService {
 
 
     public Map goodsDetail(String _goods_id) throws Exception {
-        Map goodsMap=new HashMap();
+        Map goodsMap = new HashMap();
         GoodsVO goodsVO = goodsDAO.selectGoodsDetail(_goods_id);
         goodsMap.put("goodsVO", goodsVO);
-        List<ImageFileVO> imageList =goodsDAO.selectGoodsDetailImage(_goods_id);
+        List<ImageFileVO> imageList = goodsDAO.selectGoodsDetailImage(_goods_id);
         goodsMap.put("imageList", imageList);
         return goodsMap;
+    }
+
+    @Override
+    public List<String> keywordSearch(String keyword) throws Exception {
+        List<String> list = goodsDAO.selectKeywordSearch(keyword);
+        return list;
+    }
+
+    @Override
+    public List<GoodsVO> searchGoods(String searchWord) throws Exception {
+        List goodsList = goodsDAO.selectGoodsSearch(searchWord);
+        return goodsList;
     }
 }

@@ -89,7 +89,4 @@
 <div id="banner">
     <a href="#"><img width="190" height="104" src="${contextPath}/image/call_center_logo.jpg"></a>
 </div>
-<div id="banner">
-    <a href="#"><img width="190" height="69" src="${contextPath}/image/QnA_logo.jpg"></a>
-</div>
 </html>

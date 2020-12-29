@@ -43,6 +43,34 @@
     </style>
     <script type="text/javascript">
 
+        function add_cart(goods_id) {
+            $.ajax({
+                type: "post",
+                async: false, //false인 경우 동기식으로 처리한다.
+                url: "${contextPath}/cart/addGoodsInCart.do",
+                data: {
+                    goods_id: goods_id
+
+                },
+                success: function (data, textStatus) {
+                    //alert(data);
+                    //	$('#message').append(data);
+                    if (data.trim() == 'add_success') {
+                        imagePopup('open', '.layer01');
+                    } else if (data.trim() == 'already_existed') {
+                        alert("이미 카트에 등록된 상품입니다.");
+                    }
+
+                },
+                error: function (data, textStatus) {
+                    alert("에러가 발생했습니다." + data);
+                },
+                complete: function (data, textStatus) {
+                    //alert("작업을완료 했습니다");
+                }
+            }); //end ajax
+        }
+
         function imagePopup(type) {
             if (type == 'open') {
                 // 팝업창을 연다.

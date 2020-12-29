@@ -5,8 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-@Mapper
-@Repository("cartDAO")
+
 public interface CartDAO {
     public boolean selectCountInCart(CartVO cartVO) throws DataAccessException;
 

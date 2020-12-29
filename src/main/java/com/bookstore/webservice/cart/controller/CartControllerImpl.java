@@ -28,7 +28,8 @@ public class CartControllerImpl extends BaseController implements CartController
 
     @Override
     @RequestMapping(value = "addGoodsInCart.do", method = RequestMethod.POST, produces = "application/text; charset=utf8")
-    public @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public @ResponseBody
+    String addGoodsInCart(@RequestParam("goods_id") int goods_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
         memberVO = (MemberVO) session.getAttribute("memberInfo");
         String member_id = memberVO.getMember_id();
@@ -40,7 +41,7 @@ public class CartControllerImpl extends BaseController implements CartController
             return "already_existed";
         } else {
             cartService.addGoodsInCart(cartVO);
-            return "add_succes";
+            return "add_success";
         }
     }
 }

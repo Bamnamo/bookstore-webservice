@@ -2,6 +2,7 @@ package com.bookstore.webservice.member.controller;
 
 import com.bookstore.webservice.member.vo.MemberVO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,4 +17,6 @@ public interface MemberController {
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     public ResponseEntity overlapped(@RequestParam("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public ResponseEntity addMember(@ModelAttribute("memberVO") MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

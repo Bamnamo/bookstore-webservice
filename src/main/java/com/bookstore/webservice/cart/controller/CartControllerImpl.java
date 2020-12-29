@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 @Controller("cartController")
 @RequestMapping(value = "/cart")
@@ -43,5 +46,17 @@ public class CartControllerImpl extends BaseController implements CartController
             cartService.addGoodsInCart(cartVO);
             return "add_success";
         }
+    }
+
+    @Override
+    @RequestMapping(value = "/myCartList.do", method = RequestMethod.GET)
+    public ModelAndView myCartMain(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String viewName = (String) request.getAttribute("viewName");
+        ModelAndView mav = new ModelAndView(viewName);
+        HttpSession session = request.getSession();
+        String member_id = memberVO.getMember_id();
+        cartVO.setMember_id(member_id);
+        Map<String, List> cartMap = cartService.myCartList(cartVO);
+        return mav;
     }
 }

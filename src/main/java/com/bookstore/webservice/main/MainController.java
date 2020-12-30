@@ -2,22 +2,26 @@ package com.bookstore.webservice.main;
 
 import com.bookstore.webservice.goods.service.GoodsService;
 import com.bookstore.webservice.goods.vo.GoodsVO;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Controller("mainController")
 @EnableAspectJAutoProxy
 public class MainController extends BaseController {
+
 
     @Autowired
     private GoodsService goodsService;
@@ -34,4 +38,5 @@ public class MainController extends BaseController {
         mav.addObject("goodsMap", goodsMap);
         return mav;
     }
+
 }

@@ -12,4 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 public interface CartController {
     public @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
     public ModelAndView myCartMain(HttpServletRequest request, HttpServletResponse response)  throws Exception;
+    public @ResponseBody String modifyCartQty(@RequestParam("goods_id")int goods_id,@RequestParam("cart_goods_qty")int cart_goods_qty, HttpServletRequest request,HttpServletResponse response)throws Exception;
+    public ModelAndView removeCartGoods(@RequestParam("cart_id") int cart_id,HttpServletRequest request,HttpServletResponse response) throws Exception;
 }

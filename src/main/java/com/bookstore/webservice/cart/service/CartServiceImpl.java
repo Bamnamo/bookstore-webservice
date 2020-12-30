@@ -37,8 +37,22 @@ public class CartServiceImpl implements CartService {
             return null;
         }
         List<GoodsVO> myGoodsList = cartDAO.selectGoodsList(myCartList);
-        cartMap.put("myCartList",myCartList);
-        cartMap.put("myGoodsList",myGoodsList);
+        cartMap.put("myCartList", myCartList);
+        cartMap.put("myGoodsList", myGoodsList);
         return cartMap;
     }
+
+    @Override
+    public boolean modifyCartQty(CartVO cartVO) throws Exception {
+        boolean result = true;
+        cartDAO.updateCartGoodsQty(cartVO);
+        return result;
+    }
+
+    @Override
+    public void removeCartGoods(int cart_id) throws Exception {
+        cartDAO.deleteCartGoods(cart_id);
+    }
+
+
 }

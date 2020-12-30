@@ -36,8 +36,11 @@ public class CartControllerImpl extends BaseController implements CartController
         HttpSession session = request.getSession();
         memberVO = (MemberVO) session.getAttribute("memberInfo");
         String member_id = memberVO.getMember_id();
+
         cartVO.setMember_id(member_id);
+
         cartVO.setGoods_id(goods_id);
+        cartVO.setMember_id(member_id);
         boolean isAreadyExisted = cartService.findCartGoods(cartVO);
         System.out.println("isAreadyExisted:" + isAreadyExisted);
         if (isAreadyExisted == true) {
@@ -54,9 +57,38 @@ public class CartControllerImpl extends BaseController implements CartController
         String viewName = (String) request.getAttribute("viewName");
         ModelAndView mav = new ModelAndView(viewName);
         HttpSession session = request.getSession();
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
         String member_id = memberVO.getMember_id();
         cartVO.setMember_id(member_id);
         Map<String, List> cartMap = cartService.myCartList(cartVO);
+        session.setAttribute("cartMap", cartMap);//장바구니 목록 화면에서 상품 주문 시 사용하기 위해서 장바구니 목록을 세션에 저장한다.
+        //mav.addObject("cartMap", cartMap);
+        return mav;
+    }
+
+    @Override
+    @RequestMapping(value = "/modifyCartQty.do", method = RequestMethod.POST)
+    public String modifyCartQty(@RequestParam("goods_id") int goods_id, @RequestParam("cart_goods_qty") int cart_goods_qty, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        memberVO = (MemberVO) session.getAttribute("memberInfo");
+        String member_id = memberVO.getMember_id();
+        cartVO.setGoods_id(goods_id);
+        cartVO.setMember_id(member_id);
+        cartVO.setCart_goods_qty(cart_goods_qty);
+        boolean result = cartService.modifyCartQty(cartVO);
+        if (result == true) {
+            return "modify_success";
+        } else {
+            return "modify_failed";
+        }
+    }
+
+    @Override
+    @RequestMapping(value = "/removeCartGoods.do", method = RequestMethod.POST)
+    public ModelAndView removeCartGoods(int cart_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        cartService.removeCartGoods(cart_id);
+        mav.setViewName("redirect:/cart/myCartList.do");
         return mav;
     }
 }

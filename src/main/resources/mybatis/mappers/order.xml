@@ -99,4 +99,18 @@
 						                #{pay_orderer_hp_num})
     	]]>
     </insert>
+
+    <select id="selectOrderID" resultType="int">
+	    <![CDATA[
+
+                    select seq_order_id.nextval from dual
+
+        ]]>
+	</select>
+
+    <delete id="deleteGoodsFromCart" parameterType="orderVO">
+	  delete from t_shopping_cart
+	  where goods_id=#{goods_id}
+	</delete>
+
 </mapper>

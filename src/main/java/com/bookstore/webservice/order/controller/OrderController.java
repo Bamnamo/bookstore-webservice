@@ -17,4 +17,6 @@ public interface OrderController {
 
     @RequestMapping(value = "/payToOrderGoods.do", method = RequestMethod.POST)
     ModelAndView payToOrderGoods(@RequestParam Map<String, String> receiverMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public ModelAndView orderAllCartGoods(@RequestParam String[] cart_goods_qty, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

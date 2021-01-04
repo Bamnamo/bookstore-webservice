@@ -747,18 +747,18 @@
                     id="h_totalPrice" type="hidden" value="${total_order_price}"/>
             </td>
             <td><IMG width="25" alt=""
-                     src="${pageContext.request.contextPath}/resources/image/plus.jpg"></td>
+                     src="${pageContext.request.contextPath}/image/plus.jpg"></td>
             <td>
                 <p id="p_totalDelivery">${total_delivery_price }원</p> <input
                     id="h_totalDelivery" type="hidden" value="${total_delivery_price}"/>
             </td>
             <td>
-                <img width="25" alt="" src="${pageContext.request.contextPath}/resources/image/minus.jpg"></td>
+                <img width="25" alt="" src="${pageContext.request.contextPath}/image/minus.jpg"></td>
             <td>
                 <p id="p_totalSalesPrice">${total_discount_price }원</p>
                 <input id="h_total_sales_price" type="hidden" value="${total_discount_price}"/>
             </td>
-            <td><img width="25" alt="" src="${pageContext.request.contextPath}/resources/image/equal.jpg"></td>
+            <td><img width="25" alt="" src="${pageContext.request.contextPath}/image/equal.jpg"></td>
             <td>
                 <p id="p_final_totalPrice">
                     <font size="15">${final_total_order_price }원 </font>
@@ -844,9 +844,9 @@
 <center>
     <br>
     <br> <a href="javascript:fn_show_order_detail();">
-    <img width="125" alt="" src="${contextPath}/resources/image/btn_gulje.jpg">
+    <img width="125" alt="" src="${contextPath}/image/btn_gulje.jpg">
 </a> <a href="${contextPath}/main/main.do">
-    <img width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
+    <img width="75" alt="" src="${contextPath}/image/btn_shoping_continue.jpg">
 </a>
 
     <div class="clear"></div>
@@ -855,7 +855,7 @@
         <div id="popup_order_detail">
             <!-- 팝업창 닫기 버튼 -->
             <a href="javascript:" onClick="javascript:imagePopup('close', '.layer01');">
-                <img src="${contextPath}/resources/image/close.png" id="close"/>
+                <img src="${contextPath}/image/close.png" id="close"/>
             </a>
             <br/>
             <div class="detail_table">

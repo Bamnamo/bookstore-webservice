@@ -42,6 +42,16 @@
         <result property="goods_fileName" column="goods_fileName"/>
     </resultMap>
 
+    <select id="selectMyOrderList" resultMap="orderGoodsResult" parameterType="orderVO">
+	    <![CDATA[
+
+                    select * from t_shopping_order
+                    where to_char(pay_order_time,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd')
+                    and member_id=#{member_id}
+                    order by pay_order_time desc
+
+        ]]>
+	</select>
     <insert id="insertNewOrder" parameterType="orderVO">
         <selectKey resultType="int" keyProperty="order_seq_num" order="BEFORE">
             select order_seq_num.nextval from dual
@@ -104,6 +114,17 @@
 	    <![CDATA[
 
                     select seq_order_id.nextval from dual
+
+        ]]>
+	</select>
+
+    <select id="selectMyOrder" resultMap="orderGoodsResult" parameterType="String">
+	    <![CDATA[
+
+                    select * from t_shopping_order
+                    where to_char(pay_order_time,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd')
+                    and order_id=#{order_id}
+                    order by pay_order_time desc
 
         ]]>
 	</select>

@@ -163,6 +163,6 @@
     <br>
     <br>
     <a href="${contextPath}/main/main.do">
-        <IMG width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
+        <IMG width="75" alt="" src="${contextPath}/image/btn_shoping_continue.jpg">
     </a>
     <DIV class="clear"></DIV>

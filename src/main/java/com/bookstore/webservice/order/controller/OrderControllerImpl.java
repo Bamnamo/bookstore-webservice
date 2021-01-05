@@ -69,8 +69,8 @@ public class OrderControllerImpl implements OrderController {
 
     @Override
     @RequestMapping(value = "/payToOrderGoods.do", method = RequestMethod.POST)
-    public ModelAndView payToOrderGoods(@RequestParam Map<String, String> receiverMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+    public ModelAndView payToOrderGoods(@RequestParam Map<String, String> receiverMap,
+                                        HttpServletRequest request, HttpServletResponse response) throws Exception {
         String viewName = (String) request.getAttribute("viewName");
         ModelAndView mav = new ModelAndView(viewName);
 
@@ -103,10 +103,11 @@ public class OrderControllerImpl implements OrderController {
             orderVO.setCard_pay_month(receiverMap.get("card_pay_month"));
             orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));
             orderVO.setOrderer_hp(orderer_hp);
-            myOrderList.set(i, orderVO);
-        }
+            myOrderList.set(i, orderVO); //각 orderVO에 주문자 정보를 세팅한 후 다시 myOrderList에 저장한다.
+        }//end for
+
         orderService.addNewOrder(myOrderList);
-        mav.addObject("myOrderInfo", receiverMap);
+        mav.addObject("myOrderInfo", receiverMap);//OrderVO로 주문결과 페이지에  주문자 정보를 표시한다.
         mav.addObject("myOrderList", myOrderList);
         return mav;
     }

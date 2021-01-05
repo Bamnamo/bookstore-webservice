@@ -8,4 +8,6 @@ import java.util.List;
 @Service("orderService")
 public interface OrderService {
     public void addNewOrder(List<OrderVO> myOrderList) throws Exception;
+    public  List<OrderVO> listMyOrderGoods(OrderVO orderVO) throws Exception;
+    public OrderVO findMyOrder(String order_id) throws Exception;
 }

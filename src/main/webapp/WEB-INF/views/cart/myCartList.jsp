@@ -14,6 +14,7 @@
 <html>
 <head>
     <script type="text/javascript">
+
         function calcGoodsPrice(bookPrice, obj) {
             var totalPrice, final_total_price, totalNum;
             var goods_qty = document.getElementById("select_goods_qty");

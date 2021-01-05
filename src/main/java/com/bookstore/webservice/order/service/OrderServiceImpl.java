@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service("orderService")
 @Transactional(propagation = Propagation.REQUIRED)
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderDAO orderDAO;
@@ -20,5 +20,17 @@ public class OrderServiceImpl implements OrderService{
     public void addNewOrder(List<OrderVO> myOrderList) throws Exception {
         orderDAO.insertNewOrder(myOrderList);
         orderDAO.removeGoodsFromCart(myOrderList);
+    }
+
+    @Override
+    public List<OrderVO> listMyOrderGoods(OrderVO orderVO) throws Exception {
+        List<OrderVO> orderGoodsList;
+        orderGoodsList = orderDAO.listMyOrderGoods(orderVO);
+        return orderGoodsList;
+    }
+
+    @Override
+    public OrderVO findMyOrder(String order_id) throws Exception {
+        return orderDAO.findMyOrder(order_id);
     }
 }

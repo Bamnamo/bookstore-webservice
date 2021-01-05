@@ -843,21 +843,25 @@
 <br>
 <center>
     <br>
-    <br> <a href="javascript:fn_show_order_detail();">
-    <img width="125" alt="" src="${contextPath}/image/btn_gulje.jpg">
-</a> <a href="${contextPath}/main/main.do">
-    <img width="75" alt="" src="${contextPath}/image/btn_shoping_continue.jpg">
-</a>
+    <br>
+
+    <a href="javascript:fn_show_order_detail();">
+    <img width="125" alt="" src="${contextPath}/image/btn_gulje.jpg"></a>
+
+    <a href="${contextPath}/main/main.do">
+    <img width="75" alt="" src="${contextPath}/image/btn_shoping_continue.jpg"></a>
 
     <div class="clear"></div>
     <div id="layer" style="visibility:hidden">
         <!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
         <div id="popup_order_detail">
             <!-- 팝업창 닫기 버튼 -->
+
             <a href="javascript:" onClick="javascript:imagePopup('close', '.layer01');">
-                <img src="${contextPath}/image/close.png" id="close"/>
-            </a>
+                <img src="${contextPath}/image/close.png" id="close"/></a>
+
             <br/>
+
             <div class="detail_table">
                 <h1>최종 주문 사항</h1>
                 <table>

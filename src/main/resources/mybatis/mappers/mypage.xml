@@ -45,7 +45,7 @@
         <![CDATA[
 
         select * from t_shopping_order
-        where by pay_order_time desc 
+        where by pay_order_time desc
 
         ]]>
     </select>

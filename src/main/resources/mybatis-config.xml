@@ -8,5 +8,6 @@
         <mapper resource="mybatis/mappers/goods.xml"/>
         <mapper resource="mybatis/mappers/cart.xml"/>
         <mapper resource="mybatis/mappers/order.xml"/>
+        <mapper resource="mybatis/mappers/mypage.xml"/>
     </mappers>
 </configuration>

@@ -1,5 +1,6 @@
 package com.bookstore.webservice.mypage.service;
 
+import com.bookstore.webservice.member.vo.MemberVO;
 import com.bookstore.webservice.mypage.dao.MyPageDAO;
 import com.bookstore.webservice.mypage.vo.MyPageVO;
 import com.bookstore.webservice.order.vo.OrderVO;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.xml.ws.ServiceMode;
 import java.util.List;
+import java.util.Map;
 
 @Service("myPageService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -29,5 +31,12 @@ public class MyPageServiceImpl implements MyPageService {
     @Override
     public void cancelOrder(String order_id) throws Exception {
         myPageDAO.updateMyOrderCancel(order_id);
+    }
+
+    @Override
+    public Object modifyMyInfo(Map<String, String> memberMap) throws Exception {
+        String member_id=(String)memberMap.get("member_id");
+        myPageDAO.updateMyInfo(memberMap);
+        return myPageDAO.selectMyDetailInfo(member_id);
     }
 }

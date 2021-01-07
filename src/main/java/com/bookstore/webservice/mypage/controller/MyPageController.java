@@ -14,4 +14,5 @@ public interface MyPageController {
     ModelAndView myPageMain(@RequestParam(required = false, value = "message") String message, HttpServletRequest request, HttpServletResponse response) throws Exception;
     ModelAndView cancelMyOrder(@RequestParam("order_id") String order_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
     public ResponseEntity modifyMyInfo(@RequestParam("attribute") String attribute, @RequestParam("value") String value, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    public ModelAndView myDetailInfo(HttpServletRequest request,HttpServletResponse response) throws Exception;
 }

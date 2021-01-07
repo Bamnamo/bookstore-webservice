@@ -113,5 +113,13 @@ public class MyPageControllerImpl implements MyPageController {
         return resEntity;
     }
 
+    @Override
+    @RequestMapping(value = "/myDetailInfo.do",method = RequestMethod.GET)
+    public ModelAndView myDetailInfo(HttpServletRequest request,HttpServletResponse response) throws Exception{
+        String viewName=(String)request.getAttribute("viewName");
+        ModelAndView mav=new ModelAndView(viewName);
+        return mav;
+    }
+
 
 }

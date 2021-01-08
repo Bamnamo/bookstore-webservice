@@ -1,5 +1,6 @@
 package com.bookstore.webservice.mypage.controller;
 
+import com.bookstore.webservice.main.BaseController;
 import com.bookstore.webservice.member.vo.MemberVO;
 import com.bookstore.webservice.mypage.service.MyPageService;
 import com.bookstore.webservice.mypage.vo.MyPageVO;
@@ -24,7 +25,7 @@ import java.util.Map;
 
 @Controller("myPageController")
 @RequestMapping(value = "/mypage")
-public class MyPageControllerImpl implements MyPageController {
+public class MyPageControllerImpl extends BaseController implements MyPageController {
 
     @Autowired
     private MyPageService myPageService;
@@ -118,6 +119,53 @@ public class MyPageControllerImpl implements MyPageController {
     public ModelAndView myDetailInfo(HttpServletRequest request,HttpServletResponse response) throws Exception{
         String viewName=(String)request.getAttribute("viewName");
         ModelAndView mav=new ModelAndView(viewName);
+        return mav;
+    }
+
+    @Override
+    @RequestMapping(value = "/myOrderDetail.do",method = RequestMethod.GET)
+    public ModelAndView myOrderDetail(@RequestParam("order_id") String order_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String viewName=(String)request.getAttribute("viewName");
+        ModelAndView mav=new ModelAndView(viewName);
+        HttpSession session=request.getSession();
+        MemberVO orderer=(MemberVO)session.getAttribute("memberInfo");
+
+        List<OrderVO> myOrderList=myPageService.findMyOrderInfo(order_id);
+        mav.addObject("orderer",orderer);
+        mav.addObject("myOrderList",myOrderList);
+        return mav;
+    }
+
+    @Override
+    @RequestMapping(value = "/listMyOrderHistory.do",method = RequestMethod.GET)
+    public ModelAndView listMyOrderHistory(@RequestParam Map<String, String> dateMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String viewName=(String)request.getAttribute("viewName");
+        ModelAndView mav=new ModelAndView(viewName);
+        HttpSession session=request.getSession();
+        memberVO=(MemberVO)session.getAttribute("memberInfo");
+        String member_id=memberVO.getMember_id();
+
+        String fixedSearchPeriod=dateMap.get("fixedSearchPeriod");
+        String beginDate=null,endDate=null;
+
+        String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
+        beginDate=tempDate[0];
+        endDate=tempDate[1];
+        dateMap.put("beginDate",beginDate);
+        dateMap.put("endDate",endDate);
+        dateMap.put("member_id",member_id);
+        List<OrderVO> myOrderHistList=myPageService.listMyOrderHistory(dateMap);
+
+        String beginDate1[]=beginDate.split("-");
+        String endDate1[]=endDate.split("-");
+        mav.addObject("beginYear",beginDate1[0]);
+        mav.addObject("beginMonth",beginDate1[1]);
+        mav.addObject("beginDay",beginDate1[2]);
+        mav.addObject("endYear",beginDate1[0]);
+        mav.addObject("endMonth",beginDate1[1]);
+        mav.addObject("endDay",beginDate1[2]);
+        mav.addObject("myOrderHistList ",myOrderHistList);
+
         return mav;
     }
 

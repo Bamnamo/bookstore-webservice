@@ -34,9 +34,24 @@ public class MyPageServiceImpl implements MyPageService {
     }
 
     @Override
-    public Object modifyMyInfo(Map<String, String> memberMap) throws Exception {
-        String member_id=(String)memberMap.get("member_id");
+    public MemberVO modifyMyInfo(Map<String, String> memberMap) throws Exception {
+        String member_id = (String) memberMap.get("member_id");
         myPageDAO.updateMyInfo(memberMap);
+        return myPageDAO.selectMyDetailInfo(member_id);
+    }
+
+    @Override
+    public List findMyOrderInfo(String order_id) throws Exception {
+        return myPageDAO.selectMyOrderInfo(order_id);
+    }
+
+    @Override
+    public List<OrderVO> listMyOrderHistory(Map<String, String> dateMap) throws Exception {
+        return myPageDAO.selectMyOrderHistoryList(dateMap);
+    }
+
+    @Override
+    public MemberVO myDetailInfo(String member_id) throws Exception {
         return myPageDAO.selectMyDetailInfo(member_id);
     }
 }

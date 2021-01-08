@@ -47,9 +47,11 @@
 
 
 
-                                            select * from t_shopping_order
-                                            where member_id=#{member_id}
-                                            order by pay_order_time desc
+
+                                                    select * from t_shopping_order
+                                                    where member_id=#{member_id}
+                                                    order by pay_order_time desc
+
 
 
 
@@ -66,8 +68,10 @@
     <select id="selectMyDetailInfo" resultType="memberVO" parameterType="String">
 	    <![CDATA[
 
-                    select * from t_shopping_member
-                    where member_id=#{member_id}
+
+                            select * from t_shopping_member
+                            where member_id=#{member_id}
+
 
         ]]>
 	</select>
@@ -136,5 +140,24 @@
         where
         member_id=#{member_id}
     </update>
+
+    <select id="selectMyOrderInfo" resultMap="orderGoodsResult" parameterType="String">
+	    <![CDATA[
+
+                    select * from t_shopping_order
+                    where order_id=#{order_id}
+
+        ]]>
+	</select>
+    <select id="selectMyOrderHistoryList" resultMap="orderGoodsResult" parameterType="java.util.Map">
+	    <![CDATA[
+
+                  select * from t_shopping_order
+                  where member_id=#{member_id}
+                  and  to_char(pay_order_time,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
+                  order by pay_order_time desc
+
+        ]]>
+	</select>
 
 </mapper>

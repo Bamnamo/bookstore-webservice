@@ -1,0 +1,30 @@
+package com.bookstore.webservice.admin.goods.service;
+
+import com.bookstore.webservice.admin.goods.dao.AdminGoodsDAO;
+import com.bookstore.webservice.goods.vo.ImageFileVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+@Service("adminGoodsService")
+@Transactional(propagation = Propagation.REQUIRED)
+public class AdminGoodsServiceImpl implements AdminGoodsService {
+
+    @Autowired
+    private AdminGoodsDAO adminGoodsDAO;
+
+    @Override
+    public int addNewGoods(Map newGoodsMap) throws Exception {
+        int goods_id = adminGoodsDAO.insertNewGoods(newGoodsMap);
+        ArrayList<ImageFileVO> imageFileList = (ArrayList) newGoodsMap.get("imageFileList");
+        for (ImageFileVO imageFileVO : imageFileList) {
+            imageFileVO.setGoods_id(goods_id);
+        }
+        adminGoodsDAO.insertGoodsImageFile(imageFileList);
+        return goods_id;
+    }
+}

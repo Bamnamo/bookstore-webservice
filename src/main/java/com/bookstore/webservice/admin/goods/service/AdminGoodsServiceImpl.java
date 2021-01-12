@@ -1,6 +1,7 @@
 package com.bookstore.webservice.admin.goods.service;
 
 import com.bookstore.webservice.admin.goods.dao.AdminGoodsDAO;
+import com.bookstore.webservice.goods.vo.GoodsVO;
 import com.bookstore.webservice.goods.vo.ImageFileVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service("adminGoodsService")
@@ -26,5 +28,10 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
         }
         adminGoodsDAO.insertGoodsImageFile(imageFileList);
         return goods_id;
+    }
+
+    @Override
+    public List<GoodsVO> listNewGoods(Map condMap) throws Exception {
+        return adminGoodsDAO.selectNewGoodsList(condMap);
     }
 }

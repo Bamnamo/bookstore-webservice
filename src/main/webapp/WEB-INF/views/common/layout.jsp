@@ -46,20 +46,19 @@
 <body>
 <div id="outer_wrap">
     <div id="wrap">
-        <header>
-            <tiles:insertAttribute name="header"/>
-        </header>
+
+        <header><tiles:insertAttribute name="header"/></header>
+
         <div class="clear"></div>
-        <aside>
-            <tiles:insertAttribute name="side"/>
-        </aside>
-        <article>
-            <tiles:insertAttribute name="body"/>
-        </article>
+
+        <aside><tiles:insertAttribute name="side"/></aside>
+
+        <article><tiles:insertAttribute name="body"/></article>
+
         <div class="clear"></div>
-        <footer>
-            <tiles:insertAttribute name="footer"/>
-        </footer>
+
+        <footer><tiles:insertAttribute name="footer"/></footer>
+
     </div>
 </div>
 </body>

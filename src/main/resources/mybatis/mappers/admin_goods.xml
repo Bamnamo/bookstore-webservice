@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.bookstore.webservice.admin_goods.dao.AdminGoodsDAO">
+<mapper namespace="com.bookstore.webservice.admin.goods.dao.AdminGoodsDAO">
     <!-- 리절트 맵 정의 -->
     <resultMap id="goodsResult" type="goodsVO">
         <result property="goods_id" column="goods_id"/>
@@ -134,5 +134,36 @@
         values (#{image_id},#{goods_id},#{fileName},#{fileType},#{reg_id})
         ]]>
     </insert>
+
+    <select id="selectNewGoodsList" resultMap="goodsResult" parameterType="java.util.Map">
+	    <![CDATA[
+
+                  select * from (
+                       select rowNum as recNum,
+                                 goods_id,
+                              goods_title,
+                              goods_writer,
+                              goods_publisher,
+                              goods_sales_price,
+                              to_char(goods_creDate,'YYYY-MM-DD')  as goods_creDate,
+                              to_char(goods_published_date,'YYYY-MM-DD') as goods_published_date
+                           from (
+                                 select  goods_id,
+                                          goods_title,
+                                          goods_writer,
+                                          goods_publisher,
+                                          goods_sales_price,
+                                          goods_creDate,
+                                          goods_published_date
+                                  from t_shopping_goods
+                                    where  to_char(goods_creDate,'YYYY-MM-DD')  between #{beginDate} and #{endDate}
+                                   order by goods_creDate desc
+                                )
+                        )
+                    where
+                recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10
+
+        ]]>
+	</select>
 
 </mapper>

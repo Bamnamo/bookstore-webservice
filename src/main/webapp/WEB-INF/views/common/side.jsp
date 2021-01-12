@@ -9,6 +9,7 @@
 <nav>
     <ul>
         <c:choose>
+
             <c:when test="${side_menu=='admin_mode' }">
                 <li>
                     <H3>주요기능</H3>
@@ -21,6 +22,7 @@
                     </ul>
                 </li>
             </c:when>
+
             <c:when test="${side_menu=='my_page' }">
                 <li>
                     <h3>주문내역</h3>

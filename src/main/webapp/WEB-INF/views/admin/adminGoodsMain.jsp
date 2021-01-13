@@ -17,7 +17,7 @@
             formObj.appendChild(i_fixedSearch_period);
             document.body.appendChild(formObj);
             formObj.method = "get";
-            formObj.action = "${contextPath}/admin/goods/adminGoodsMain.do";
+            formObj.action = "${contextPath}/admin/adminGoodsMain.do";
             formObj.submit();
         }
 
@@ -143,7 +143,7 @@
                     <img src="${contextPath}/image/btn_search_1_week.jpg">
                 </a>
                 <a href="javascript:search_goods_list('two_week')">
-                    <img src="${contextPath}/resources/image/btn_search_2_week.jpg">
+                    <img src="${contextPath}/image/btn_search_2_week.jpg">
                 </a>
                 <a href="javascript:search_goods_list('one_month')">
                     <img src="${pageContext.request.contextPath}/image/btn_search_1_month.jpg">
@@ -215,7 +215,7 @@
                         <strong>${item.goods_id }</strong>
                     </TD>
                     <TD>
-                        <a href="${pageContext.request.contextPath}/admin/goods/modifyGoodsForm.do?goods_id=${item.goods_id}">
+                        <a href="${pageContext.request.contextPath}/admin/modifyGoodsForm.do?goods_id=${item.goods_id}">
                             <strong>${item.goods_title } </strong>
                         </a>
                     </TD>
@@ -247,12 +247,12 @@
         <td colspan=8 class="fixed">
             <c:forEach var="page" begin="1" end="10" step="1">
             <c:if test="${section >1 && page==1 }">
-            <a href="${contextPath}/admin/goods/adminGoodsMain.do?chapter=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;
+            <a href="${contextPath}/admin/adminGoodsMain.do?chapter=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;
                 &nbsp;</a>
             </c:if>
-            <a href="${contextPath}/admin/goods/adminGoodsMain.do?chapter=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
+            <a href="${contextPath}/admin/adminGoodsMain.do?chapter=${section}&pageNum=${page}">${(section-1)*10 +page } </a>
             <c:if test="${page ==10 }">
-            <a href="${contextPath}/admin/goods/adminGooodsMain.do?chapter=${section+1}&pageNum=${section*10+1}">&nbsp;
+            <a href="${contextPath}/admin/adminGooodsMain.do?chapter=${section+1}&pageNum=${section*10+1}">&nbsp;
                 next</a>
             </c:if>
             </c:forEach>
@@ -264,7 +264,7 @@
 <br><br><br>
 <H3>상품등록하기</H3>
 <DIV id="search">
-    <form action="${contextPath}/admin/goods/addNewGoodsForm.do">
+    <form action="${contextPath}/admin/addNewGoodsForm.do">
         <input type="submit" value="상품 등록하기">
     </form>
 </DIV>

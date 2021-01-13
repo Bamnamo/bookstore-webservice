@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller("adminGoodsController")
-@RequestMapping(value = "/admin/goods")
+@RequestMapping(value = "/admin")
 public class AdminGoodsControllerImpl extends BaseController implements AdminGoodsController {
 
     private static final String CURR_IMAGE_REPO_PATH = "src/main/resources/static/image/file_repo";
@@ -82,7 +82,6 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
         return mav;
-
     }
 
 

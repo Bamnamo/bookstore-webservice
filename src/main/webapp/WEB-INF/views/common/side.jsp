@@ -14,7 +14,7 @@
                 <li>
                     <H3>주요기능</H3>
                     <ul>
-                        <li><a href="${contextPath}/admin/goods/adminGoodsMain.do">상품관리</a></li>
+                        <li><a href="${contextPath}/admin/adminGoodsMain.do">상품관리</a></li>
                         <li><a href="${contextPath}/admin/order/adminOrderMain.do">주문관리</a></li>
                         <li><a href="${contextPath}/admin/member/adminMemberMain.do">회원관리</a></li>
                         <li><a href="#">배송관리</a></li>

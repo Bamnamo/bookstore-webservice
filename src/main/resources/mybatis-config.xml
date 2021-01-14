@@ -10,6 +10,7 @@
         <mapper resource="mybatis/mappers/order.xml"/>
         <mapper resource="mybatis/mappers/mypage.xml"/>
         <mapper resource="mybatis/mappers/admin_goods.xml"/>
+        <mapper resource="mybatis/mappers/admin_order.xml"/>
 
     </mappers>
 </configuration>

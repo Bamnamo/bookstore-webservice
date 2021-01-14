@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller("adminGoodsController")
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/goodsControl")
 public class AdminGoodsControllerImpl extends BaseController implements AdminGoodsController {
 
     private static final String CURR_IMAGE_REPO_PATH = "src/main/resources/static/image/file_repo";

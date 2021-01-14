@@ -102,4 +102,22 @@
         order_id=#{order_id}
     </update>
 
+    <select id="selectOrderDetail" resultMap="orderResult" parameterType="int">
+	    <![CDATA[
+
+                    select * from t_shopping_order
+                    where order_id=#{order_id}
+
+        ]]>
+	</select>
+
+    <select id="selectOrderer" resultMap="memberResult" parameterType="String">
+	    <![CDATA[
+
+                    select * from t_shopping_member
+                    where member_id=#{member_id}
+
+        ]]>
+	</select>
+
 </mapper>

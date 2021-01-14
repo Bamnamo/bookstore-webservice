@@ -38,4 +38,9 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         orderMap.put("orderer", orderer);
         return orderMap;
     }
+
+    @Override
+    public void modifyDeliveryState(Map deliveryMap) throws Exception {
+        adminOrderDAO.updateDeliveryState(deliveryMap);
+    }
 }

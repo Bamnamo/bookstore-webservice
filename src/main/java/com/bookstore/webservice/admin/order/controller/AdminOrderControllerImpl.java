@@ -5,6 +5,9 @@ import com.bookstore.webservice.main.BaseController;
 import com.bookstore.webservice.order.vo.OrderVO;
 import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller("adminOrderController")
-@RequestMapping(value = "/orderAdmin")
+@RequestMapping(value = "/orderControl ")
 public class AdminOrderControllerImpl extends BaseController implements AdminOrderController {
 
     @Autowired
@@ -78,5 +81,17 @@ public class AdminOrderControllerImpl extends BaseController implements AdminOrd
         Map orderMap = adminOrderService.orderDetail(order_id);
         mav.addObject("orderMap", orderMap);
         return mav;
+    }
+
+    @Override
+    public ResponseEntity modifyDeliveryState(Map<String, String> deliveryMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        adminOrderService.modifyDeliveryState(deliveryMap);
+
+        String message = null;
+        ResponseEntity resEntity = null;
+        HttpHeaders responseHeaders = new HttpHeaders();
+        message = "mod_success";
+        resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+        return resEntity;
     }
 }

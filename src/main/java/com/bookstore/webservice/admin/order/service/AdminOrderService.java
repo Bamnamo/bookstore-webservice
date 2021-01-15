@@ -13,7 +13,7 @@ import java.util.Map;
 
 public interface AdminOrderService {
 
-    public List<OrderVO> listNewOrder(HashMap condMap) throws Exception;
+    public List<OrderVO>listNewOrder(Map condMap) throws Exception;
+    public void  modifyDeliveryState(Map deliveryMap) throws Exception;
     public Map orderDetail(int order_id) throws Exception;
-    public void modifyDeliveryState(Map deliveryMap) throws Exception;
 }

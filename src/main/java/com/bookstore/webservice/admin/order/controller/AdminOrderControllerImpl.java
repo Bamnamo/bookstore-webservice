@@ -27,10 +27,10 @@ public class AdminOrderControllerImpl extends BaseController implements AdminOrd
     @Autowired
     private AdminOrderService adminOrderService;
 
-
     @Override
-    @RequestMapping(value = "/adminOrderMain.do", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView adminOrderMain(@RequestParam Map<String, String> dateMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/adminOrderMain.do", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView adminOrderMain(@RequestParam Map<String, String> dateMap,
+                                       HttpServletRequest request, HttpServletResponse response) throws Exception {
         String viewName = (String) request.getAttribute("viewName");
         ModelAndView mav = new ModelAndView(viewName);
 
@@ -44,6 +44,7 @@ public class AdminOrderControllerImpl extends BaseController implements AdminOrd
         endDate = tempDate[1];
         dateMap.put("beginDate", beginDate);
         dateMap.put("endDate", endDate);
+
 
         HashMap<String, Object> condMap = new HashMap<String, Object>();
         if (section == null) {
@@ -71,20 +72,13 @@ public class AdminOrderControllerImpl extends BaseController implements AdminOrd
         mav.addObject("section", section);
         mav.addObject("pageNum", pageNum);
         return mav;
+
     }
 
     @Override
-    @RequestMapping(value = "/orderDetail.do", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView orderDetail(int order_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String viewName = (String) request.getAttribute("viewName");
-        ModelAndView mav = new ModelAndView(viewName);
-        Map orderMap = adminOrderService.orderDetail(order_id);
-        mav.addObject("orderMap", orderMap);
-        return mav;
-    }
-
-    @Override
-    public ResponseEntity modifyDeliveryState(Map<String, String> deliveryMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/modifyDeliveryState.do", method = {RequestMethod.POST})
+    public ResponseEntity modifyDeliveryState(@RequestParam Map<String, String> deliveryMap,
+                                              HttpServletRequest request, HttpServletResponse response) throws Exception {
         adminOrderService.modifyDeliveryState(deliveryMap);
 
         String message = null;
@@ -93,5 +87,17 @@ public class AdminOrderControllerImpl extends BaseController implements AdminOrd
         message = "mod_success";
         resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
         return resEntity;
+
+    }
+
+    @Override
+    @RequestMapping(value = "/orderDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView orderDetail(@RequestParam("order_id") int order_id,
+                                    HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String viewName = (String) request.getAttribute("viewName");
+        ModelAndView mav = new ModelAndView(viewName);
+        Map orderMap = adminOrderService.orderDetail(order_id);
+        mav.addObject("orderMap", orderMap);
+        return mav;
     }
 }

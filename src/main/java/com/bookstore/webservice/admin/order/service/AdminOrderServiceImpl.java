@@ -21,9 +21,13 @@ public class AdminOrderServiceImpl implements AdminOrderService {
     @Autowired
     private AdminOrderDAO adminOrderDAO;
 
-    @Override
-    public List<OrderVO> listNewOrder(HashMap condMap) throws Exception {
+    public List<OrderVO> listNewOrder(Map condMap) throws Exception {
         return adminOrderDAO.selectNewOrderList(condMap);
+    }
+
+    @Override
+    public void modifyDeliveryState(Map deliveryMap) throws Exception {
+        adminOrderDAO.updateDeliveryState(deliveryMap);
     }
 
     @Override
@@ -37,10 +41,5 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         orderMap.put("deliveryInfo", deliveryInfo);
         orderMap.put("orderer", orderer);
         return orderMap;
-    }
-
-    @Override
-    public void modifyDeliveryState(Map deliveryMap) throws Exception {
-        adminOrderDAO.updateDeliveryState(deliveryMap);
     }
 }

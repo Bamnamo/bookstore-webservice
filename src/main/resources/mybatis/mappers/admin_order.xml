@@ -68,7 +68,6 @@
         <result property="namujiAddress" column="namujiAddress"/>
         <result property="joinDate" column="joinDate"/>
     </resultMap>
-
     <select id="selectNewOrderList" resultMap="orderResult" parameterType="java.util.HashMap">
         select * from (
         select rowNum as recNum,t.*
@@ -119,5 +118,4 @@
 
         ]]>
 	</select>
-
 </mapper>

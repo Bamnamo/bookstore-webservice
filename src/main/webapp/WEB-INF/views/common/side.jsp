@@ -16,7 +16,7 @@
                     <ul>
                         <li><a href="${contextPath}/goodsControl/adminGoodsMain.do">상품관리</a></li>
                         <li><a href="${contextPath}/orderControl/adminOrderMain.do">주문관리</a></li>
-                        <li><a href="${contextPath}/admin/member/adminMemberMain.do">회원관리</a></li>
+                        <li><a href="${contextPath}/memberControl/adminMemberMain.do">회원관리</a></li>
                         <li><a href="#">배송관리</a></li>
                         <li><a href="#">게시판관리</a></li>
                     </ul>

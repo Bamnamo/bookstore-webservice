@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller("adminOrderController")
-@RequestMapping(value = "/orderControl ")
+@RequestMapping(value = "/orderControl")
 public class AdminOrderControllerImpl extends BaseController implements AdminOrderController {
 
     @Autowired
@@ -100,4 +100,5 @@ public class AdminOrderControllerImpl extends BaseController implements AdminOrd
         mav.addObject("orderMap", orderMap);
         return mav;
     }
+
 }

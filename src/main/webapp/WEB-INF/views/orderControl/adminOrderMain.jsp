@@ -313,27 +313,13 @@
                         </c:choose>
                     </c:forEach>
                 </select>일 &nbsp;이전&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="javascript:search_order_history('today')">
-                    <img src="${contextPath}/image/btn_search_one_day.jpg">
-                </a>
-                <a href="javascript:search_order_history('one_week')">
-                    <img src="${contextPath}/image/btn_search_1_week.jpg">
-                </a>
-                <a href="javascript:search_order_history('two_week')">
-                    <img src="${contextPath}/image/btn_search_2_week.jpg">
-                </a>
-                <a href="javascript:search_order_history('one_month')">
-                    <img src="${contextPath}/image/btn_search_1_month.jpg">
-                </a>
-                <a href="javascript:search_order_history('two_month')">
-                    <img src="${contextPath}/image/btn_search_2_month.jpg">
-                </a>
-                <a href="javascript:search_order_history('three_month')">
-                    <img src="${contextPath}/image/btn_search_3_month.jpg">
-                </a>
-                <a href="javascript:search_order_history('four_month')">
-                    <img src="${contextPath}/image/btn_search_4_month.jpg">
-                </a>
+                <a href="javascript:search_order_history('today')">         <img src="${contextPath}/image/btn_search_one_day.jpg"></a>
+                <a href="javascript:search_order_history('one_week')">      <img src="${contextPath}/image/btn_search_1_week.jpg"></a>
+                <a href="javascript:search_order_history('two_week')">      <img src="${contextPath}/image/btn_search_2_week.jpg"></a>
+                <a href="javascript:search_order_history('one_month')">     <img src="${contextPath}/image/btn_search_1_month.jpg"></a>
+                <a href="javascript:search_order_history('two_month')">     <img src="${contextPath}/image/btn_search_2_month.jpg"></a>
+                <a href="javascript:search_order_history('three_month')">   <img src="${contextPath}/image/btn_search_3_month.jpg"></a>
+                <a href="javascript:search_order_history('four_month')">    <img src="${contextPath}/image/btn_search_4_month.jpg"></a>
                 &nbsp;까지 조회
             </td>
         </tr>

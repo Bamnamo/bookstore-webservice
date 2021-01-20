@@ -440,7 +440,7 @@
                     <tr>
                         <td width=10%>
 
-                            <a href="${pageContext.request.contextPath}/admin/member/memberDetail.do?member_id=${item.member_id}">
+                            <a href="${pageContext.request.contextPath}/memberControl/memberDetail.do?member_id=${item.member_id}">
                                 <strong>${item.member_id}</strong>
                             </a>
                         </td>

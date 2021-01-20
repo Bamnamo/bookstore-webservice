@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bookstore.webservice.admin.member.dao.AdminMemberDAO">
+
     <resultMap id="memberResult" type="MemberVO">
         <result property="member_id" column="member_id"/>
         <result property="member_pw" column="member_pw"/>
@@ -36,33 +37,32 @@
 
     <select id="listMember" resultMap="memberResult" parameterType="java.util.HashMap">
 
-<!--
-        select * from (
-        select rowNum as recNum,t.*
-        from (
-        select * from t_shopping_member
-        where to_char(joinDate,'yyyy-mm-dd') between #{beginDate} and #{endDate}
-        <if test="search_type=='member_id'">
-            and member_id=#{search_word}
-        </if>
-        <if test="search_type=='member_name'">
-            and member_name=#{search_word}
-        </if>
-        <if test="search_type=='member_hp_num'">
-            and hp1||hp2||hp3=#{search_word}
-        </if>
-        order by joinDate desc
-        ) t
-        )
-        where
-        recNum between (#{chapter}-1)*100+ (#{pageNum}-1)*10+1 and (#{chapter}-1)*100+(#{pageNum})*10
-        -->
+        <!--
+                select * from (
+                select rowNum as recNum,t.*
+                from (
+                select * from t_shopping_member
+                where to_char(joinDate,'yyyy-mm-dd') between #{beginDate} and #{endDate}
+                <if test="search_type=='member_id'">
+                    and member_id=#{search_word}
+                </if>
+                <if test="search_type=='member_name'">
+                    and member_name=#{search_word}
+                </if>
+                <if test="search_type=='member_hp_num'">
+                    and hp1||hp2||hp3=#{search_word}
+                </if>
+                order by joinDate desc
+                ) t
+                )
+                where
+                recNum between (#{chapter}-1)*100+ (#{pageNum}-1)*10+1 and (#{chapter}-1)*100+(#{pageNum})*10
+                -->
 
 
-<![CDATA[
+        <![CDATA[
 select * from t_shopping_member order by joinDate desc
 ]]>
-
 
 
     </select>
@@ -80,8 +80,10 @@ select * from t_shopping_member order by joinDate desc
 
 
 
-                                                                                                    select * from t_shopping_member
-                                                                                                    where member_id=#{member_id}
+
+                                                                                                            select * from t_shopping_member
+                                                                                                            where member_id=#{member_id}
+
 
 
 
@@ -164,4 +166,13 @@ select * from t_shopping_member order by joinDate desc
         where
         member_id=#{member_id}
     </update>
+
+    <delete id="deleteMember" parameterType="String">
+        <![CDATA[
+
+        delete from t_shopping_member
+        where member_id=#{member_id}
+
+        ]]>
+    </delete>
 </mapper>

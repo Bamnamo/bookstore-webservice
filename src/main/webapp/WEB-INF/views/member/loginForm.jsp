@@ -18,33 +18,84 @@
             }
         </script>
     </c:if>
+
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-div {
+            max-width: 430px;
+            padding: 35px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .logo {
+            background-image: url("Logo.png");
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto;
+    </style>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </head>
 <body>
-<H3>회원 로그인 창</H3>
-<DIV id="detail_table">
+<div class="login-div">
     <form action="${contextPath}/member/login.do" method="post">
-        <TABLE>
-            <TBODY>
-            <TR class="dot_line">
-                <TD class="fixed_join">아이디</TD>
-                <TD><input name="member_id" type="text" size="20"/></TD>
-            </TR>
-            <TR class="solid_line">
-                <TD class="fixed_join">비밀번호</TD>
-                <TD><input name="member_pw" type="password" size="20"/></TD>
-            </TR>
-            </TBODY>
-        </TABLE>
+        <div class="row">
+            <div class="logo"></div>
+        </div>
+        <div class="row center-align">
+            <h5>Sign in</h5>
+            <h6>Use your Account</h6>
+        </div>
+
+
+        <div class="row">
+            <div class="input-field col s12">
+                <td class="fixed_join">Email</td>
+                <td><input name="member_id" type="text" size="20"></td>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <td class="fixed_join">password</td>
+                <td><input name="member_pw" type="password" size="20"></td>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12">Not your computer? Use a Private Window to sign in. <a href="#"><b>Learn more</b></a>
+            </div>
+        </div>
+        <div class="row"></div>
+        <div class="row">
+            <div class="col s6"><a href="${contextPath}/member/addMember.do">Create account</a></div>
+            <div class="col s6 right-align">
+                <input type="submit" value="Login" class="waves-effect waves-light btn"></div>
+        </div>
+
         <br><br>
-        <INPUT type="submit" value="로그인">
-        <INPUT type="button" value="초기화">
+
 
         <Br><br>
         <a href="#">아이디 찾기</a> |
         <a href="#">비밀번호 찾기</a> |
-        <a href="${contextPath}/member/addMember.do">회원가입</a> |
         <a href="#">고객 센터</a>
-
     </form>
+</div>
 </body>
 </html>

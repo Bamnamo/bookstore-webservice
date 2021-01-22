@@ -486,7 +486,7 @@ footer img {
 	width: 590px; font-size: 0.75em; float: left;
 }
 .detail_table table {
-	width: 95%; border-top-color: rgb(51, 51, 51); border-bottom-color: rgb(51, 51, 51); border-top-width: 2px; border-bottom-width: 1px; border-top-style: solid; border-bottom-style: solid; border-collapse: collapse;
+	width: 95%; border-top-color: rgb(51, 51, 51); border-bottom-color: rgb(51, 51, 51); border-top-width: 2px; border-bottom-width: 1px; border-top-style: solid; border-bottom-style: solid; border-collapse: collapse; border-radius: 30px;
 }
 .detail_table table td {
 	padding: 7px 0px 7px 10px;

@@ -207,7 +207,7 @@
             formObj.appendChild(i_order_id);
             document.body.appendChild(formObj);
             formObj.method = "post";
-            formObj.action = "${contextPath}/admin/order/orderDetail.do";
+            formObj.action = "${contextPath}/orderControl/orderDetail.do";
             formObj.submit();
 
         }

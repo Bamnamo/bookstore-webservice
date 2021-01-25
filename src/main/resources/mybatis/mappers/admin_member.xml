@@ -5,7 +5,7 @@
 
 <mapper namespace="com.bookstore.webservice.admin.member.dao.AdminMemberDAO">
 
-    <resultMap id="memberResult" type="MemberVO">
+    <resultMap id="memberResult" type="memberVO">
         <result property="member_id" column="member_id"/>
         <result property="member_pw" column="member_pw"/>
         <result property="member_name" column="member_name"/>
@@ -67,40 +67,18 @@ select * from t_shopping_member order by joinDate desc
 
     </select>
 
-    <select id="memberDetail" resultMap="memberResult" parameterType="String">
+    <select id="selectMemberDetailInfo" resultType="memberVO" parameterType="String">
 	    <![CDATA[
 
-
-
-
-
-
-
-
-
-
-
-
-                                                                                                            select * from t_shopping_member
-                                                                                                            where member_id=#{member_id}
-
-
-
-
-
-
-
-
-
-
-
+                    select * from t_shopping_member
+                    where member_id=#{member_id}
 
         ]]>
 	</select>
 
 
-    <update id="modifyMemberInfo" parameterType="java.util.HashMap">
-        update t_shopping_member
+    <update id="updateMemberInfo" parameterType="java.util.HashMap">
+        update t_shoping_member
         <set>
             <if test=" member_pw!='' and member_pw!=null">
                 member_pw=#{member_pw},
@@ -167,11 +145,24 @@ select * from t_shopping_member order by joinDate desc
         member_id=#{member_id}
     </update>
 
+
     <delete id="deleteMember" parameterType="String">
         <![CDATA[
 
-        delete from t_shopping_member
-        where member_id=#{member_id}
+
+
+
+
+
+
+                                                        delete from t_shopping_member
+                                                        where member_id=#{member_id}
+
+
+
+
+
+
 
         ]]>
     </delete>

@@ -70,6 +70,7 @@
 
         <result property="goods_fileName" column="goods_fileName" />
     </resultMap>
+
     <insert id="insertNewGoods" parameterType="java.util.Map"   >
         <selectKey resultType="String" keyProperty="goods_id" order="BEFORE">
             select seq_goods_id.nextval from dual
@@ -122,6 +123,7 @@
 					 			 )
 		]]>
     </insert>
+
     <insert id="insertGoodsImageFile" parameterType="imageFileVO"   >
         <selectKey resultType="int" keyProperty="image_id" order="BEFORE">
             select seq_image_id.nextval from dual

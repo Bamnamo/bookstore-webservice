@@ -232,8 +232,7 @@
             <h4>책소개</h4>
             <p>${fn:replace(goods.goods_intro,crcn,br)}</p>
             <c:forEach var="image" items="${imageList }">
-                <img
-                        src="${contextPath}/download.do?goods_id=${goods.goods_id}&fileName=${image.fileName}">
+                <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_fileName}">
             </c:forEach>
         </div>
         <div class="tab_content" id="tab2">

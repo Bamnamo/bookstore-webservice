@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<c:set var="goods" value="${goodsMap.goods}"/>
+<c:set var="goods" value="${goodsMap.goodsVO}"/>
 <c:set var="imageFileList" value="${goodsMap.imageFileList}"/>
 
 <c:choose>
@@ -24,6 +24,7 @@
         </script>
     </c:when>
 </c:choose>
+
 <script type="text/javascript">
     function fn_modify_goods(goods_id, attribute) {
         var frm_mod_goods = document.frm_mod_goods;
@@ -65,6 +66,7 @@
         } else if (attribute == 'recommendation') {
             value = frm_mod_goods.recommendation.value;
         }
+
         $.ajax({
             type: "post",
             async: false, //false인 경우 동기식으로 처리한다.
@@ -91,6 +93,7 @@
             }
         }); //end ajax
     }
+
 
     function readURL(input, preview) {
         //  alert(preview);
@@ -122,7 +125,7 @@
         formData.append("fileType", fileType);
 
         $.ajax({
-            url: '${contextPath}/admin/goods/modifyGoodsImageInfo.do',
+            url: '${contextPath}/goodsControl/modifyGoodsImageInfo.do',
             processData: false,
             contentType: false,
             data: formData,
@@ -155,6 +158,7 @@
 
     function deleteImageFile(goods_id, image_id, imageFileName, trId) {
         var tr = document.getElementById(trId);
+
         $.ajax({
             type: "post",
             async: true, //false인 경우 동기식으로 처리한다.

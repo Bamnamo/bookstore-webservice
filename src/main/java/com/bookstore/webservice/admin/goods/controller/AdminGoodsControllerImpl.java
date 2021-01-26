@@ -30,7 +30,7 @@ import java.util.Map;
 @RequestMapping(value = "/goodsControl")
 public class AdminGoodsControllerImpl extends BaseController implements AdminGoodsController {
 
-    private static final String CURR_IMAGE_REPO_PATH = "src/main/resources/static/image/file_repo";
+    private static final String CURR_IMAGE_REPO_PATH = "/Users/parkseongbeom/SpringBoot Project/BookStore-WebService/src/main/resources/static/file_repo";
 
     @Autowired
     private AdminGoodsService adminGoodsService;
@@ -103,8 +103,6 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
         HttpSession session = multipartRequest.getSession();
         MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
         String reg_id = memberVO.getMember_id();
-
-
         List<ImageFileVO> imageFileList = upload(multipartRequest);
         if (imageFileList != null && imageFileList.size() != 0) {
             for (ImageFileVO imageFileVO : imageFileList) {
@@ -129,7 +127,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
             }
             message = "<script>";
             message += " alert('새상품을 추가했습니다.');";
-            message += " location.href='" + multipartRequest.getContextPath() + "/admin/goods/addNewGoodsForm.do';";
+            message += " location.href='" + multipartRequest.getContextPath() + "/goodsControl/addNewGoodsForm.do';";
             message += ("</script>");
         } catch (Exception e) {
             if (imageFileList != null && imageFileList.size() != 0) {
@@ -142,7 +140,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 
             message = "<script>";
             message += " alert('오류가 발생했습니다. 다시 시도해 주세요');";
-            message += " location.href='" + multipartRequest.getContextPath() + "/admin/goods/addNewGoodsForm.do';";
+            message += " location.href='" + multipartRequest.getContextPath() + "/goodsControl/addNewGoodsForm.do';";
             message += ("</script>");
             e.printStackTrace();
         }
@@ -156,7 +154,6 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
                                         HttpServletRequest request, HttpServletResponse response) throws Exception {
         String viewName = (String) request.getAttribute("viewName");
         ModelAndView mav = new ModelAndView(viewName);
-
         Map goodsMap = adminGoodsService.goodsDetail(goods_id);
         mav.addObject("goodsMap", goodsMap);
 
@@ -169,8 +166,6 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
                                           @RequestParam("attribute") String attribute,
                                           @RequestParam("value") String value,
                                           HttpServletRequest request, HttpServletResponse response) throws Exception {
-        //System.out.println("modifyGoodsInfo");
-
         Map<String, String> goodsMap = new HashMap<String, String>();
         goodsMap.put("goods_id", goods_id);
         goodsMap.put(attribute, value);
@@ -178,9 +173,9 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 
         String message = null;
         ResponseEntity resEntity = null;
-        HttpHeaders responseHeaders = new HttpHeaders();
+        HttpHeaders reponseHeaders = new HttpHeaders();
         message = "mod_success";
-        resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+        resEntity = new ResponseEntity(message, reponseHeaders, HttpStatus.OK);
         return resEntity;
     }
 

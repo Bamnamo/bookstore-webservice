@@ -38,7 +38,6 @@
         }
 
         .logo {
-            background-image: url("Logo.png");
             width: 100px;
             height: 100px;
             border-radius: 50%;
@@ -55,9 +54,11 @@
 <body>
 <div class="login-div">
     <form action="${contextPath}/member/login.do" method="post">
-        <div class="row">
-            <div class="logo"></div>
+
+        <div class="row center-align">
+            <h1>BOOKTOPIA</h1>
         </div>
+
         <div class="row center-align">
             <h5>Sign in</h5>
             <h6>Use your Account</h6>
@@ -66,7 +67,7 @@
 
         <div class="row">
             <div class="input-field col s12">
-                <td class="fixed_join">Email</td>
+                <td class="fixed_join">Account</td>
                 <td><input name="member_id" type="text" size="20"></td>
             </div>
         </div>
@@ -77,13 +78,9 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col s12">Not your computer? Use a Private Window to sign in. <a href="#"><b>Learn more</b></a>
-            </div>
-        </div>
         <div class="row"></div>
         <div class="row">
-            <div class="col s6"><a href="${contextPath}/member/addMember.do">Create account</a></div>
+            <div class="col s6"><a href="${contextPath}/member/memberForm.do">Create account</a></div>
             <div class="col s6 right-align">
                 <input type="submit" value="Login" class="waves-effect waves-light btn"></div>
         </div>

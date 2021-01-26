@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
-@Mapper
-@Repository("adminGoodsDAO")
+//@Mapper
+//@Repository("adminGoodsDAO")
 public interface AdminGoodsDAO {
     public int insertNewGoods(Map newGoodsMap) throws DataAccessException;
     public List<GoodsVO>selectNewGoodsList(Map condMap) throws DataAccessException;

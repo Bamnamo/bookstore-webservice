@@ -23,7 +23,7 @@
 
 
         function fn_add_new_goods(obj) {
-            fileName = $('#f_main_image').val();
+            var fileName = $('#f_main_image').val();
             if (fileName != null && fileName != undefined) {
                 obj.submit();
             } else {
@@ -36,7 +36,7 @@
 </head>
 
 <body>
-<form action="${contextPath}/admin/goods/addNewGoods.do" method="post" enctype="multipart/form-data">
+<form action="${contextPath}/goodsControl/addNewGoods.do" method="post" enctype="multipart/form-data">
     <h1>새상품 등록창</h1>
     <div class="tab_container">
         <!-- 내용 들어 가는 곳 -->
@@ -199,7 +199,8 @@
                             <td align="right">이미지파일 첨부</td>
 
                             <td align="left"><input type="button" value="파일 추가" onClick="fn_addFile()"/></td>
-                            <td><div id="d_file"></div>
+                            <td>
+                                <div id="d_file"></div>
                             </td>
                         </tr>
                     </table>

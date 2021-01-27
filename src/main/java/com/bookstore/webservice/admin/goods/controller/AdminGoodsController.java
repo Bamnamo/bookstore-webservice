@@ -12,6 +12,8 @@ import java.util.Map;
 public interface AdminGoodsController {
     public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap, HttpServletRequest request, HttpServletResponse response) throws Exception;
     public ResponseEntity addNewGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
+    public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
+    public void modifyGoodsImageInfo(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
     public ResponseEntity modifyGoodsInfo(@RequestParam("goods_id") String goods_id,
                                           @RequestParam("mod_type") String mod_type,
                                           @RequestParam("value") String value,
@@ -20,7 +22,4 @@ public interface AdminGoodsController {
                                  @RequestParam("image_id") int image_id,
                                  @RequestParam("imageFileName") String imageFileName,
                                  HttpServletRequest request, HttpServletResponse response) throws Exception;
-    public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
-    public void modifyGoodsImageInfo(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
-
 }

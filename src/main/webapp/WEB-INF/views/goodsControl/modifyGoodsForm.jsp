@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<c:set var="goods" value="${goodsMap.goodsVO}"/>
+<c:set var="goods" value="${goodsMap.goods}"/>
 <c:set var="imageFileList" value="${goodsMap.imageFileList}"/>
 
 <c:choose>
@@ -24,7 +24,6 @@
         </script>
     </c:when>
 </c:choose>
-
 <script type="text/javascript">
     function fn_modify_goods(goods_id, attribute) {
         var frm_mod_goods = document.frm_mod_goods;
@@ -125,7 +124,7 @@
         formData.append("fileType", fileType);
 
         $.ajax({
-            url: '${contextPath}/goodsControl/modifyGoodsImageInfo.do',
+            url: '${contextPath}/admin/goods/modifyGoodsImageInfo.do',
             processData: false,
             contentType: false,
             data: formData,
@@ -299,7 +298,7 @@
                         </td>
                         <td>
                             <input type="button" value="수정반영"
-                                   onClick="fn_modify_goods('${goods.goods_id }','goods_total_page')"/>
+                                   onClick="fn_modify_goods('${goods.goods_id }','goods_total_page"/>
                         </td>
 
                     </tr>
@@ -534,8 +533,6 @@
                 </form>
             </DIV>
             <DIV class="clear"></DIV>
-
         </DIV>
     </DIV>
 </form>
-</BODY>

@@ -1,5 +1,16 @@
 package com.bookstore.webservice.admin.goods.controller;
 
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.bookstore.webservice.admin.goods.service.AdminGoodsService;
 import com.bookstore.webservice.goods.vo.GoodsVO;
 import com.bookstore.webservice.goods.vo.ImageFileVO;
@@ -17,14 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller("adminGoodsController")
 @RequestMapping(value = "/goodsControl")
@@ -42,7 +45,6 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
         String viewName = (String) request.getAttribute("viewName");
         ModelAndView mav = new ModelAndView(viewName);
         HttpSession session = request.getSession();
-        session = request.getSession();
         session.setAttribute("side_menu", "admin_mode");
 
         String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
@@ -153,10 +155,10 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
     public ModelAndView modifyGoodsForm(@RequestParam("goods_id") int goods_id,
                                         HttpServletRequest request, HttpServletResponse response) throws Exception {
         String viewName = (String) request.getAttribute("viewName");
-        ModelAndView mav = new ModelAndView(viewName);
+        HttpSession session = request.getSession();
         Map goodsMap = adminGoodsService.goodsDetail(goods_id);
+        ModelAndView mav = new ModelAndView(viewName);
         mav.addObject("goodsMap", goodsMap);
-
         return mav;
     }
 

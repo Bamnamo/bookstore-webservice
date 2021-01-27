@@ -1,6 +1,10 @@
 package com.bookstore.webservice.admin.goods.dao;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.bookstore.webservice.goods.vo.GoodsVO;
 import com.bookstore.webservice.goods.vo.ImageFileVO;
 import com.bookstore.webservice.order.vo.OrderVO;
@@ -9,13 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Repository("adminGoodsDAO")
 public class AdminGoodsDAOImpl implements AdminGoodsDAO {
-
     @Autowired
     private SqlSession sqlSession;
 
@@ -27,6 +27,7 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO {
 
     @Override
     public void insertGoodsImageFile(List fileList) throws DataAccessException {
+
         for (int i = 0; i < fileList.size(); i++) {
             ImageFileVO imageFileVO = (ImageFileVO) fileList.get(i);
             sqlSession.insert("mapper.admin.goods.insertGoodsImageFile", imageFileVO);
@@ -41,8 +42,8 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO {
 
     @Override
     public GoodsVO selectGoodsDetail(int goods_id) throws DataAccessException {
-        GoodsVO goodsBean = (GoodsVO) sqlSession.selectOne("mapper.admin.goods.selectGoodsDetail", goods_id);
-        return goodsBean;
+        GoodsVO goodsVO = (GoodsVO) sqlSession.selectOne("mapper.admin.goods.selectGoodsDetail", goods_id);
+        return goodsVO;
     }
 
     @Override
@@ -93,4 +94,6 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO {
         }
 
     }
+
+
 }

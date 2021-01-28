@@ -1,10 +1,12 @@
 package com.bookstore.webservice.goods.vo;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 
 @Data
+@Component("goodsVO")
 public class GoodsVO {
     private int goods_id;
     private String goods_title;

@@ -12,6 +12,7 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(new ViewNameInterceptor())
                 .addPathPatterns("/*.do")
                 .addPathPatterns("/*/*.do")
+                .addPathPatterns("/*/*/*.do")
                 .excludePathPatterns("/users/login");
     }
 }

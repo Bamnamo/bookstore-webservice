@@ -227,7 +227,7 @@
                                                select * from  t_goods_detail_image
                         where
                         goods_id=#{goods_id}
-                        order by image_id asc
+
 
 
 

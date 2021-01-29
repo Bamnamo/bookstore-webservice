@@ -6,14 +6,13 @@
 <tiles-definitions>
 
     <!-- 주문관리 -->
-    <definition name="/orderControl/adminOrderMain" extends="baseLayout">
-        <put-attribute name="title" value="주문 관리 페이지" />
-        <put-attribute name="body" value="/WEB-INF/views/orderControl/adminOrderMain.jsp" />
+    <definition name="/admin/order/adminOrderMain" extends="baseLayout">
+        <put-attribute name="title" value="주문 관리 페이지"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin/order/adminOrderMain.jsp"/>
     </definition>
-
-    <definition name="/orderControl/orderDetail" extends="baseLayout">
-        <put-attribute name="title" value="주문 관리 페이지" />
-        <put-attribute name="body" value="/WEB-INF/views/orderControl/adminOrderDetail.jsp" />
+    <definition name="/admin/order/orderDetail" extends="baseLayout">
+        <put-attribute name="title" value="주문 관리 페이지"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin/order/adminOrderDetail.jsp"/>
     </definition>
 
 

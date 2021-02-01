@@ -3,31 +3,30 @@ package com.bookstore.webservice.admin.member.controller;
 import com.bookstore.webservice.admin.member.service.AdminMemberService;
 import com.bookstore.webservice.main.BaseController;
 import com.bookstore.webservice.member.vo.MemberVO;
-import com.sun.xml.internal.ws.policy.sourcemodel.ModelNode;
+
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import sun.awt.geom.AreaOp;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller("adminMemberController")
-@RequestMapping(value = "/memberControl")
+@RequestMapping(value = "/admin/member")
 public class AdminMemberControllerImpl extends BaseController implements AdminMemberController {
 
     @Autowired
     private AdminMemberService adminMemberService;
 
-    @Override
     @RequestMapping(value = "/adminMemberMain.do", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,
                                        HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -75,7 +74,6 @@ public class AdminMemberControllerImpl extends BaseController implements AdminMe
 
     }
 
-    @Override
     @RequestMapping(value = "/memberDetail.do", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView memberDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String viewName = (String) request.getAttribute("viewName");
@@ -86,7 +84,6 @@ public class AdminMemberControllerImpl extends BaseController implements AdminMe
         return mav;
     }
 
-    @Override
     @RequestMapping(value = "/modifyMemberInfo.do", method = {RequestMethod.POST, RequestMethod.GET})
     public void modifyMemberInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HashMap<String, String> memberMap = new HashMap<String, String>();
@@ -134,7 +131,6 @@ public class AdminMemberControllerImpl extends BaseController implements AdminMe
 
     }
 
-    @Override
     @RequestMapping(value = "/deleteMember.do", method = {RequestMethod.POST})
     public ModelAndView deleteMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();

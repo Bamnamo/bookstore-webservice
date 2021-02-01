@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 @Service("adminMemberService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -31,6 +32,6 @@ public class AdminMemberServiceImpl implements AdminMemberService {
     @Override
     public void modifyMemberInfo(HashMap memberMap) throws Exception {
         String member_id = (String) memberMap.get("member_id");
-        adminMemberDAO.modifyMemberInfo(memberMap);
+        adminMemberDAO.updateMemberInfo(memberMap);
     }
 }

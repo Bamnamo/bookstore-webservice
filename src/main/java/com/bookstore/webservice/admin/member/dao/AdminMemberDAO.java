@@ -6,13 +6,15 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 @Mapper
 @Repository("adminMemberDAO")
 public interface AdminMemberDAO {
     public ArrayList<MemberVO> listMember(HashMap condMap) throws DataAccessException;
     public MemberVO memberDetail(String member_id) throws DataAccessException;
-    public void modifyMemberInfo(HashMap memberMap) throws DataAccessException;
+    public void updateMemberInfo(HashMap memberMap) throws DataAccessException;
 }

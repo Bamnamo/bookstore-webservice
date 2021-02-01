@@ -67,7 +67,7 @@ select * from t_shopping_member order by joinDate desc
 
     </select>
 
-    <select id="selectMemberDetailInfo" resultType="memberVO" parameterType="String">
+    <select id="memberDetail" resultType="memberVO" parameterType="String">
 	    <![CDATA[
 
                     select * from t_shopping_member
@@ -78,7 +78,7 @@ select * from t_shopping_member order by joinDate desc
 
 
     <update id="updateMemberInfo" parameterType="java.util.HashMap">
-        update t_shoping_member
+        update t_shopping_member
         <set>
             <if test=" member_pw!='' and member_pw!=null">
                 member_pw=#{member_pw},
@@ -145,25 +145,4 @@ select * from t_shopping_member order by joinDate desc
         member_id=#{member_id}
     </update>
 
-
-    <delete id="deleteMember" parameterType="String">
-        <![CDATA[
-
-
-
-
-
-
-
-                                                        delete from t_shopping_member
-                                                        where member_id=#{member_id}
-
-
-
-
-
-
-
-        ]]>
-    </delete>
 </mapper>

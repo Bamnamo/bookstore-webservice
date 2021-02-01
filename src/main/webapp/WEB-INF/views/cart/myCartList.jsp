@@ -11,6 +11,7 @@
 <c:set var="totalGoodsNum" value="0"/> <!--주문 개수 -->
 <c:set var="totalDeliveryPrice" value="0"/> <!-- 총 배송비 -->
 <c:set var="totalDiscountedPrice" value="0"/> <!-- 총 할인금액 -->
+
 <html>
 <head>
     <script type="text/javascript">

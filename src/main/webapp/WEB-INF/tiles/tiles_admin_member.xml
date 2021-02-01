@@ -5,16 +5,15 @@
 <tiles-definitions>
 
     <!-- 회원관리 -->
-    <definition name="/memberControl/adminMemberMain" extends="baseLayout">
-        <put-attribute name="title" value="회원 관리 페이지" />
-        <put-attribute name="body" value="/WEB-INF/views/memberControl/adminMemberMain.jsp" />
+    <definition name="/admin/member/adminMemberMain" extends="baseLayout">
+        <put-attribute name="title" value="회원 관리 페이지"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin/member/adminMemberMain.jsp"/>
     </definition>
 
-    <definition name="/memberControl/memberDetail" extends="baseLayout">
-        <put-attribute name="title" value="회원 상세 페이지" />
-        <put-attribute name="body" value="/WEB-INF/views/memberControl/memberDetail.jsp" />
+    <definition name="/admin/member/memberDetail" extends="baseLayout">
+        <put-attribute name="title" value="회원 상세 페이지"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin/member/memberDetail.jsp"/>
     </definition>
-
 
 
 </tiles-definitions>

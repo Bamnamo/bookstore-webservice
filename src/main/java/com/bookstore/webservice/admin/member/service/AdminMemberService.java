@@ -4,6 +4,7 @@ import com.bookstore.webservice.member.vo.MemberVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public interface AdminMemberService {
     public ArrayList<MemberVO> listMember(HashMap condMap) throws Exception;

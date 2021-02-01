@@ -6,10 +6,7 @@ import com.bookstore.webservice.main.BaseController;
 import com.bookstore.webservice.member.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,15 +35,27 @@ public class CartControllerImpl extends BaseController implements CartController
         cartVO.setMember_id(member_id);
         Map<String, List> cartMap = cartService.myCartList(cartVO);
         session.setAttribute("cartMap", cartMap);//장바구니 목록 화면에서 상품 주문 시 사용하기 위해서 장바구니 목록을 세션에 저장한다.
-        //mav.addObject("cartMap", cartMap);
+        mav.addObject("cartMap", cartMap);
         return mav;
     }
 
+
     @RequestMapping(value = "/addGoodsInCart.do", method = RequestMethod.POST, produces = "application/text; charset=utf8")
     public @ResponseBody
-    String addGoodsInCart(@RequestParam("goods_id") int goods_id,
+    Object addGoodsInCart(@RequestParam("goods_id") int goods_id,
                           HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
+
+        Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
+        String action = (String) session.getAttribute("action");
+
+        if (isLogOn == null || isLogOn == false) {
+            session.setAttribute("goods_id", goods_id);
+            session.setAttribute("action", "/cart/addGoodsInCart.do");
+            return new ModelAndView("redirect:/member/loginForm.do");
+        }
+
         memberVO = (MemberVO) session.getAttribute("memberInfo");
         String member_id = memberVO.getMember_id();
 

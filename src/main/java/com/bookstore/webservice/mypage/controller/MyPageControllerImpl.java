@@ -36,7 +36,6 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
     @RequestMapping(value = "myPageMain.do", method = RequestMethod.GET)
     public ModelAndView myPageMain(@RequestParam(required = false, value = "message") String message, HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
-        session = request.getSession();
         session.setAttribute("side_menu", "my_page");
         String viewName = (String) request.getAttribute("viewName");
         ModelAndView mav = new ModelAndView(viewName);

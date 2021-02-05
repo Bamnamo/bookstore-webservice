@@ -13,7 +13,7 @@ public class TilesConfig implements WebMvcConfigurer {
     @Bean
     public TilesConfigurer tilesConfigurer() {
         final TilesConfigurer configurer = new TilesConfigurer();
-        configurer.setDefinitions(new String[]{"WEB-INF/tiles/*.xml"});
+        configurer.setDefinitions(new String[]{"/WEB-INF/tiles/*.xml"});
         configurer.setCheckRefresh(true);
         return configurer;
     }

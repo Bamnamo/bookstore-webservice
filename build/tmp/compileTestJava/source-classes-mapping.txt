@@ -1,4 +1,0 @@
-com/bookstore/webservice/WebserviceApplicationTests.java
- com.bookstore.webservice.WebserviceApplicationTests
-com/bookstore/webservice/JDBCTest.java
- com.bookstore.webservice.JDBCTest

@@ -1,2 +1,0 @@
-com/bookstore/webservice/WebserviceApplication.java
- com.bookstore.webservice.WebserviceApplication

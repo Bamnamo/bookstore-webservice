@@ -38,7 +38,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
         memberVO = memberService.login(loginMap);
         if (memberVO != null && memberVO.getMember_id() != null) {
             HttpSession session = request.getSession();
-            session = request.getSession();
             session.setAttribute("isLogOn", true);
             session.setAttribute("memberInfo", memberVO);
 

@@ -4,6 +4,9 @@ HELP.md
 /build
 /out/production
 /out/test
-/resources/application.properties
 
 
+
+!/HELP.md
+
+application-oracleDB.properties

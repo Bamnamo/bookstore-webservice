@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 public abstract class BaseController {
-    private static final String CURR_IMAGE_REPO_PATH = "/Users/parkseongbeom/SpringBoot Project/BookStore-WebService/src/main/resources/static/file_repo";
+    private static final String CURR_IMAGE_REPO_PATH = "src/main/resources/static/file_repo";
 
     protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception {
         List<ImageFileVO> fileList = new ArrayList<ImageFileVO>();

@@ -30,7 +30,8 @@ import java.util.Map;
 @Controller("adminGoodsController")
 @RequestMapping(value = "/admin/goods")
 public class AdminGoodsControllerImpl extends BaseController implements AdminGoodsController {
-    private static final String CURR_IMAGE_REPO_PATH = "/Users/parkseongbeom/SpringBoot Project/BookStore-WebService/src/main/resources/static/file_repo";
+    private static final String CURR_IMAGE_REPO_PATH = "src/main/resources/static/file_repo";
+
     @Autowired
     private AdminGoodsService adminGoodsService;
 

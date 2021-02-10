@@ -21,16 +21,16 @@
     <c:forEach var="item" items="${goodsMap.bestseller }">
         <c:set var="goods_count" value="${goods_count+1 }"/>
         <div class="book">
-            <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+            <a href="${contextPath}/goods/goodsDetail.do?goodsId=${item.goodsId }">
                 <img class="link" src="${contextPath}/image/1px.gif">
             </a>
             <img width="121" height="154"
-                 src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+                 src="${contextPath}/thumbnails.do?goodsId=${item.goodsId}&fileName=${item.goodsFileName}">
 
-            <div class="title">${item.goods_title }</div>
+            <div class="title">${item.goodsTitle }</div>
             <div class="price">
-                <fmt:formatNumber value="${item.goods_price}" type="number" var="goods_price"/>
-                    ${goods_price}원
+                <fmt:formatNumber value="${item.goodsPrice}" type="number" var="goodsPrice"/>
+                    ${goodsPrice}원
             </div>
         </div>
         <c:if test="${goods_count==15   }">
@@ -50,15 +50,15 @@
     <c:forEach var="item" items="${goodsMap.newbook }">
         <c:set var="goods_count" value="${goods_count+1 }"/>
         <div class="book">
-            <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+            <a href="${contextPath}/goods/goodsDetail.do?goodsId=${item.goodsId }">
                 <img class="link" src="${contextPath}/image/1px.gif">
             </a>
             <img width="121" height="154"
-                 src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-            <div class="title">${item.goods_title }</div>
+                 src="${contextPath}/thumbnails.do?goodsId=${item.goodsId}&fileName=${item.goodsFileName}">
+            <div class="title">${item.goodsTitle }</div>
             <div class="price">
-                <fmt:formatNumber value="${item.goods_price}" type="number" var="goods_price"/>
-                    ${goods_price}원
+                <fmt:formatNumber value="${item.goodsPrice}" type="number" var="goodsPrice"/>
+                    ${goodsPrice}원
             </div>
         </div>
         <c:if test="${goods_count==15   }">
@@ -81,15 +81,15 @@
     <c:forEach var="item" items="${goodsMap.steadyseller }">
         <c:set var="goods_count" value="${goods_count+1 }"/>
         <div class="book">
-            <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+            <a href="${contextPath}/goods/goodsDetail.do?goodsId=${item.goodsId }">
                 <img class="link" src="${contextPath}/image/1px.gif">
             </a>
             <img width="121" height="154"
-                 src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-            <div class="title">${item.goods_title }</div>
+                 src="${contextPath}/thumbnails.do?goodsId=${item.goodsId}&fileName=${item.goodsFileName}">
+            <div class="title">${item.goodsTitle }</div>
             <div class="price">
-                <fmt:formatNumber value="${item.goods_price}" type="number" var="goods_price"/>
-                    ${goods_price}원
+                <fmt:formatNumber value="${item.goodsPrice}" type="number" var="goodsPrice"/>
+                    ${goodsPrice}원
             </div>
         </div>
         <c:if test="${goods_count==15   }">

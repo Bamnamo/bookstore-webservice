@@ -107,7 +107,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
         List<ImageFileVO> imageFileList = upload(multipartRequest);
         if (imageFileList != null && imageFileList.size() != 0) {
             for (ImageFileVO imageFileVO : imageFileList) {
-                imageFileVO.setReg_id(reg_id);
+                imageFileVO.setRegId(reg_id);
             }
             newGoodsMap.put("imageFileList", imageFileList);
         }
@@ -210,9 +210,9 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
                 for (ImageFileVO imageFileVO : imageFileList) {
                     goods_id = Integer.parseInt((String) goodsMap.get("goods_id"));
                     image_id = Integer.parseInt((String) goodsMap.get("image_id"));
-                    imageFileVO.setGoods_id(goods_id);
-                    imageFileVO.setImage_id(image_id);
-                    imageFileVO.setReg_id(reg_id);
+                    imageFileVO.setGoodsId(goods_id);
+                    imageFileVO.setImageId(image_id);
+                    imageFileVO.setRegId(reg_id);
                 }
 
                 adminGoodsService.modifyGoodsImage(imageFileList);
@@ -265,8 +265,8 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
             if (imageFileList != null && imageFileList.size() != 0) {
                 for (ImageFileVO imageFileVO : imageFileList) {
                     goods_id = Integer.parseInt((String) goodsMap.get("goods_id"));
-                    imageFileVO.setGoods_id(goods_id);
-                    imageFileVO.setReg_id(reg_id);
+                    imageFileVO.setGoodsId(goods_id);
+                    imageFileVO.setRegId(reg_id);
                 }
 
                 adminGoodsService.addNewGoodsImage(imageFileList);

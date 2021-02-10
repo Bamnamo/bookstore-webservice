@@ -127,12 +127,12 @@ public class OrderControllerImpl implements OrderController {
             String[] cart_goods = cart_goods_qty[i].split(":");
             for (int j = 0; j < myGoodsList.size(); j++) {
                 GoodsVO goodsVO = myGoodsList.get(i);
-                int goods_id = goodsVO.getGoods_id();
+                int goods_id = goodsVO.getGoodsId();
                 if (goods_id == Integer.parseInt(cart_goods[0])) {
                     OrderVO _orderVO = new OrderVO();
-                    String goods_title = goodsVO.getGoods_title();
-                    int goods_sales_price = goodsVO.getGoods_sales_price();
-                    String goods_fileName = goodsVO.getGoods_fileName();
+                    String goods_title = goodsVO.getGoodsTitle();
+                    int goods_sales_price = goodsVO.getGoodsSalesPrice();
+                    String goods_fileName = goodsVO.getGoodsFileName();
                     _orderVO.setGoods_id(goods_id);
                     _orderVO.setGoods_title(goods_title);
                     _orderVO.setGoods_sales_price(goods_sales_price);

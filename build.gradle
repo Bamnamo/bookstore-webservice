@@ -28,7 +28,7 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+    compile group: 'net.sf.json-lib', name: 'json-lib', version: '2.4' , classifier: 'jdk15'
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
 

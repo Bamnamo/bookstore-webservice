@@ -43,13 +43,13 @@
     </style>
     <script type="text/javascript">
 
-        function add_cart(goods_id) {
+        function addCart(goodsId) {
             $.ajax({
                 type: "post",
                 async: false, //false인 경우 동기식으로 처리한다.
                 url: "${contextPath}/cart/addGoodsInCart.do",
                 data: {
-                    goods_id: goods_id
+                    goodsId: goodsId
 
                 },
                 success: function (data, textStatus) {
@@ -83,7 +83,7 @@
             }
         }
 
-        function fn_order_each_goods(goods_id, goods_title, goods_sales_price, fileName) {
+        function fnOrderEachGoods(goodsId, goodsTitle, goodsSalesPrice, fileName) {
             var _isLogOn = document.getElementById("isLogOn");
             var isLogOn = _isLogOn.value;
 
@@ -102,16 +102,16 @@
             var i_fileName = document.createElement("input");
             var i_order_goods_qty = document.createElement("input");
 
-            i_goods_id.name = "goods_id";
-            i_goods_title.name = "goods_title";
-            i_goods_sales_price.name = "goods_sales_price";
-            i_fileName.name = "goods_fileName";
+            i_goods_id.name = "goodsId";
+            i_goods_title.name = "goodsTitle";
+            i_goods_sales_price.name = "goodsSalesPrice";
+            i_fileName.name = "goodsFileName";
             i_order_goods_qty.name = "order_goods_qty";
 
-            i_goods_id.value = goods_id;
+            i_goods_id.value = goodsId;
             i_order_goods_qty.value = order_goods_qty.value;
-            i_goods_title.value = goods_title;
-            i_goods_sales_price.value = goods_sales_price;
+            i_goods_title.value = goodsTitle;
+            i_goods_sales_price.value = goodsSalesPrice;
             i_fileName.value = fileName;
 
             formObj.appendChild(i_goods_id);
@@ -130,13 +130,13 @@
 <hgroup>
     <h1>컴퓨터와 인터넷</h1>
     <h2>국내외 도서 &gt; 컴퓨터와 인터넷 &gt; 웹 개발</h2>
-    <h3>${goods.goods_title }</h3>
-    <h4>${goods.goods_writer} &nbsp; 저| ${goods.goods_publisher}</h4>
+    <h3>${goods.goodsTitle }</h3>
+    <h4>${goods.goodsWriter} &nbsp; 저| ${goods.goodsPublisher}</h4>
 </hgroup>
 <div id="goods_image">
     <figure>
         <img alt="HTML5 &amp; CSS3"
-             src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_fileName}">
+             src="${contextPath}/thumbnails.do?goodsId=${goods.goodsId}&fileName=${goods.goodsFileName}">
     </figure>
 </div>
 <div id="detail_table">
@@ -145,19 +145,19 @@
         <tr>
             <td class="fixed">정가</td>
             <td class="active"><span>
-					   <fmt:formatNumber value="${goods.goods_price}" type="number" var="goods_price"/>
-				         ${goods_price}원
+					   <fmt:formatNumber value="${goods.goodsPrice}" type="number" var="goodsPrice"/>
+				         ${goodsPrice}원
 					</span></td>
         </tr>
         <tr class="dot_line">
             <td class="fixed">판매가</td>
             <td class="active"><span>
-					   <fmt:formatNumber value="${goods.goods_price*0.9}" type="number" var="discounted_price"/>
-				         ${discounted_price}원(10%할인)</span></td>
+					   <fmt:formatNumber value="${goods.goodsPrice*0.9}" type="number" var="discountedPrice"/>
+				         ${discountedPrice}원(10%할인)</span></td>
         </tr>
         <tr>
             <td class="fixed">포인트적립</td>
-            <td class="active">${goods.goods_point}P(10%적립)</td>
+            <td class="active">${goods.goodsPoint}P(10%적립)</td>
         </tr>
         <tr class="dot_line">
             <td class="fixed">포인트 추가적립</td>
@@ -166,18 +166,18 @@
         <tr>
             <td class="fixed">발행일</td>
             <td class="fixed">
-                <c:set var="pub_date" value="${goods.goods_published_date}"/>
+                <c:set var="pub_date" value="${goods.goodsPublishedDate}"/>
                 <c:set var="arr" value="${fn:split(pub_date,' ')}"/>
                 <c:out value="${arr[0]}"/>
             </td>
         </tr>
         <tr>
             <td class="fixed">페이지 수</td>
-            <td class="fixed">${goods.goods_total_page}쪽</td>
+            <td class="fixed">${goods.goodsTotalPage}쪽</td>
         </tr>
         <tr class="dot_line">
             <td class="fixed">ISBN</td>
-            <td class="fixed">${goods.goods_isbn}</td>
+            <td class="fixed">${goods.goodsIsbn}</td>
         </tr>
         <tr>
             <td class="fixed">배송료</td>
@@ -209,9 +209,9 @@
     </table>
     <ul>
         <li><a class="buy"
-               href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title }','${goods.goods_sales_price}','${goods.goods_fileName}');">구매하기 </a>
+               href="javascript:fnOrderEachGoods('${goods.goodsId }','${goods.goodsTitle }','${goods.goodsSalesPrice}','${goods.goodsFileName}');">구매하기 </a>
         </li>
-        <li><a class="cart" href="javascript:add_cart('${goods.goods_id }')">장바구니</a></li>
+        <li><a class="cart" href="javascript:addCart('${goods.goodsId }')">장바구니</a></li>
 
         <li><a class="wish" href="#">위시리스트</a></li>
     </ul>
@@ -230,29 +230,29 @@
     <div class="tab_container">
         <div class="tab_content" id="tab1">
             <h4>책소개</h4>
-            <p>${fn:replace(goods.goods_intro,crcn,br)}</p>
+            <p>${fn:replace(goods.goodsIntro,crcn,br)}</p>
             <c:forEach var="image" items="${imageList }">
-                <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_fileName}">
+                <img src="${contextPath}/thumbnails.do?goodsId=${goods.goodsId}&fileName=${goods.goodsFileName}">
             </c:forEach>
         </div>
         <div class="tab_content" id="tab2">
             <h4>저자소개</h4>
             <p>
-            <div class="writer">저자 : ${goods.goods_writer}</div>
-            <p>${fn:replace(goods.goods_writer_intro,crcn,br) }</p>
+            <div class="writer">저자 : ${goods.goodsWriter}</div>
+            <p>${fn:replace(goods.goodsWriterIntro,crcn,br) }</p>
 
         </div>
         <div class="tab_content" id="tab3">
             <h4>책목차</h4>
-            <p>${fn:replace(goods.goods_contents_order,crcn,br)}</p>
+            <p>${fn:replace(goods.goodsContentsOrder,crcn,br)}</p>
         </div>
         <div class="tab_content" id="tab4">
             <h4>출판사서평</h4>
-            <p>${fn:replace(goods.goods_publisher_comment ,crcn,br)}</p>
+            <p>${fn:replace(goods.goodsPublisherComment ,crcn,br)}</p>
         </div>
         <div class="tab_content" id="tab5">
             <h4>추천사</h4>
-            <p>${fn:replace(goods.goods_recommendation,crcn,br) }</p>
+            <p>${fn:replace(goods.goodsRecommendation,crcn,br) }</p>
         </div>
         <div class="tab_content" id="tab6">
             <h4>리뷰</h4>
@@ -260,18 +260,19 @@
     </div>
 </div>
 <div class="clear"></div>
+
 <div id="layer" style="visibility: hidden">
-    <!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
     <div id="popup">
         <!-- 팝업창 닫기 버튼 -->
-        <a href="javascript:" onClick="javascript:imagePopup('close', '.layer01');"> <img
-                src="${contextPath}/image/close.png" id="close"/>
+        <a href="javascript:" onClick="javascript:imagePopup('close', '.layer01');">
+            <img src="${contextPath}/image/close.png" id="close"/>
         </a> <br/> <font size="12" id="contents">장바구니에 담았습니다.</font><br>
         <form action='${contextPath}/cart/myCartList.do'>
             <input type="submit" value="장바구니 보기">
         </form>
     </div>
 </div>
+
 </body>
 </html>
 <input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn}"/>

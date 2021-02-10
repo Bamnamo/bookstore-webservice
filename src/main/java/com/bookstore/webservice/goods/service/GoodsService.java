@@ -36,11 +36,11 @@ public class GoodsService {
     }
 
 
-    public Map goodsDetail(String _goods_id) throws Exception {
+    public Map goodsDetail(String goodsId) throws Exception {
         Map goodsMap = new HashMap();
-        GoodsVO goodsVO = goodsDAO.selectGoodsDetail(_goods_id);
+        GoodsVO goodsVO = goodsDAO.selectGoodsDetail(goodsId);
         goodsMap.put("goodsVO", goodsVO);
-        List<ImageFileVO> imageList = goodsDAO.selectGoodsDetailImage(_goods_id);
+        List<ImageFileVO> imageList = goodsDAO.selectGoodsDetailImage(goodsId);
         goodsMap.put("imageList", imageList);
         return goodsMap;
     }
@@ -51,9 +51,8 @@ public class GoodsService {
         return list;
     }
 
-
     public List<GoodsVO> searchGoods(String searchWord) throws Exception {
-        List goodsList = goodsDAO.selectGoodsSearch(searchWord);
+        List goodsList = goodsDAO.selectGoodsBySearchWord(searchWord);
         return goodsList;
     }
 }

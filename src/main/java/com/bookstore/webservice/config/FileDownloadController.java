@@ -17,10 +17,10 @@ public class FileDownloadController {
     private static final String CURR_IMAGE_REPO_PATH = "src/main/resources/static/file_repo";
 
     @RequestMapping("/download.do")
-    protected void download(@RequestParam("fileName") String fileName, @RequestParam("goods_id") String goods_id, HttpServletResponse response) throws Exception {
+    protected void download(@RequestParam("fileName") String fileName, @RequestParam("goodsId") String goodsId, HttpServletResponse response) throws Exception {
 
         OutputStream out = response.getOutputStream();
-        String filePath = CURR_IMAGE_REPO_PATH + "//" + goods_id + "//" + fileName;
+        String filePath = CURR_IMAGE_REPO_PATH + "//" + goodsId + "//" + fileName;
         File image = new File(filePath);
 
         response.setHeader("Cache-Controller", "no-cache");
@@ -38,9 +38,9 @@ public class FileDownloadController {
     }
 
     @RequestMapping("/thumbnails.do")
-    protected void thumbnails(@RequestParam("fileName") String fileName, @RequestParam("goods_id") String goods_id, HttpServletResponse response) throws Exception {
+    protected void thumbnails(@RequestParam("fileName") String fileName, @RequestParam("goodsId") String goodsId, HttpServletResponse response) throws Exception {
         OutputStream out = response.getOutputStream();
-        String filePath = CURR_IMAGE_REPO_PATH + "//" + goods_id + "//" + fileName;
+        String filePath = CURR_IMAGE_REPO_PATH + "//" + goodsId + "//" + fileName;
         File image = new File(filePath);
         int lastIndex = fileName.lastIndexOf(".");
         String imageFileName = fileName.substring(0, lastIndex);

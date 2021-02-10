@@ -17,19 +17,16 @@
             type: "get",
             async: true, //false인 경우 동기식으로 처리한다.
             url: "${contextPath}/goods/keywordSearch.do",
+            contentType: "application/json",
             data: {keyword: value},
             success: function (data, textStatus) {
                 var jsonInfo = JSON.parse(data);
                 displayResult(jsonInfo);
             },
-            error: function (data, textStatus) {
-                alert("에러가 발생했습니다." + data);
-            },
             complete: function (data, textStatus) {
-                //alert("작업을완료 했습니다");
-
+                alert("작업을완료 했습니다");
             }
-        }); //end ajax
+        });
     }
 
     function displayResult(jsonInfo) {

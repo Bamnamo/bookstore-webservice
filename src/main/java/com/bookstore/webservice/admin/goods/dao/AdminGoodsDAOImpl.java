@@ -65,7 +65,7 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO {
         int image_id;
         for (int i = 0; i < fileList.size(); i++) {
             ImageFileVO bean = (ImageFileVO) fileList.get(i);
-            image_id = bean.getImage_id();
+            image_id = bean.getImageId();
             sqlSession.delete("mapper.admin.goods.deleteGoodsImage", image_id);
         }
     }

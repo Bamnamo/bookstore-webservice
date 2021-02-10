@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class ImageFileVO {
-    private int goods_id;
-    private int image_id;
+    private int goodsId;
+    private int imageId;
     private String fileName;
     private String fileType;
-    private String reg_id;
+    private String regId;
 
 
     public ImageFileVO() {

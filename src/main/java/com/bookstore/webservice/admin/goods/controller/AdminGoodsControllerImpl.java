@@ -31,7 +31,7 @@ import java.util.Map;
 @RequestMapping(value = "/admin/goods")
 public class AdminGoodsControllerImpl extends BaseController implements AdminGoodsController {
     //private static final String CURR_IMAGE_REPO_PATH = "src/main/resources/static/file_repo";
-    private static final String CURR_IMAGE_REPO_PATH = "/home/ec2-user/app/step1/src/main/resources/static/file_repo";
+    private static final String CURR_IMAGE_REPO_PATH = "/home/ec2-user/app/step1/bookstore-webservice/src/main/resources/static/file_repo";
 
     @Autowired
     private AdminGoodsService adminGoodsService;

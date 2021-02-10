@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public abstract class BaseController {
     //private static final String CURR_IMAGE_REPO_PATH = "src/main/resources/static/file_repo";
-    private static final String CURR_IMAGE_REPO_PATH = "/home/ec2-user/app/step1/src/main/resources/static/file_repo";
+    private static final String CURR_IMAGE_REPO_PATH = "/home/ec2-user/app/step1/bookstore-webservice/src/main/resources/static/file_repo";
 
     protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception {
         List<ImageFileVO> fileList = new ArrayList<ImageFileVO>();

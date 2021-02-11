@@ -15,6 +15,23 @@ cache:
 script:
   - "./gradlew clean build"
 
+before_deploy:
+  - zip -r bookstore-webservice *
+  - mkdir -p deploy
+  - mv bookstore-webservice.zip deploy/bookstore-webservice
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+
+    bucket: bookstore-webservice-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
+
 #CI 실행 완료시 메일 알림
 notifications:
   email:

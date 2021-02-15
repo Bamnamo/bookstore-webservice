@@ -31,4 +31,6 @@ echo "> $JAR_NAME 에 실행권한 추가"
 
 chmod +x $JAR_NAME
 
-nohup java -jar $JAR_NAME 2>&1 &
+echo "> $JAR_NAME 실행"
+
+nohup java -jar $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &

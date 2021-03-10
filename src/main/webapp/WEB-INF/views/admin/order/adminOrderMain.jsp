@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <c:choose>
-        <c:when test='${not empty order_goods_list}'>
+        <c:when test='${not empty orderGoodsList}'>
             <script type="text/javascript">
                 window.onload = function () {
                     init();
@@ -15,49 +15,50 @@
 
                 //화면이 표시되면서  각각의 주문건에 대한 배송 상태를 표시한다.
                 function init() {
-                    var frm_delivery_list = document.frm_delivery_list;
-                    var h_delivery_state = frm_delivery_list.h_delivery_state;
-                    var s_delivery_state = frm_delivery_list.s_delivery_state;
+                    var frmDeliveryList = document.frmDeliveryList;
+                    var hDeliveryState = frmDeliveryList.hDeliveryState;
+                    var sDeliveryState = frmDeliveryList.sDeliveryState;
 
 
-                    if (h_delivery_state.length == undefined) {
-                        s_delivery_state.value = h_delivery_state.value; //조회된 주문 정보가 1건인 경우
+                    if (hDeliveryState.length == undefined) {
+                        sDeliveryState.value = hDeliveryState.value; //조회된 주문 정보가 1건인 경우
                     } else {
-                        for (var i = 0; s_delivery_state.length; i++) {
-                            s_delivery_state[i].value = h_delivery_state[i].value;//조회된 주문 정보가 여러건인 경우
+                        for (var i = 0; sDeliveryState.length; i++) {
+                            sDeliveryState[i].value = hDeliveryState[i].value;//조회된 주문 정보가 여러건인 경우
                         }
                     }
                 }
             </script>
         </c:when>
     </c:choose>
+
     <script>
-        function search_order_history(search_period) {
-            temp = calcPeriod(search_period);
+        function searchOrderHistory(searchPeriod) {
+            temp = calcPeriod(searchPeriod);
             var date = temp.split(",");
             beginDate = date[0];
             endDate = date[1];
 
 
             var formObj = document.createElement("form");
-            var i_command = document.createElement("input");
-            var i_beginDate = document.createElement("input");
-            var i_endDate = document.createElement("input");
+            var iCommand = document.createElement("input");
+            var iBeginDate = document.createElement("input");
+            var iEndDate = document.createElement("input");
 
-            i_beginDate.name = "beginDate";
-            i_beginDate.value = beginDate;
-            i_endDate.name = "endDate";
-            i_endDate.value = endDate;
+            iBeginDate.name = "beginDate";
+            iBeginDate.value = beginDate;
+            iEndDate.name = "endDate";
+            iEndDate.value = endDate;
 
-            formObj.appendChild(i_beginDate);
-            formObj.appendChild(i_endDate);
+            formObj.appendChild(iBeginDate);
+            formObj.appendChild(iEndDate);
             document.body.appendChild(formObj);
             formObj.method = "get";
             formObj.action = "${contextPath}/admin/order/adminOrderMain.do";
             formObj.submit();
         }
 
-        function calcPeriod(search_period) {
+        function calcPeriod(searchPeriod) {
             var dt = new Date();
             var beginYear, endYear;
             var beginMonth, endMonth;
@@ -67,37 +68,37 @@
             endYear = dt.getFullYear();
             endMonth = dt.getMonth() + 1;
             endDay = dt.getDate();
-            if (search_period == 'today') {
+            if (searchPeriod == 'today') {
                 beginYear = endYear;
                 beginMonth = endMonth;
                 beginDay = endDay;
-            } else if (search_period == 'one_week') {
+            } else if (searchPeriod == 'one_week') {
                 beginYear = dt.getFullYear();
                 beginMonth = dt.getMonth() + 1;
                 dt.setDate(endDay - 7);
                 beginDay = dt.getDate();
 
-            } else if (search_period == 'two_week') {
+            } else if (searchPeriod == 'twoWeek') {
                 beginYear = dt.getFullYear();
                 beginMonth = dt.getMonth() + 1;
                 dt.setDate(endDay - 14);
                 beginDay = dt.getDate();
-            } else if (search_period == 'one_month') {
+            } else if (searchPeriod == 'oneMonth') {
                 beginYear = dt.getFullYear();
                 dt.setMonth(endMonth - 1);
                 beginMonth = dt.getMonth();
                 beginDay = dt.getDate();
-            } else if (search_period == 'two_month') {
+            } else if (searchPeriod == 'twoMonth') {
                 beginYear = dt.getFullYear();
                 dt.setMonth(endMonth - 2);
                 beginMonth = dt.getMonth();
                 beginDay = dt.getDate();
-            } else if (search_period == 'three_month') {
+            } else if (searchPeriod == 'threeMonth') {
                 beginYear = dt.getFullYear();
                 dt.setMonth(endMonth - 3);
                 beginMonth = dt.getMonth();
                 beginDay = dt.getDate();
-            } else if (search_period == 'four_month') {
+            } else if (searchPeriod == 'fourMonth') {
                 beginYear = dt.getFullYear();
                 dt.setMonth(endMonth - 4);
                 beginMonth = dt.getMonth();
@@ -122,19 +123,18 @@
             return beginDate + "," + endDate;
         }
 
-        function fn_modify_order_state(order_id, select_id) {
-            var s_delivery_state = document.getElementById(select_id);
-            var index = s_delivery_state.selectedIndex;
-            var value = s_delivery_state[index].value;
-            //console.log("value: "+value );
+        function fnModifyOrderState(orderId, selectId) {
+            var sDeliveryState = document.getElementById(selectId);
+            var index = sDeliveryState.selectedIndex;
+            var value = sDeliveryState[index].value;
 
             $.ajax({
                 type: "post",
                 async: false,
                 url: "${contextPath}/admin/order/modifyDeliveryState.do",
                 data: {
-                    order_id: order_id,
-                    "delivery_state": value
+                    orderId: orderId,
+                    "deliveryState": value
                 },
                 success: function (data, textStatus) {
                     if (data.trim() == 'mod_success') {
@@ -155,56 +155,51 @@
             }); //end ajax
         }
 
-        function fn_enable_detail_search(r_search) {
-            var frm_delivery_list = document.frm_delivery_list;
-            t_beginYear = frm_delivery_list.beginYear;
-            t_beginMonth = frm_delivery_list.beginMonth;
-            t_beginDay = frm_delivery_list.beginDay;
-            t_endYear = frm_delivery_list.endYear;
-            t_endMonth = frm_delivery_list.endMonth;
-            t_endDay = frm_delivery_list.endDay;
-            s_search_type = frm_delivery_list.s_search_type;
-            t_search_word = frm_delivery_list.t_search_word;
-            btn_search = frm_delivery_list.btn_search;
+        function fnEnableDetailSearch(rSearch) {
+            var frmDeliveryList = document.frmDeliveryList;
+            tBeginYear = frmDeliveryList.beginYear;
+            tBeginMonth = frmDeliveryList.beginMonth;
+            tBeginDay = frmDeliveryList.beginDay;
+            tEndYear = frmDeliveryList.endYear;
+            tEndMonth = frmDeliveryList.endMonth;
+            tEndDay = frmDeliveryList.endDay;
+            btnSearchType = frmDeliveryList.btnSearchType;
+            btnSearchWord = frmDeliveryList.btnSearchWord;
+            btnSearch = frmDeliveryList.btnSearch;
 
-            if (r_search.value == 'detail_search') {
-                //alert(r_search.value);
-                t_beginYear.disabled = false;
-                t_beginMonth.disabled = false;
-                t_beginDay.disabled = false;
-                t_endYear.disabled = false;
-                t_endMonth.disabled = false;
-                t_endDay.disabled = false;
-
-                s_search_type.disabled = false;
-                t_search_word.disabled = false;
-                btn_search.disabled = false;
+            if (rSearch.value == 'detailSearch') {
+                tBeginYear.disabled = false;
+                tBeginMonth.disabled = false;
+                tBeginDay.disabled = false;
+                tEndYear.disabled = false;
+                tEndMonth.disabled = false;
+                tEndDay.disabled = false;
+                btnSearchType.disabled = false;
+                btnSearchWord.disabled = false;
+                btnSearch.disabled = false;
             } else {
-                t_beginYear.disabled = true;
-                t_beginMonth.disabled = true;
-                t_beginDay.disabled = true;
-                t_endYear.disabled = true;
-                t_endMonth.disabled = true;
-                t_endDay.disabled = true;
-
-                s_search_type.disabled = true;
-                t_search_word.disabled = true;
-                btn_search.disabled = true;
+                tBeginYear.disabled = true;
+                tBeginMonth.disabled = true;
+                tBeginDay.disabled = true;
+                tEndYear.disabled = true;
+                tEndMonth.disabled = true;
+                tEndDay.disabled = true;
+                btnSearchType.disabled = true;
+                btnSearchWord.disabled = true;
+                btnSearch.disabled = true;
             }
-
         }
 
-        function fn_detail_order(order_id) {
-            //alert(order_id);
-            var frm_delivery_list = document.frm_delivery_list;
+        function fnDetailOrder(orderId) {
 
+            var frmDeliveryList = document.frmDeliveryList;
             var formObj = document.createElement("form");
-            var i_order_id = document.createElement("input");
+            var iOrderId = document.createElement("input");
 
-            i_order_id.name = "order_id";
-            i_order_id.value = order_id;
+            iOrderId.name = "orderId";
+            iOrderId.value = orderId;
 
-            formObj.appendChild(i_order_id);
+            formObj.appendChild(iOrderId);
             document.body.appendChild(formObj);
             formObj.method = "post";
             formObj.action = "${contextPath}/admin/order/orderDetail.do";
@@ -213,63 +208,61 @@
         }
 
         //상세조회 버튼 클릭 시 수행
-        function fn_detail_search() {
-            var frm_delivery_list = document.frm_delivery_list;
+        function fnDetailSearch() {
+            var frmDeliveryList = document.frmDeliveryList;
 
-            beginYear = frm_delivery_list.beginYear.value;
-            beginMonth = frm_delivery_list.beginMonth.value;
-            beginDay = frm_delivery_list.beginDay.value;
-            endYear = frm_delivery_list.endYear.value;
-            endMonth = frm_delivery_list.endMonth.value;
-            endDay = frm_delivery_list.endDay.value;
-            search_type = frm_delivery_list.s_search_type.value;
-            search_word = frm_delivery_list.t_search_word.value;
+            beginYear = frmDeliveryList.beginYear.value;
+            beginMonth = frmDeliveryList.beginMonth.value;
+            beginDay = frmDeliveryList.beginDay.value;
+            endYear = frmDeliveryList.endYear.value;
+            endMonth = frmDeliveryList.endMonth.value;
+            endDay = frmDeliveryList.endDay.value;
+            searchType = frmDeliveryList.btnSearchType.value;
+            searchWord = frmDeliveryList.btnSearchWord.value;
             var formObj = document.createElement("form");
-            var i_command = document.createElement("input");
-            var i_beginDate = document.createElement("input");
-            var i_endDate = document.createElement("input");
-            var i_search_type = document.createElement("input");
-            var i_search_word = document.createElement("input");
+            var iCommand = document.createElement("input");
+            var iBeginDate = document.createElement("input");
+            var iEndDate = document.createElement("input");
+            var iSearchType = document.createElement("input");
+            var iSearchWord = document.createElement("input");
 
-            i_command.name = "command";
-            i_beginDate.name = "beginDate";
-            i_endDate.name = "endDate";
-            i_search_type.name = "search_type";
-            i_search_word.name = "search_word";
+            iCommand.name = "command";
+            iBeginDate.name = "beginDate";
+            iEndDate.name = "endDate";
+            iSearchType.name = "searchType";
+            iSearchWord.name = "searchWord";
+            iCommand.value = "listDetailOrderGoods";
+            iBeginDate.value = beginYear + "-" + beginMonth + "-" + beginDay;
+            iEndDate.value = endYear + "-" + endMonth + "-" + endDay;
+            iSearchType.value = searchType;
+            iSearchWord.value = searchWord;
 
-            i_command.value = "list_detail_order_goods";
-            i_beginDate.value = beginYear + "-" + beginMonth + "-" + beginDay;
-            i_endDate.value = endYear + "-" + endMonth + "-" + endDay;
-            i_search_type.value = search_type;
-            i_search_word.value = search_word;
-
-            formObj.appendChild(i_command);
-            formObj.appendChild(i_beginDate);
-            formObj.appendChild(i_endDate);
-            formObj.appendChild(i_search_type);
-            formObj.appendChild(i_search_word);
+            formObj.appendChild(iCommand);
+            formObj.appendChild(iBeginDate);
+            formObj.appendChild(iEndDate);
+            formObj.appendChild(iSearchType);
+            formObj.appendChild(iSearchWord);
             document.body.appendChild(formObj);
             formObj.method = "post";
             formObj.action = "${contextPath}/admin/order/detailOrder.do";
             formObj.submit();
-            //alert("submit");
-
         }
     </script>
 </head>
 <body>
-<H3>주문 조회</H3>
-<form name="frm_delivery_list" action="${contextPath }/admin/order/adminOrderMain.do" method="post">
+
+<h3>주문 조회</h3>
+<form name="frmDeliveryList" action="${contextPath }/admin/order/adminOrderMain.do" method="post">
     <table>
         <tbody>
+
         <tr>
             <td>
-                <input type="radio" name="r_search_option" value="simple_search" checked
-                       onClick="fn_enable_detail_search(this)"/> 간단조회 &nbsp;&nbsp;&nbsp;
-                <input type="radio" name="r_search_option" value="detail_search"
-                       onClick="fn_enable_detail_search(this)"/> 상세조회 &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="rSearchOption" value="simpleSearch" checked onClick="fnEnableDetailSearch(this)"/> 간단조회 &nbsp;&nbsp;&nbsp;
+                <input type="radio" name="rSearchOption" value="detailSearch" onClick="fnEnableDetailSearch(this)"/> 상세조회 &nbsp;&nbsp;&nbsp;
             </td>
         </tr>
+
         <tr>
             <td>
                 <select name="curYear">
@@ -283,18 +276,20 @@
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
-                </select>년 <select name="curMonth">
-                <c:forEach var="i" begin="1" end="12">
-                    <c:choose>
-                        <c:when test="${endMonth==i }">
-                            <option value="${i }" selected>${i }</option>
-                        </c:when>
-                        <c:otherwise>
-                            <option value="${i }">${i }</option>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </select>월
+                </select>년
+
+                <select name="curMonth">
+                    <c:forEach var="i" begin="1" end="12">
+                        <c:choose>
+                            <c:when test="${endMonth==i }">
+                                <option value="${i }" selected>${i }</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${i }">${i }</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </select>월
 
                 <select name="curDay">
                     <c:forEach var="i" begin="1" end="31">
@@ -308,13 +303,14 @@
                         </c:choose>
                     </c:forEach>
                 </select>일 &nbsp;이전&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="javascript:search_order_history('today')">         <img src="${contextPath}/image/btn_search_one_day.jpg"></a>
-                <a href="javascript:search_order_history('one_week')">      <img src="${contextPath}/image/btn_search_1_week.jpg"></a>
-                <a href="javascript:search_order_history('two_week')">      <img src="${contextPath}/image/btn_search_2_week.jpg"></a>
-                <a href="javascript:search_order_history('one_month')">     <img src="${contextPath}/image/btn_search_1_month.jpg"></a>
-                <a href="javascript:search_order_history('two_month')">     <img src="${contextPath}/image/btn_search_2_month.jpg"></a>
-                <a href="javascript:search_order_history('three_month')">   <img src="${contextPath}/image/btn_search_3_month.jpg"></a>
-                <a href="javascript:search_order_history('four_month')">    <img src="${contextPath}/image/btn_search_4_month.jpg"></a>
+
+                <a href="javascript:searchOrderHistory('today')">         <img src="${contextPath}/image/btn_search_one_day.jpg"></a>
+                <a href="javascript:searchOrderHistory('oneWeek')">      <img src="${contextPath}/image/btn_search_1_week.jpg"></a>
+                <a href="javascript:searchOrderHistory('twoWeek')">      <img src="${contextPath}/image/btn_search_2_week.jpg"></a>
+                <a href="javascript:searchOrderHistory('oneMonth')">     <img src="${contextPath}/image/btn_search_1_month.jpg"></a>
+                <a href="javascript:searchOrderHistory('twoMonth')">     <img src="${contextPath}/image/btn_search_2_month.jpg"></a>
+                <a href="javascript:searchOrderHistory('threeMonth')">   <img src="${contextPath}/image/btn_search_3_month.jpg"></a>
+                <a href="javascript:searchOrderHistory('fourMonth')">    <img src="${contextPath}/image/btn_search_4_month.jpg"></a>
                 &nbsp;까지 조회
             </td>
         </tr>
@@ -334,6 +330,7 @@
                         </c:choose>
                     </c:forEach>
                 </select>년
+
                 <select name="beginMonth" disabled>
                     <c:forEach var="i" begin="1" end="12">
                         <c:choose>
@@ -353,6 +350,7 @@
                         </c:choose>
                     </c:forEach>
                 </select>월
+
                 <select name="beginDay" disabled>
                     <c:forEach var="i" begin="1" end="31">
                         <c:choose>
@@ -385,6 +383,7 @@
                         </c:choose>
                     </c:forEach>
                 </select>년
+
                 <select name="endMonth" disabled>
                     <c:forEach var="i" begin="1" end="12">
                         <c:choose>
@@ -404,6 +403,7 @@
                         </c:choose>
                     </c:forEach>
                 </select>월
+
                 <select name="endDay" disabled>
                     <c:forEach var="i" begin="1" end="31">
                         <c:choose>
@@ -426,25 +426,27 @@
 
             </td>
         </tr>
+
         <tr>
             <td>
-                <select name="s_search_type" disabled>
+                <select name="btnSearchType" disabled>
                     <option value="all" checked>전체</option>
-                    <option value="orderer_name">주문자이름</option>
-                    <option value="orderer_id">주문자아이디</option>
-                    <option value="orderer_hp">주문자휴대폰번호</option>
-                    <option value="orderer_goods">주문상품품명</option>
+                    <option value="ordererName">주문자이름</option>
+                    <option value="ordererId">주문자아이디</option>
+                    <option value="ordererHp">주문자휴대폰번호</option>
+                    <option value="ordererGoods">주문상품품명</option>
                 </select>
-                <input type="text" size="30" name="t_search_word" disabled/>
-                <input type="button" value="조회" name="btn_search" onClick="fn_detail_search()" disabled/>
+                <input type="text" size="30" name="btnSearchWord" disabled/>
+                <input type="button" value="조회" name="btnSearch" onClick="fnDetailSearch()" disabled/>
             </td>
         </tr>
+
         </tbody>
     </table>
-    <div class="clear">
-    </div>
 
     <div class="clear"></div>
+    <div class="clear"></div>
+
     <table class="list_view">
         <tbody align=center>
         <tr style="background:#33ff00">
@@ -465,92 +467,101 @@
             <c:otherwise>
                 <c:forEach var="item" items="${newOrderList}" varStatus="i">
                     <c:choose>
-                        <c:when test="${item.order_id != pre_order_id }">
+                        <c:when test="${item.orderId != preOrderId }">
                             <c:choose>
-                                <c:when test="${item.delivery_state=='delivery_prepared' }">
+                                <c:when test="${item.deliveryState=='deliveryPrepared' }">
                                     <tr bgcolor="lightgreen">
                                 </c:when>
-                                <c:when test="${item.delivery_state=='finished_delivering' }">
+                                <c:when test="${item.deliveryState=='finishedDelivering' }">
                                     <tr bgcolor="lightgray">
                                 </c:when>
                                 <c:otherwise>
                                     <tr bgcolor="orange">
                                 </c:otherwise>
                             </c:choose>
+
                             <td width=10%>
-                                <a href="javascript:fn_detail_order('${item.order_id}')">
-                                    <strong>${item.order_id}</strong>
+                                <a href="javascript:fnDetailOrder('${item.orderId}')">
+                                    <strong>${item.orderId}</strong>
                                 </a>
                             </td>
-                            <td width=20%>
-                                <strong>${item.pay_order_time }</strong>
-                            </td>
+
+                            <td width=20%><strong>${item.payOrderTime }</strong></td>
+
                             <td width=50% align=left>
-                                <strong>주문자:${item.orderer_name}</strong><br>
-                                <strong>주문자 번화번호:${item.orderer_hp}</strong><br>
-                                <strong>수령자:${item.receiver_name}</strong><br>
-                                <strong>수령자 번화번호:${item.receiver_hp1}-${item.receiver_hp2}-${item.receiver_hp3}</strong><br>
-                                <strong>주문상품명(수량):${item.goods_title}(${item.order_goods_qty})</strong><br>
+                                <strong>주문자:${item.ordererName}</strong><br>
+                                <strong>주문자 번화번호:${item.ordererHp}</strong><br>
+                                <strong>수령자:${item.receiverName}</strong><br>
+                                <strong>수령자 번화번호:${item.receiverHp1}-${item.receiverHp2}-${item.receiverHp3}</strong><br>
+                                <strong>주문상품명(수량):${item.goodsTitle}(${item.orderGoodsQty})</strong><br>
+
                                 <c:forEach var="item2" items="${newOrderList}" varStatus="j">
                                     <c:if test="${j.index > i.index }">
-                                        <c:if test="${item.order_id ==item2.order_id}">
-                                            <strong>주문상품명(수량):${item2.goods_title}(${item2.order_goods_qty})</strong><br>
+                                        <c:if test="${item.orderId ==item2.orderId}">
+                                            <strong>주문상품명(수량):${item2.goodsTitle}(${item2.orderGoodsQty})</strong><br>
                                         </c:if>
                                     </c:if>
                                 </c:forEach>
                             </td>
+
                             <td width=10%>
-                                <select name="s_delivery_state${i.index }" id="s_delivery_state${i.index }">
+                                <select name="sDeliveryState${i.index }" id="sDeliveryState${i.index }">
                                     <c:choose>
-                                        <c:when test="${item.delivery_state=='delivery_prepared' }">
-                                            <option value="delivery_prepared" selected>배송준비중</option>
+                                        <c:when test="${item.deliveryState=='deliveryPrepared' }">
+                                            <option value="deliveryPrepared" selected>배송준비중</option>
                                             <option value="delivering">배송중</option>
-                                            <option value="finished_delivering">배송완료</option>
-                                            <option value="cancel_order">주문취소</option>
-                                            <option value="returning_goods">반품</option>
+                                            <option value="finishedDelivering">배송완료</option>
+                                            <option value="cancelOrder">주문취소</option>
+                                            <option value="returningGoods">반품</option>
                                         </c:when>
-                                        <c:when test="${item.delivery_state=='delivering' }">
-                                            <option value="delivery_prepared">배송준비중</option>
+
+                                        <c:when test="${item.deliveryState=='delivering' }">
+                                            <option value="deliveryPrepared">배송준비중</option>
                                             <option value="delivering" selected>배송중</option>
-                                            <option value="finished_delivering">배송완료</option>
-                                            <option value="cancel_order">주문취소</option>
-                                            <option value="returning_goods">반품</option>
+                                            <option value="finishedDelivering">배송완료</option>
+                                            <option value="cancelOrder">주문취소</option>
+                                            <option value="returningGoods">반품</option>
                                         </c:when>
-                                        <c:when test="${item.delivery_state=='finished_delivering' }">
-                                            <option value="delivery_prepared">배송준비중</option>
+
+                                        <c:when test="${item.deliveryState=='finishedDelivering' }">
+                                            <option value="deliveryPrepared">배송준비중</option>
                                             <option value="delivering">배송중</option>
-                                            <option value="finished_delivering" selected>배송완료</option>
-                                            <option value="cancel_order">주문취소</option>
-                                            <option value="returning_goods">반품</option>
+                                            <option value="finishedDelivering" selected>배송완료</option>
+                                            <option value="cancelOrder">주문취소</option>
+                                            <option value="returningGoods">반품</option>
                                         </c:when>
-                                        <c:when test="${item.delivery_state=='cancel_order' }">
-                                            <option value="delivery_prepared">배송준비중</option>
+
+                                        <c:when test="${item.deliveryState=='cancelOrder' }">
+                                            <option value="deliveryPrepared">배송준비중</option>
                                             <option value="delivering">배송중</option>
-                                            <option value="finished_delivering">배송완료</option>
-                                            <option value="cancel_order" selected>주문취소</option>
-                                            <option value="returning_goods">반품</option>
+                                            <option value="finishedDelivering">배송완료</option>
+                                            <option value="cancelOrder" selected>주문취소</option>
+                                            <option value="returningGoods">반품</option>
                                         </c:when>
-                                        <c:when test="${item.delivery_state=='returning_goods' }">
-                                            <option value="delivery_prepared">배송준비중</option>
+
+                                        <c:when test="${item.deliveryState=='returningGoods' }">
+                                            <option value="deliveryPrepared">배송준비중</option>
                                             <option value="delivering">배송중</option>
-                                            <option value="finished_delivering">배송완료</option>
-                                            <option value="cancel_order">주문취소</option>
-                                            <option value="returning_goods" selected>반품</option>
+                                            <option value="finishedDelivering">배송완료</option>
+                                            <option value="cancelOrder">주문취소</option>
+                                            <option value="returningGoods" selected>반품</option>
                                         </c:when>
                                     </c:choose>
                                 </select>
                             </td>
+
                             <td width=10%>
-                                <input type="button" value="배송수정"
-                                       onClick="fn_modify_order_state('${item.order_id}','s_delivery_state${i.index}')"/>
+                                <input type="button" value="배송수정" onClick="fnModifyOrderState('${item.orderId}','sDeliveryState${i.index}')"/>
                             </td>
+
                             </tr>
                         </c:when>
                     </c:choose>
-                    <c:set var="pre_order_id" value="${item.order_id }"/>
+                    <c:set var="preOrderId" value="${item.orderId }"/>
                 </c:forEach>
             </c:otherwise>
         </c:choose>
+
         <tr>
             <td colspan=8 class="fixed">
                 <c:forEach var="page" begin="1" end="10" step="1">
@@ -565,6 +576,7 @@
                 </c:forEach>
             </td>
         </tr>
+
         </tbody>
     </table>
 </form>

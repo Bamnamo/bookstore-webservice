@@ -7,7 +7,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <c:if test="${message=='cancel_order'}">
+
+    <c:if test="${message=='cancelOrder'}">
         <script>
             window.onload = function () {
                 init();
@@ -18,17 +19,18 @@
             }
         </script>
     </c:if>
+
     <script>
-        function fn_cancel_order(order_id) {
+        function fnCancelOrder(orderId) {
             var answer = confirm("주문을 취소하시겠습니까?");
             if (answer == true) {
                 var formObj = document.createElement("form");
-                var i_order_id = document.createElement("input");
+                var iOrderId = document.createElement("input");
 
-                i_order_id.name = "order_id";
-                i_order_id.value = order_id;
+                iOrderId.name = "orderId";
+                iOrderId.value = orderId;
 
-                formObj.appendChild(i_order_id);
+                formObj.appendChild(iOrderId);
                 document.body.appendChild(formObj);
                 formObj.method = "post";
                 formObj.action = "${contextPath}/mypage/cancelMyOrder.do";
@@ -36,11 +38,15 @@
             }
         }
     </script>
+
 </head>
+
 <body>
+
 <h1>최근주문내역
     <A href="#"> <IMG src="${contextPath}/image/btn_more_see.jpg"> </A>
 </h1>
+
 <table class="list_view">
     <tbody align=center>
     <tr style="background:#33ff00">
@@ -59,57 +65,65 @@
             </tr>
         </c:when>
         <c:otherwise>
+
             <c:forEach var="item" items="${myOrderList }" varStatus="i">
+
                 <c:choose>
-                    <c:when test="${ pre_order_id != item.order_id}">
+                    <c:when test="${ preOrderId != item.orderId}">
                         <c:choose>
-                            <c:when test="${item.delivery_state=='delivery_prepared' }">
+                            <c:when test="${item.deliveryState=='deliveryPrepared' }">
                                 <tr bgcolor="lightgreen">
                             </c:when>
-                            <c:when test="${item.delivery_state=='finished_delivering' }">
+                            <c:when test="${item.deliveryState=='finishedDelivering' }">
                                 <tr bgcolor="lightgray">
                             </c:when>
                             <c:otherwise>
                                 <tr bgcolor="orange">
                             </c:otherwise>
                         </c:choose>
+
                         <tr>
                             <td>
-                                <a href="${contextPath}/mypage/myOrderDetail.do?order_id=${item.order_id }"><span>${item.order_id }</span>
+                                <a href="${contextPath}/mypage/myOrderDetail.do?orderId=${item.orderId }"><span>${item.orderId }</span>
                                 </a>
                             </td>
-                            <td><span>${item.pay_order_time }</span></td>
+
+                            <td><span>${item.payOrderTime }</span></td>
+
                             <td align="left">
                                 <strong>
                                     <c:forEach var="item2" items="${myOrderList}" varStatus="j">
-                                        <c:if test="${item.order_id ==item2.order_id}">
-                                            <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item2.goods_id }">${item2.goods_title }/${item.order_goods_qty }개</a><br>
+                                        <c:if test="${item.orderId ==item2.orderId}">
+                                            <a href="${contextPath}/goods/goodsDetail.do?goodsId=${item2.goodsId }">${item2.goodsTitle }/${item.orderGoodsQty }개</a><br>
                                         </c:if>
                                     </c:forEach>
-                                </strong></td>
+                                </strong>
+                            </td>
+
                             <td>
                                 <c:choose>
-                                    <c:when test="${item.delivery_state=='delivery_prepared' }"> 배송준비중 </c:when>
-                                    <c:when test="${item.delivery_state=='delivering' }"> 배송중 </c:when>
-                                    <c:when test="${item.delivery_state=='finished_delivering' }">배송완료 </c:when>
-                                    <c:when test="${item.delivery_state=='cancel_order' }"> 주문취소 </c:when>
-                                    <c:when test="${item.delivery_state=='returning_goods' }"> 반품완료 </c:when>
+                                    <c:when test="${item.deliveryState=='deliveryPrepared' }"> 배송준비중 </c:when>
+                                    <c:when test="${item.deliveryState=='delivering' }"> 배송중 </c:when>
+                                    <c:when test="${item.deliveryState=='finishedDelivering' }">배송완료 </c:when>
+                                    <c:when test="${item.deliveryState=='cancelOrder' }"> 주문취소 </c:when>
+                                    <c:when test="${item.deliveryState=='returningGoods' }"> 반품완료 </c:when>
                                 </c:choose>
                             </td>
+
                             <td>
                                 <c:choose>
-                                    <c:when test="${item.delivery_state=='delivery_prepared'}">
-                                        <input type="button" onClick="fn_cancel_order('${item.order_id}')"
-                                               value="주문취소"/>
+                                    <c:when test="${item.deliveryState=='deliveryPrepared'}">
+                                        <input type="button" onClick="fnCancelOrder('${item.orderId}')" value="주문취소"/>
                                     </c:when>
                                     <c:otherwise>
-                                        <input type="button" onClick="fn_cancel_order('${item.order_id}')" value="주문취소"
-                                               disabled/>
+                                        <input type="button" onClick="fnCancelOrder('${item.orderId}')" value="주문취소" disabled/>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
+
                         </tr>
-                        <c:set var="pre_order_id" value="${item.order_id}"/>
+
+                        <c:set var="preOrderId" value="${item.orderId}"/>
                     </c:when>
                 </c:choose>
             </c:forEach>

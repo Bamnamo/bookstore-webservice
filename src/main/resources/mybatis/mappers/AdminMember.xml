@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.admin.member">
+    <resultMap id="memberResult" type="MemberVO">
+        <result property="memberId" column="member_id"/>
+        <result property="memberPw" column="member_pw"/>
+        <result property="memberName" column="member_name"/>
+        <result property="memberGender" column="member_gender"/>
+        <result property="memberBirthY" column="member_birth_y"/>
+        <result property="memberBirthM" column="member_birth_m"/>
+        <result property="memberBirthD" column="member_birth_d"/>
+        <result property="memberBirthGn" column="member_birth_gn"/>
+        <result property="tel1" column="tel1"/>
+        <result property="tel2" column="tel2"/>
+        <result property="tel3" column="tel3"/>
+        <result property="hp1" column="hp1"/>
+        <result property="hp2" column="hp2"/>
+        <result property="hp3" column="hp3"/>
+        <result property="smsstsYn" column="smssts_yn"/>
+        <result property="email1" column="email1"/>
+        <result property="email2" column="email2"/>
+        <result property="emailstsYn" column="emailsts_yn"/>
+        <result property="zipCode" column="zipcode"/>
+        <result property="roadAddress" column="roadAddress"/>
+        <result property="jibunAddress" column="jibunAddress"/>
+        <result property="namujiAddress" column="namujiAddress"/>
+        <result property="joinDate" column="joinDate"/>
+        <result property="delYn" column="del_yn"/>
+    </resultMap>
+
+    <select id="listMember" resultMap="memberResult" parameterType="java.util.HashMap">
+        <![CDATA[
+        select * from t_shopping_member order by joinDate desc
+        ]]>
+    </select>
+
+    <select id="memberDetail" resultMap="memberResult" parameterType="String">
+	    <![CDATA[
+                    select * from t_shopping_member
+                    where member_id=#{memberId}
+        ]]>
+	</select>
+
+
+    <update id="updateMemberInfo" parameterType="java.util.HashMap">
+        update t_shopping_member
+        <set>
+            <if test=" memberName!='' and memberName!=null">
+                member_name=#{memberName},
+            </if>
+            <if test=" memberPw!='' and memberPw!=null">
+                member_pw=#{memberPw},
+            </if>
+            <if test=" memberGender!='' and memberGender!=null">
+                member_gender=#{memberGender},
+            </if>
+            <if test=" memberBirthY!='' and memberBirthY!=null">
+                member_birth_y=#{memberBirthY},
+            </if>
+            <if test=" memberBirthM!='' and memberBirthM!=null">
+                member_birth_m=#{memberBirthM},
+            </if>
+            <if test=" memberBirthD!='' and memberBirthD!=null">
+                member_birth_d=#{memberBirthD},
+            </if>
+            <if test=" tel1!='' and tel1!=null">
+                tel1=#{tel1},
+            </if>
+            <if test=" tel2!='' and tel2!=null">
+                tel2=#{tel2},
+            </if>
+            <if test=" tel3!='' and tel3!=null">
+                tel3=#{tel3},
+            </if>
+            <if test=" hp1!='' and hp1!=null">
+                hp1=#{hp1},
+            </if>
+            <if test=" hp2!='' and hp2!=null">
+                hp2=#{hp2},
+            </if>
+            <if test=" hp3!='' and hp3!=null">
+                hp3=#{hp3},
+            </if>
+            <if test=" smsstsYn!='' and smsstsYn!=null">
+                smssts_yn=#{smsstsYn},
+            </if>
+            <if test=" email1!='' and email1!=null">
+                email1=#{email1},
+            </if>
+            <if test=" email2!='' and email2!=null">
+                email2=#{email2},
+            </if>
+            <if test=" emailstsYn!='' and emailstsYn!=null">
+                emailsts_yn=#{emailstsYn},
+            </if>
+            <if test=" zipCode!='' and zipCode!=null">
+                zipcode=#{zipCode},
+            </if>
+            <if test=" roadAddress!='' and roadAddress!=null">
+                roadAddress=#{roadAddress},
+            </if>
+            <if test=" jibunAddress!='' and jibunAddress!=null">
+                jibunAddress=#{jibunAddress},
+            </if>
+            <if test=" namujiAddress!='' and namujiAddress!=null">
+                namujiAddress=#{namujiAddress}
+            </if>
+            <if test=" delYn!='' and delYn!=null">
+                del_yn=#{delYn}
+            </if>
+        </set>
+        where
+        member_id=#{memberId}
+    </update>
+
+    <update id="updatePassWord" parameterType="MemberVO">
+        <![CDATA[
+        update t_shopping_member
+        set member_pw=#{memberPw}
+        where member_id=#{memberId}
+        ]]>
+    </update>
+</mapper>

@@ -2,20 +2,21 @@
          pageEncoding="utf-8"
          isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<!-- 주문자 휴대폰 번호 -->
-<c:set var="orderer_hp" value=""/>
-<!-- 최종 결제 금액 -->
-<c:set var="final_total_order_price" value="0"/>
 
+<!-- 주문자 휴대폰 번호 -->
+<c:set var="ordererHp" value=""/>
+<!-- 최종 결제 금액 -->
+<c:set var="finalTotalOrderPrice" value="0"/>
 <!-- 총주문 금액 -->
-<c:set var="total_order_price" value="0"/>
+<c:set var="totalOrderPrice" value="0"/>
 <!-- 총 상품수 -->
-<c:set var="total_order_goods_qty" value="0"/>
+<c:set var="totalOrderGoodsQty" value="0"/>
 <!-- 총할인금액 -->
-<c:set var="total_discount_price" value="0"/>
+<c:set var="totalDiscountPrice" value="0"/>
 <!-- 총 배송비 -->
-<c:set var="total_delivery_price" value="0"/>
+<c:set var="totalDeliveryPrice" value="2500"/>
 
 <head>
     <style>
@@ -25,10 +26,9 @@
             top: 0px;
             left: 0px;
             width: 100%;
-            /* background-color:rgba(0,0,0,0.8); */
         }
 
-        #popup_order_detail {
+        #popupOrderDetail {
             z-index: 3;
             position: fixed;
             text-align: center;
@@ -74,7 +74,7 @@
                         fullRoadAddr += extraRoadAddr;
                     }
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
+                    document.getElementById('zipCode').value = data.zonecode; //5자리 새우편번호 사용
                     document.getElementById('roadAddress').value = fullRoadAddr;
                     document.getElementById('jibunAddress').value = data.jibunAddress;
                     // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
@@ -97,93 +97,92 @@
         }
 
         function init() {
-            var form_order = document.form_order;
-            var h_tel1 = form_order.h_tel1;
-            var h_hp1 = form_order.h_hp1;
-            var tel1 = h_tel1.value;
-            var hp1 = h_hp1.value;
-            var select_tel1 = form_order.tel1;
-            var select_hp1 = form_order.hp1;
-            select_tel1.value = tel1;
-            select_hp1.value = hp1;
+            var formOrder = document.formOrder;
+            var hTel1 = formOrder.hTel1;
+            var hHp1 = formOrder.hHp1;
+            var tel1 = hTel1.value;
+            var hp1 = hHp1.value;
+            var selectTel1 = formOrder.tel1;
+            var selectHp1 = formOrder.hp1;
+            selectTel1.value = tel1;
+            selectHp1.value = hp1;
         }
 
-        function reset_all() {
-            var e_receiver_name = document.getElementById("receiver_name");
-            var e_hp1 = document.getElementById("hp1");
-            var e_hp2 = document.getElementById("hp2");
-            var e_hp3 = document.getElementById("hp3");
-            var e_tel1 = document.getElementById("tel1");
-            var e_tel2 = document.getElementById("tel2");
-            var e_tel3 = document.getElementById("tel3");
-            var e_zipcode = document.getElementById("zipcode");
-            var e_roadAddress = document.getElementById("roadAddress");
-            var e_jibunAddress = document.getElementById("jibunAddress");
-            var e_namujiAddress = document.getElementById("namujiAddress");
-            e_receiver_name.value = "";
-            e_hp1.value = 0;
-            e_hp2.value = "";
-            e_hp3.value = "";
-            e_tel1.value = "";
-            e_tel2.value = "";
-            e_tel3.value = "";
-            e_zipcode.value = "";
-            e_roadAddress.value = "";
-            e_jibunAddress.value = "";
-            e_namujiAddress.value = "";
+        function resetAll() {
+            var eReceiverName = document.getElementById("receiverName");
+            var eHp1 = document.getElementById("hp1");
+            var eHp2 = document.getElementById("hp2");
+            var eHp3 = document.getElementById("hp3");
+            var eTel1 = document.getElementById("tel1");
+            var eTel2 = document.getElementById("tel2");
+            var eTel3 = document.getElementById("tel3");
+            var eZipCode = document.getElementById("zipCode");
+            var eRoadAddress = document.getElementById("roadAddress");
+            var eJibunAddress = document.getElementById("jibunAddress");
+            var eNamujiAddress = document.getElementById("namujiAddress");
+            eReceiverName.value = "";
+            eHp1.value = 0;
+            eHp2.value = "";
+            eHp3.value = "";
+            eTel1.value = "";
+            eTel2.value = "";
+            eTel3.value = "";
+            eZipCode.value = "";
+            eRoadAddress.value = "";
+            eJibunAddress.value = "";
+            eNamujiAddress.value = "";
         }
 
-        function restore_all() {
-            var e_receiver_name = document.getElementById("receiver_name");
-            var e_hp1 = document.getElementById("hp1");
-            var e_hp2 = document.getElementById("hp2");
-            var e_hp3 = document.getElementById("hp3");
-            var e_tel1 = document.getElementById("tel1");
-            var e_tel2 = document.getElementById("tel2");
-            var e_tel3 = document.getElementById("tel3");
-            var e_zipcode = document.getElementById("zipcode");
-            var e_roadAddress = document.getElementById("roadAddress");
-            var e_jibunAddress = document.getElementById("jibunAddress");
-            var e_namujiAddress = document.getElementById("namujiAddress");
-            var h_receiver_name = document.getElementById("h_receiver_name");
-            var h_hp1 = document.getElementById("h_hp1");
-            var h_hp2 = document.getElementById("h_hp2");
-            var h_hp3 = document.getElementById("h_hp3");
-            var h_tel1 = document.getElementById("h_tel1");
-            var h_tel2 = document.getElementById("h_tel2");
-            var h_tel3 = document.getElementById("h_tel3");
-            var h_zipcode = document.getElementById("h_zipcode");
-            var h_roadAddress = document.getElementById("h_roadAddress");
-            var h_jibunAddress = document.getElementById("h_jibunAddress");
-            var h_namujiAddress = document.getElementById("h_namujiAddress");
-            //alert(e_receiver_name.value);
-            e_receiver_name.value = h_receiver_name.value;
-            e_hp1.value = h_hp1.value;
-            e_hp2.value = h_hp2.value;
-            e_hp3.value = h_hp3.value;
-            e_tel1.value = h_tel1.value;
-            e_tel2.value = h_tel2.value;
-            e_tel3.value = h_tel3.value;
-            e_zipcode.value = h_zipcode.value;
-            e_roadAddress.value = h_roadAddress.value;
-            e_jibunAddress.value = h_jibunAddress.value;
-            e_namujiAddress.value = h_namujiAddress.value;
+        function restoreAll() {
+            var eReceiverName = document.getElementById("receiverName");
+            var eHp1 = document.getElementById("hp1");
+            var eHp2 = document.getElementById("hp2");
+            var eHp3 = document.getElementById("hp3");
+            var eTel1 = document.getElementById("tel1");
+            var eTel2 = document.getElementById("tel2");
+            var eTel3 = document.getElementById("tel3");
+            var eZipCode = document.getElementById("zipCode");
+            var eRoadAddress = document.getElementById("roadAddress");
+            var eJibunAddress = document.getElementById("jibunAddress");
+            var eNamujiAddress = document.getElementById("namujiAddress");
+            var hReceiverName = document.getElementById("hReceiverName");
+            var hHp1 = document.getElementById("hHp1");
+            var hHp2 = document.getElementById("hHp2");
+            var hHp3 = document.getElementById("hHp3");
+            var hTel1 = document.getElementById("hTel1");
+            var hTel2 = document.getElementById("hTel2");
+            var hTel3 = document.getElementById("hTel3");
+            var hZipCode = document.getElementById("hZipCode");
+            var hRoadAddress = document.getElementById("hRoadAddress");
+            var hJibunAddress = document.getElementById("hJibunAddress");
+            var hNamujiAddress = document.getElementById("hNamujiAddress");
+
+            eReceiverName.value = hReceiverName.value;
+            eHp1.value = hHp1.value;
+            eHp2.value = hHp2.value;
+            eHp3.value = hHp3.value;
+            eTel1.value = hTel1.value;
+            eTel2.value = hTel2.value;
+            eTel3.value = hTel3.value;
+            eZipCode.value = hZipCode.value;
+            eRoadAddress.value = hRoadAddress.value;
+            eJibunAddress.value = hJibunAddress.value;
+            eNamujiAddress.value = hNamujiAddress.value;
         }
 
-        function fn_pay_phone() {
+        function fnPayPhone() {
 
-
-            var e_card = document.getElementById("tr_pay_card");
-            var e_phone = document.getElementById("tr_pay_phone");
-            e_card.style.visibility = "hidden";
-            e_phone.style.visibility = "visible";
+            var eCard = document.getElementById("trPayCard");
+            var ePhone = document.getElementById("trPayPhone");
+            eCard.style.visibility = "hidden";
+            ePhone.style.visibility = "visible";
         }
 
-        function fn_pay_card() {
-            var e_card = document.getElementById("tr_pay_card");
-            var e_phone = document.getElementById("tr_pay_phone");
-            e_card.style.visibility = "visible";
-            e_phone.style.visibility = "hidden";
+        function fnPayCard() {
+            var eCard = document.getElementById("trPayCard");
+            var ePhone = document.getElementById("trPayPhone");
+            eCard.style.visibility = "visible";
+            ePhone.style.visibility = "hidden";
         }
 
         function imagePopup(type) {
@@ -198,272 +197,258 @@
             }
         }
 
-        var goods_id = "";
-        var goods_title = "";
-        var goods_fileName = "";
-        var order_goods_qty
-        var each_goods_price;
-        var total_order_goods_price;
-        var total_order_goods_qty;
-        var orderer_name
-        var receiver_name
+        var goodsId = "";
+        var goodsTitle = "";
+        var goodsFileName = "";
+        var orderGoodsQty
+        var eachGoodsPrice;
+        var totalOrderGoodsPrice;
+        var totalOrderGoodsQty;
+        var ordererName
+        var receiverName
         var hp1;
         var hp2;
         var hp3;
         var tel1;
         var tel2;
         var tel3;
-        var receiver_hp_num;
-        var receiver_tel_num;
-        var delivery_address;
-        var delivery_message;
-        var delivery_method;
-        var gift_wrapping;
-        var pay_method;
-        var card_com_name;
-        var card_pay_month;
-        var pay_orderer_hp_num;
+        var receiverHpNum;
+        var receiverTelNum;
+        var deliveryAddress;
+        var deliveryMessage;
+        var deliveryMethod;
+        var giftWrapping;
+        var payMethod;
+        var cardComName;
+        var cardPayMonth;
+        var payOrdererHpNum;
 
-        function fn_show_order_detail() {
-            goods_id = "";
-            goods_title = "";
+        function fnShowOrderDetail() {
+            goodsId = "";
+            goodsTitle = "";
 
-            var frm = document.form_order;
-            var h_goods_id = frm.h_goods_id;
-            var h_goods_title = frm.h_goods_title;
-            var h_goods_fileName = frm.h_goods_fileName;
-            var r_delivery_method = frm.delivery_method;
-            var h_order_goods_qty = document.getElementById("h_order_goods_qty");
-            var h_total_order_goods_qty = document.getElementById("h_total_order_goods_qty");
-            var h_total_sales_price = document.getElementById("h_total_sales_price");
-            var h_final_total_Price = document.getElementById("h_final_total_Price");
-            var h_orderer_name = document.getElementById("h_orderer_name");
-            var i_receiver_name = document.getElementById("receiver_name");
+            var frm = document.formOrder;
+            var hGoodsId = frm.hGoodsId;
+            var hGoodsTitle = frm.hGoodsTitle;
+            var hGoodsFileName = frm.hGoodsFileName;
+            var rDeliveryMethod = frm.deliveryMethod;
+            var hOrderGoodsQty = document.getElementById("hOrderGoodsQty");
+            var hTotalOrderGoodsQty = document.getElementById("hTotalOrderGoodsQty");
+            var hTotalSalesPrice = document.getElementById("hTotalSalesPrice");
+            var hFinalTotalPrice = document.getElementById("hFinalTotalPrice");
+            var hOrdererName = document.getElementById("hOrdererName");
+            var iReceiverName = document.getElementById("receiverName");
 
 
-            if (h_goods_id.length < 2 || h_goods_id.length == null) {
-                goods_id += h_goods_id.value;
+            if (hGoodsId.length < 2 || hGoodsId.length == null) {
+                goodsId += hGoodsId.value;
             } else {
-                for (var i = 0; i < h_goods_id.length; i++) {
-                    goods_id += h_goods_id[i].value + "<br>";
+                for (var i = 0; i < hGoodsId.length; i++) {
+                    goodsId += hGoodsId[i].value + "<br>";
 
                 }
             }
 
-            if (h_goods_title.length < 2 || h_goods_title.length == null) {
-                goods_title += h_goods_title.value;
+            if (hGoodsTitle.length < 2 || hGoodsTitle.length == null) {
+                goodsTitle += hGoodsTitle.value;
             } else {
-                for (var i = 0; i < h_goods_title.length; i++) {
-                    goods_title += h_goods_title[i].value + "<br>";
-
-                }
-            }
-
-
-            if (h_goods_fileName.length < 2 || h_goods_fileName.length == null) {
-                goods_fileName += h_goods_fileName.value;
-            } else {
-                for (var i = 0; i < h_goods_fileName.length; i++) {
-                    goods_fileName += h_goods_fileName[i].value + "<br>";
+                for (var i = 0; i < hGoodsTitle.length; i++) {
+                    goodsTitle += hGoodsTitle[i].value + "<br>";
 
                 }
             }
 
 
-            total_order_goods_price = h_final_total_Price.value;
-            total_order_goods_qty = h_total_order_goods_qty.value;
+            if (hGoodsFileName.length < 2 || hGoodsFileName.length == null) {
+                goodsFileName += hGoodsFileName.value;
+            } else {
+                for (var i = 0; i < hGoodsFileName.length; i++) {
+                    goodsFileName += hGoodsFileName[i].value + "<br>";
 
-            for (var i = 0; i < r_delivery_method.length; i++) {
-                if (r_delivery_method[i].checked == true) {
-                    delivery_method = r_delivery_method[i].value
+                }
+            }
+
+
+            totalOrderGoodsPrice = hFinalTotalPrice.value;
+            totalOrderGoodsQty = hTotalOrderGoodsQty.value;
+
+            for (var i = 0; i < rDeliveryMethod.length; i++) {
+                if (rDeliveryMethod[i].checked == true) {
+                    deliveryMethod = rDeliveryMethod[i].value
                     break;
                 }
             }
 
-            var r_gift_wrapping = frm.gift_wrapping;
+            var rGiftWrapping = frm.giftWrapping;
 
 
-            for (var i = 0; i < r_gift_wrapping.length; i++) {
-                if (r_gift_wrapping[i].checked == true) {
-                    gift_wrapping = r_gift_wrapping[i].value
+            for (var i = 0; i < rGiftWrapping.length; i++) {
+                if (rGiftWrapping[i].checked == true) {
+                    giftWrapping = rGiftWrapping[i].value
                     break;
                 }
             }
 
-            var r_pay_method = frm.pay_method;
+            var rPayMethod = frm.payMethod;
 
-            for (var i = 0; i < r_pay_method.length; i++) {
-                if (r_pay_method[i].checked == true) {
-                    pay_method = r_pay_method[i].value
-                    if (pay_method == "신용카드") {
-                        var i_card_com_name = document.getElementById("card_com_name");
-                        var i_card_pay_month = document.getElementById("card_pay_month");
-                        card_com_name = i_card_com_name.value;
-                        card_pay_month = i_card_pay_month.value;
-                        pay_method += "<Br>" +
-                            "카드사:" + card_com_name + "<br>" +
-                            "할부개월수:" + card_pay_month;
-                        pay_orderer_hp_num = "해당없음";
+            for (var i = 0; i < rPayMethod.length; i++) {
+                if (rPayMethod[i].checked == true) {
+                    payMethod = rPayMethod[i].value
+                    if (payMethod == "신용카드") {
+                        var iCardComName = document.getElementById("cardComName");
+                        var iCardPayMonth = document.getElementById("cardPayMonth");
+                        cardComName = iCardComName.value;
+                        cardPayMonth = iCardPayMonth.value;
+                        payMethod += "<Br>" +
+                            "카드사:" + cardComName + "<br>" +
+                            "할부개월수:" + cardPayMonth;
+                        payOrdererHpNum = "해당없음";
 
-                    } else if (pay_method == "휴대폰결제") {
-                        var i_pay_order_tel1 = document.getElementById("pay_order_tel1");
-                        var i_pay_order_tel2 = document.getElementById("pay_order_tel2");
-                        var i_pay_order_tel3 = document.getElementById("pay_order_tel3");
-                        pay_orderer_hp_num = i_pay_order_tel1.value + "-" +
-                            i_pay_order_tel2.value + "-" +
-                            i_pay_order_tel3.value;
-                        pay_method += "<Br>" + "결제휴대폰번호:" + pay_orderer_hp_num;
-                        card_com_name = "해당없음";
-                        card_pay_month = "해당없음";
+                    } else if (payMethod == "휴대폰결제") {
+                        var iPayOrderTel1 = document.getElementById("payOrderTel1");
+                        var iPayOrderTel2 = document.getElementById("payOrderTel2");
+                        var iPayOrderTel3 = document.getElementById("payOrderTel3");
+                        payOrdererHpNum = iPayOrderTel1.value + "-" +
+                            iPayOrderTel2.value + "-" +
+                            iPayOrderTel3.value;
+                        payMethod += "<Br>" + "결제휴대폰번호:" + payOrdererHpNum;
+                        cardComName = "해당없음";
+                        cardPayMonth = "해당없음";
                     } //end if
                     break;
                 }// end for
             }
 
-            var i_hp1 = document.getElementById("hp1");
-            var i_hp2 = document.getElementById("hp2");
-            var i_hp3 = document.getElementById("hp3");
+            var iHp1 = document.getElementById("hp1");
+            var iHp2 = document.getElementById("hp2");
+            var iHp3 = document.getElementById("hp3");
+            var iTel1 = document.getElementById("tel1");
+            var iTel2 = document.getElementById("tel2");
+            var iTel3 = document.getElementById("tel3");
+            var iZipCode = document.getElementById("zipCode");
+            var iRoadAddress = document.getElementById("roadAddress");
+            var iJibunAddress = document.getElementById("jibunAddress");
+            var iNamujiAddress = document.getElementById("namujiAddress");
+            var iDeliveryMessage = document.getElementById("deliveryMessage");
+            var iPayMethod = document.getElementById("payMethod");
 
-            var i_tel1 = document.getElementById("tel1");
-            var i_tel2 = document.getElementById("tel2");
-            var i_tel3 = document.getElementById("tel3");
+            orderGoodsQty = hOrderGoodsQty.value;
+            ordererName = hOrdererName.value;
+            receiverName = iReceiverName.value;
+            hp1 = iHp1.value;
+            hp2 = iHp2.value;
+            hp3 = iHp3.value;
+            tel1 = iTel1.value;
+            tel2 = iTel2.value;
+            tel3 = iTel3.value;
 
-            var i_zipcode = document.getElementById("zipcode");
-            var i_roadAddress = document.getElementById("roadAddress");
-            var i_jibunAddress = document.getElementById("jibunAddress");
-            var i_namujiAddress = document.getElementById("namujiAddress");
-            var i_delivery_message = document.getElementById("delivery_message");
-            var i_pay_method = document.getElementById("pay_method");
-//	alert("총주문 금액:"+total_order_goods_price);
-            order_goods_qty = h_order_goods_qty.value;
-            //order_total_price=h_order_total_price.value;
+            receiverHpNum = hp1 + "-" + hp2 + "-" + hp3;
+            receiverTelNum = tel1 + "-" + tel2 + "-" + tel3;
 
-            orderer_name = h_orderer_name.value;
-            receiver_name = i_receiver_name.value;
-            hp1 = i_hp1.value;
-            hp2 = i_hp2.value;
-            hp3 = i_hp3.value;
+            deliveryAddress = "우편번호:" + iZipCode.value + "<br>" +
+                "도로명 주소:" + iRoadAddress.value + "<br>" +
+                "[지번 주소:" + iJibunAddress.value + "]<br>" +
+                iNamujiAddress.value;
 
-            tel1 = i_tel1.value;
-            tel2 = i_tel2.value;
-            tel3 = i_tel3.value;
+            deliveryMessage = iDeliveryMessage.value;
 
-            receiver_hp_num = hp1 + "-" + hp2 + "-" + hp3;
-            receiver_tel_num = tel1 + "-" + tel2 + "-" + tel3;
+            var pOrderGoodsId = document.getElementById("pOrderGoodsId");
+            var pOrderGoodsTitle = document.getElementById("pOrderGoodsTitle");
+            var pOrderGoodsQty = document.getElementById("pOrderGoodsQty");
+            var pTotalOrderGoodsQty = document.getElementById("pTotalOrderGoodsQty");
+            var pTotalOrderGoodsPrice = document.getElementById("pTotalOrderGoodsPrice");
+            var pOrdererName = document.getElementById("pOrdererName");
+            var pReceiverName = document.getElementById("pReceiverName");
+            var pDeliveryMethod = document.getElementById("pDeliveryMethod");
+            var pReceiverHpNum = document.getElementById("pReceiverHpNum");
+            var pReceiverTelNum = document.getElementById("pReceiverTelNum");
+            var pDeliveryAddress = document.getElementById("pDeliveryAddress");
+            var pDeliveryMessage = document.getElementById("pDeliveryMessage");
+            var pGiftWrapping = document.getElementById("pGiftWrapping");
+            var pPayMethod = document.getElementById("pPayMethod");
 
-            delivery_address = "우편번호:" + i_zipcode.value + "<br>" +
-                "도로명 주소:" + i_roadAddress.value + "<br>" +
-                "[지번 주소:" + i_jibunAddress.value + "]<br>" +
-                i_namujiAddress.value;
-
-            delivery_message = i_delivery_message.value;
-
-            var p_order_goods_id = document.getElementById("p_order_goods_id");
-            var p_order_goods_title = document.getElementById("p_order_goods_title");
-            var p_order_goods_qty = document.getElementById("p_order_goods_qty");
-            var p_total_order_goods_qty = document.getElementById("p_total_order_goods_qty");
-            var p_total_order_goods_price = document.getElementById("p_total_order_goods_price");
-            var p_orderer_name = document.getElementById("p_orderer_name");
-            var p_receiver_name = document.getElementById("p_receiver_name");
-            var p_delivery_method = document.getElementById("p_delivery_method");
-            var p_receiver_hp_num = document.getElementById("p_receiver_hp_num");
-            var p_receiver_tel_num = document.getElementById("p_receiver_tel_num");
-            var p_delivery_address = document.getElementById("p_delivery_address");
-            var p_delivery_message = document.getElementById("p_delivery_message");
-            var p_gift_wrapping = document.getElementById("p_gift_wrapping");
-            var p_pay_method = document.getElementById("p_pay_method");
-
-            p_order_goods_id.innerHTML = goods_id;
-            p_order_goods_title.innerHTML = goods_title;
-            p_total_order_goods_qty.innerHTML = total_order_goods_qty + "개";
-            p_total_order_goods_price.innerHTML = total_order_goods_price + "원";
-            p_orderer_name.innerHTML = orderer_name;
-            p_receiver_name.innerHTML = receiver_name;
-            p_delivery_method.innerHTML = delivery_method;
-            p_receiver_hp_num.innerHTML = receiver_hp_num;
-            p_receiver_tel_num.innerHTML = receiver_tel_num;
-            p_delivery_address.innerHTML = delivery_address;
-            p_delivery_message.innerHTML = delivery_message;
-            p_gift_wrapping.innerHTML = gift_wrapping;
-            p_pay_method.innerHTML = pay_method;
+            pOrderGoodsId.innerHTML = goodsId;
+            pOrderGoodsTitle.innerHTML = goodsTitle;
+            pTotalOrderGoodsQty.innerHTML = totalOrderGoodsQty + "개";
+            pTotalOrderGoodsPrice.innerHTML = totalOrderGoodsPrice + "원";
+            pOrdererName.innerHTML = ordererName;
+            pReceiverName.innerHTML = receiverName;
+            pDeliveryMethod.innerHTML = deliveryMethod;
+            pReceiverHpNum.innerHTML = receiverHpNum;
+            pReceiverTelNum.innerHTML = receiverTelNum;
+            pDeliveryAddress.innerHTML = deliveryAddress;
+            pDeliveryMessage.innerHTML = deliveryMessage;
+            pGiftWrapping.innerHTML = giftWrapping;
+            pPayMethod.innerHTML = payMethod;
             imagePopup('open');
         }
 
-        function fn_process_pay_order() {
+        function fnProcessPayOrder() {
 
             alert("최종 결제하기");
             var formObj = document.createElement("form");
-            var i_receiver_name = document.createElement("input");
+            var iReceiverName = document.createElement("input");
+            var iReceiverHp1 = document.createElement("input");
+            var iReceiverHp2 = document.createElement("input");
+            var iReceiverHp3 = document.createElement("input");
+            var iReceiverTel1 = document.createElement("input");
+            var iReceiverTel2 = document.createElement("input");
+            var iReceiverTel3 = document.createElement("input");
+            var iDeliveryAddress = document.createElement("input");
+            var iDeliveryMessage = document.createElement("input");
+            var iDeliveryMethod = document.createElement("input");
+            var iGiftWrapping = document.createElement("input");
+            var iPayMethod = document.createElement("input");
+            var iCardComName = document.createElement("input");
+            var iCardPayMonth = document.createElement("input");
+            var iPayOrdererHpNum = document.createElement("input");
 
-            var i_receiver_hp1 = document.createElement("input");
-            var i_receiver_hp2 = document.createElement("input");
-            var i_receiver_hp3 = document.createElement("input");
+            iReceiverName.name = "receiverName";
+            iReceiverHp1.name = "receiverHp1";
+            iReceiverHp2.name = "receiverHp2";
+            iReceiverHp3.name = "receiverHp3";
+            iReceiverTel1.name = "receiverTel1";
+            iReceiverTel2.name = "receiverTel2";
+            iReceiverTel3.name = "receiverTel3";
+            iDeliveryAddress.name = "deliveryAddress";
+            iDeliveryMessage.name = "deliveryMessage";
+            iDeliveryMethod.name = "deliveryMethod";
+            iGiftWrapping.name = "giftWrapping";
+            iPayMethod.name = "payMethod";
+            iCardComName.name = "cardComName";
+            iCardPayMonth.name = "cardPayMonth";
+            iPayOrdererHpNum.name = "payOrdererHpNum";
+            iReceiverName.value = receiverName;
+            iReceiverHp1.value = hp1;
+            iReceiverHp2.value = hp2;
+            iReceiverHp3.value = hp3;
+            iReceiverTel1.value = tel1;
+            iReceiverTel2.value = tel2;
+            iReceiverTel3.value = tel3;
+            iDeliveryAddress.value = deliveryAddress;
+            iDeliveryMessage.value = deliveryMessage;
+            iDeliveryMethod.value = deliveryMethod;
+            iGiftWrapping.value = giftWrapping;
+            iPayMethod.value = payMethod;
+            iCardComName.value = cardComName;
+            iCardPayMonth.value = cardPayMonth;
+            iPayOrdererHpNum.value = payOrdererHpNum;
 
-            var i_receiver_tel1 = document.createElement("input");
-            var i_receiver_tel2 = document.createElement("input");
-            var i_receiver_tel3 = document.createElement("input");
-
-            var i_delivery_address = document.createElement("input");
-            var i_delivery_message = document.createElement("input");
-            var i_delivery_method = document.createElement("input");
-            var i_gift_wrapping = document.createElement("input");
-            var i_pay_method = document.createElement("input");
-            var i_card_com_name = document.createElement("input");
-            var i_card_pay_month = document.createElement("input");
-            var i_pay_orderer_hp_num = document.createElement("input");
-
-            i_receiver_name.name = "receiver_name";
-            i_receiver_hp1.name = "receiver_hp1";
-            i_receiver_hp2.name = "receiver_hp2";
-            i_receiver_hp3.name = "receiver_hp3";
-
-            i_receiver_tel1.name = "receiver_tel1";
-            i_receiver_tel2.name = "receiver_tel2";
-            i_receiver_tel3.name = "receiver_tel3";
-
-            i_delivery_address.name = "delivery_address";
-            i_delivery_message.name = "delivery_message";
-            i_delivery_method.name = "delivery_method";
-            i_gift_wrapping.name = "gift_wrapping";
-            i_pay_method.name = "pay_method";
-            i_card_com_name.name = "card_com_name";
-            i_card_pay_month.name = "card_pay_month";
-            i_pay_orderer_hp_num.name = "pay_orderer_hp_num";
-
-            i_receiver_name.value = receiver_name;
-            i_receiver_hp1.value = hp1;
-            i_receiver_hp2.value = hp2;
-            i_receiver_hp3.value = hp3;
-
-            i_receiver_tel1.value = tel1;
-            i_receiver_tel2.value = tel2;
-            i_receiver_tel3.value = tel3;
-            ;
-            i_delivery_address.value = delivery_address;
-            i_delivery_message.value = delivery_message;
-            i_delivery_method.value = delivery_method;
-            i_gift_wrapping.value = gift_wrapping;
-            i_pay_method.value = pay_method;
-            i_card_com_name.value = card_com_name;
-            i_card_pay_month.value = card_pay_month;
-            i_pay_orderer_hp_num.value = pay_orderer_hp_num;
-
-            formObj.appendChild(i_receiver_name);
-            formObj.appendChild(i_receiver_hp1);
-            formObj.appendChild(i_receiver_hp2);
-            formObj.appendChild(i_receiver_hp3);
-            formObj.appendChild(i_receiver_tel1);
-            formObj.appendChild(i_receiver_tel2);
-            formObj.appendChild(i_receiver_tel3);
-            formObj.appendChild(i_delivery_address);
-            formObj.appendChild(i_delivery_message);
-            formObj.appendChild(i_delivery_method);
-            formObj.appendChild(i_gift_wrapping);
-
-            formObj.appendChild(i_pay_method);
-            formObj.appendChild(i_card_com_name);
-            formObj.appendChild(i_card_pay_month);
-            formObj.appendChild(i_pay_orderer_hp_num);
+            formObj.appendChild(iReceiverName);
+            formObj.appendChild(iReceiverHp1);
+            formObj.appendChild(iReceiverHp2);
+            formObj.appendChild(iReceiverHp3);
+            formObj.appendChild(iReceiverTel1);
+            formObj.appendChild(iReceiverTel2);
+            formObj.appendChild(iReceiverTel3);
+            formObj.appendChild(iDeliveryAddress);
+            formObj.appendChild(iDeliveryMessage);
+            formObj.appendChild(iDeliveryMethod);
+            formObj.appendChild(iGiftWrapping);
+            formObj.appendChild(iPayMethod);
+            formObj.appendChild(iCardComName);
+            formObj.appendChild(iCardPayMonth);
+            formObj.appendChild(iPayOrdererHpNum);
 
             document.body.appendChild(formObj);
             formObj.method = "post";
@@ -474,54 +459,71 @@
     </script>
 </head>
 <body>
+
 <H1>1.주문확인</H1>
-<form name="form_order">
+<form name="formOrder">
     <table class="list_view">
         <tbody align=center>
         <tr style="background: #33ff00">
             <td colspan=2 class="fixed">주문상품명</td>
             <td>수량</td>
-            <td>주문금액</td>
-            <td>배송비</td>
+            <td>정가</td>
+            <td>판매가</td>
             <td>예상적립금</td>
             <td>주문금액합계</td>
         </tr>
         <tr>
             <c:forEach var="item" items="${myOrderList }">
-            <td class="goods_image">
-                <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+
+                <td class="goods_image">
+                <a href="${contextPath}/goods/goodsDetail.do?goodsId=${item.goodsId }">
                     <img width="75" alt=""
-                         src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-                    <input type="hidden" id="h_goods_id" name="h_goods_id" value="${item.goods_id }"/>
-                    <input type="hidden" id="h_goods_fileName" name="h_goods_fileName" value="${item.goods_fileName }"/>
+                         src="${contextPath}/thumbnails.do?goodsId=${item.goodsId}&fileName=${item.goodsFileName}">
+                    <input type="hidden" id="hGoodsId" name="hGoodsId" value="${item.goodsId }"/>
+                    <input type="hidden" id="hGoodsFileName" name="hGoodsFileName" value="${item.goodsFileName }"/>
                 </a>
-            </td>
-            <td>
+                </td>
+
+                <td>
                 <h2>
-                    <a href="${pageContext.request.contextPath}/goods/goods.do?command=goods_detail&goods_id=${item.goods_id }">${item.goods_title }</A>
-                    <input type="hidden" id="h_goods_title" name="h_goods_title" value="${item.goods_title }"/>
+                    <a href="${pageContext.request.contextPath}/goods/goods.do?command=goodsDetail&goodsId=${item.goodsId }">${item.goodsTitle }</A>
+                    <input type="hidden" id="hGoodsTitle" name="hGoodsTitle" value="${item.goodsTitle }"/>
                 </h2>
-            </td>
-            <td>
-                <h2>${item.order_goods_qty }개<h2>
-                    <input type="hidden" id="h_order_goods_qty" name="h_order_goods_qty"
-                           value="${item.order_goods_qty}"/>
-            </td>
-            <td><h2>${item.goods_sales_price}원 (10% 할인)</h2></td>
-            <td><h2>0원</h2></td>
-            <td><h2>${1500 *item.order_goods_qty}원</h2></td>
-            <td>
-                <h2>${item.goods_sales_price * item.order_goods_qty}원</h2>
-                <input type="hidden" id="h_each_goods_price" name="h_each_goods_price"
-                       value="${item.goods_sales_price * item.order_goods_qty}"/>
-            </td>
+                </td>
+
+                <td>
+                    <h2>${item.orderGoodsQty}개</h2>
+                    <input type="hidden" id="hOrderGoodsQty" name="hOrderGoodsQty" value="${item.orderGoodsQty}">
+                </td>
+
+                <td>
+                    <fmt:formatNumber value="${item.goodsSalesPrice/0.9}" type="number" var="goodsPrice" />
+                    <h2>${goodsPrice}원</h2>
+                </td>
+
+                <td>
+                    <strong style="color: crimson">
+                        <fmt:formatNumber value="${item.goodsSalesPrice}" type="number" var="discountedPrice"/>
+                        ${discountedPrice}원 &#8595
+                    </strong><br>
+                    <p style="font-size: 11px">10% 할인</p>
+                </td>
+
+                <td><h2>${1500 *item.orderGoodsQty}원</h2></td>
+
+                <td>
+                    <fmt:formatNumber value="${item.goodsSalesPrice*item.orderGoodsQty+totalDeliveryPrice}" type="number" var="orderPrice" />
+                <h2>${orderPrice}원</h2>
+                <input type="hidden" id="hEachGoodsPrice" name="hEachGoodsPrice" value="${item.goodsSalesPrice*item.orderGoodsQty+totalDeliveryPrice}"/>
+                </td>
+
         </tr>
-        <c:set var="final_total_order_price"
-               value="${final_total_order_price+ item.goods_sales_price* item.order_goods_qty}"/>
-        <c:set var="total_order_price"
-               value="${total_order_price+ item.goods_sales_price* item.order_goods_qty}"/>
-        <c:set var="total_order_goods_qty"
-               value="${total_order_goods_qty+item.order_goods_qty }"/>
+
+        <c:set var="finalTotalOrderPrice" value="${finalTotalOrderPrice+item.goodsSalesPrice*item.orderGoodsQty+totalDeliveryPrice}"/>
+        <c:set var="totalOrderPrice" value="${totalOrderPrice+(item.goodsSalesPrice/0.9)*item.orderGoodsQty}"/>
+        <c:set var="totalDiscountPrice" value="${totalDiscountPrice+item.goodsSalesPrice*item.orderGoodsQty}" />
+        <c:set var="totalOrderGoodsQty" value="${totalOrderGoodsQty+item.orderGoodsQty }"/>
+
         </c:forEach>
         </tbody>
     </table>
@@ -529,35 +531,40 @@
 
     <br>
     <br>
+
     <H1>2.배송지 정보</H1>
     <DIV class="detail_table">
 
         <table>
             <tbody>
+
             <tr class="dot_line">
                 <td class="fixed_join">배송방법</td>
                 <td>
-                    <input type="radio" id="delivery_method" name="delivery_method" value="일반택배" checked>일반택배 &nbsp;&nbsp;&nbsp;
-                    <input type="radio" id="delivery_method" name="delivery_method" value="편의점택배">편의점택배 &nbsp;&nbsp;&nbsp;
-                    <input type="radio" id="delivery_method" name="delivery_method" value="해외배송">해외배송 &nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="deliveryMethod" name="deliveryMethod" value="일반택배" checked>일반택배 &nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="deliveryMethod" name="deliveryMethod" value="편의점택배">편의점택배 &nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="deliveryMethod" name="deliveryMethod" value="해외배송">해외배송 &nbsp;&nbsp;&nbsp;
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">배송지 선택</td>
                 <td><input type="radio" name="delivery_place"
-                           onClick="restore_all()" value="기본배송지" checked>기본배송지 &nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="delivery_place" value="새로입력" onClick="reset_all()">새로입력 &nbsp;&nbsp;&nbsp;
+                           onClick="restoreAll()" value="기본배송지" checked>기본배송지 &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="delivery_place" value="새로입력" onClick="resetAll()">새로입력 &nbsp;&nbsp;&nbsp;
                     <input type="radio" name="delivery_place" value="최근배송지">최근배송지 &nbsp;&nbsp;&nbsp;
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">받으실 분</td>
-                <td><input id="receiver_name" name="receiver_name" type="text" size="40"
-                           value="${orderer.member_name }"/>
-                    <input type="hidden" id="h_orderer_name" name="h_orderer_name" value="${orderer.member_name }"/>
-                    <input type="hidden" id="h_receiver_name" name="h_receiver_name" value="${orderer.member_name }"/>
+                <td><input id="receiverName" name="receiverName" type="text" size="40"
+                           value="${orderer.memberName }"/>
+                    <input type="hidden" id="hOrdererName" name="hOrdererName" value="${orderer.memberName }"/>
+                    <input type="hidden" id="hReceiverName" name="hReceiverName" value="${orderer.memberName }"/>
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">휴대폰번호</td>
                 <td><select id="hp1" name="hp1">
@@ -571,13 +578,14 @@
                 </select>
                     - <input size="10px" type="text" id="hp2" name="hp2" value="${orderer.hp2 }">
                     - <input size="10px" type="text" id="hp3" name="hp3" value="${orderer.hp3 }"><br><br>
-                    <input type="hidden" id="h_hp1" name="h_hp1" value="${orderer.hp1 }"/>
-                    <input type="hidden" id="h_hp2" name="h_hp2" value="${orderer.hp2 }"/>
-                    <input type="hidden" id="h_hp3" name="h_hp3" value="${orderer.hp3 }"/>
-                    <c:set var="orderer_hp" value="${orderer.hp1}-${orderer.hp2}-${orderer.hp3 }"/>
+                    <input type="hidden" id="hHp1" name="hHp1" value="${orderer.hp1 }"/>
+                    <input type="hidden" id="hHp2" name="hHp2" value="${orderer.hp2 }"/>
+                    <input type="hidden" id="hHp3" name="hHp3" value="${orderer.hp3 }"/>
+                    <c:set var="ordererHp" value="${orderer.hp1}-${orderer.hp2}-${orderer.hp3 }"/>
 
 
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">유선전화(선택)</td>
                 <td><select id="tel1" name="tel1">
@@ -608,14 +616,15 @@
                 </select> - <input size="10px" type="text" id="tel2" name="tel2" value="${orderer.tel2 }"> - <input
                         size="10px" type="text" id="tel3" name="tel3" value="${orderer.tel3 }">
                 </td>
-                <input type="hidden" id="h_tel1" name="h_tel1" value="${orderer.tel1 }"/>
-                <input type="hidden" id="h_tel2" name="h_tel2" value="${orderer.tel2 }"/>
-                <input type="hidden" id="h_tel3" name="h_tel3" value="${orderer.tel3 }"/>
+                <input type="hidden" id="hTel1" name="hTel1" value="${orderer.tel1 }"/>
+                <input type="hidden" id="hTel2" name="hTel2" value="${orderer.tel2 }"/>
+                <input type="hidden" id="hTel3" name="hTel3" value="${orderer.tel3 }"/>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">주소</td>
-                <td><input type="text" id="zipcode" name="zipcode" size="5"
-                           value="${orderer.zipcode }">
+                <td><input type="text" id="zipCode" name="zipCode" size="5"
+                           value="${orderer.zipCode }">
                     <a href="javascript:execDaumPostcode()">우편번호검색</a> <br>
                     <p>
                         지번 주소:<br>
@@ -628,55 +637,65 @@
                         <input type="text" id="namujiAddress" name="namujiAddress" size="50"
                                value="${orderer.namujiAddress }"/>
                     </p>
-                    <input type="hidden" id="h_zipcode" name="h_zipcode" value="${orderer.zipcode }"/>
-                    <input type="hidden" id="h_roadAddress" name="h_roadAddress" value="${orderer.roadAddress }"/>
-                    <input type="hidden" id="h_jibunAddress" name="h_jibunAddress" value="${orderer.jibunAddress }"/>
-                    <input type="hidden" id="h_namujiAddress" name="h_namujiAddress" value="${orderer.namujiAddress }"/>
+                    <input type="hidden" id="hZipCode" name="hZipCode" value="${orderer.zipCode }"/>
+                    <input type="hidden" id="hRoadAddress" name="hRoadAddress" value="${orderer.roadAddress }"/>
+                    <input type="hidden" id="hJibunAddress" name="hJibunAddress" value="${orderer.jibunAddress }"/>
+                    <input type="hidden" id="hNamujiAddress" name="hNamujiAddress" value="${orderer.namujiAddress }"/>
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">배송 메시지</td>
                 <td>
-                    <input id="delivery_message" name="delivery_message" type="text" size="50"
+                    <input id="deliveryMessage" name="deliveryMessage" type="text" size="50"
                            placeholder="택배 기사님께 전달할 메시지를 남겨주세요."/>
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">선물 포장</td>
-                <td><input type="radio" id="gift_wrapping" name="gift_wrapping" value="yes">예
-                    &nbsp;&nbsp;&nbsp; <input type="radio" id="gift_wrapping" name="gift_wrapping" checked value="no">아니요
+                <td><input type="radio" id="giftWrapping" name="giftWrapping" value="yes">예
+                    &nbsp;&nbsp;&nbsp; <input type="radio" id="giftWrapping" name="giftWrapping" checked value="no">아니요
                 </td>
-                </td>
-                </tboby>
+            </tr>
+
+            </tbody>
         </table>
     </div>
+
     <div>
         <br><br>
         <h2>주문고객</h2>
         <table>
             <tbody>
+
             <tr class="dot_line">
                 <td><h2>이름</h2></td>
                 <td>
-                    <input type="text" value="${orderer.member_name}" size="15"/>
+                    <input type="text" value="${orderer.memberName}" size="15"/>
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td><h2>핸드폰</h2></td>
                 <td>
                     <input type="text" value="${orderer.hp1}-${orderer.hp2}-${orderer.hp3}" size="15"/>
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td><h2>이메일</h2></td>
                 <td>
                     <input type="text" value="${orderer.email1}@${orderer.email2}" size="15"/>
                 </td>
             </tr>
+
             </tbody>
         </table>
     </div>
+
     <div class="clear"></div>
+
     <br>
     <br>
     <br>
@@ -686,47 +705,56 @@
     <div class="detail_table">
         <table>
             <tbody>
+
             <tr class="dot_line">
                 <td width=100>적립금</td>
-                <td><input name="discount_juklip" type="text" size="10"/>원/1000원
+                <td><input name="discountJuklip" type="text" size="10"/>원/1000원
                     &nbsp;&nbsp;&nbsp; <input type="checkbox"/> 모두 사용하기
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td>예치금</td>
-                <td><input name="discount_yechi" type="text" size="10"/>원/1000원
+                <td><input name="discountYechi" type="text" size="10"/>원/1000원
                     &nbsp;&nbsp;&nbsp; <input type="checkbox"/> 모두 사용하기
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td>상품권 전환금</td>
-                <td cellpadding="5"><input name="discount_sangpum" type="text"
+                <td cellpadding="5"><input name="discountSangpum" type="text"
                                            size="10"/>원/0원 &nbsp;&nbsp;&nbsp; <input type="checkbox"/> 모두
                     사용하기
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td>OK 캐쉬백 포인트</td>
-                <td cellpadding="5"><input name="discount_okcashbag" type="text"
+                <td cellpadding="5"><input name="discountOkcashbag" type="text"
                                            size="10"/>원/0원 &nbsp;&nbsp;&nbsp; <input type="checkbox"/> 모두
                     사용하기
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td>쿠폰할인</td>
-                <td cellpadding="5"><input name="discount_coupon" type="text"
+                <td cellpadding="5"><input name="discountCoupon" type="text"
                                            size="10"/>원/0원 &nbsp;&nbsp;&nbsp; <input type="checkbox"/> 모두
                     사용하기
                 </td>
             </tr>
+
             </tbody>
         </table>
     </div>
+
     <div class="clear"></div>
 
     <br>
+
     <table width=80% class="list_view" style="background: #ccffff">
         <tbody>
+
         <tr align=center class="fixed">
             <td class="fixed">총 상품수</td>
             <td>총 상품금액</td>
@@ -737,71 +765,91 @@
             <td></td>
             <td>최종 결제금액</td>
         </tr>
+
         <tr cellpadding=40 align=center>
+
             <td id="">
-                <p id="p_totalNum">${total_order_goods_qty}개</p>
-                <input id="h_total_order_goods_qty" type="hidden" value="${total_order_goods_qty}"/>
+                <p id="pTotalNum"><h2>${totalOrderGoodsQty}개</h2></p>
+                <input id="hTotalOrderGoodsQty" type="hidden" value="${totalOrderGoodsQty}"/>
             </td>
+
             <td>
-                <p id="p_totalPrice">${total_order_price}원</p> <input
-                    id="h_totalPrice" type="hidden" value="${total_order_price}"/>
+                <p id="pTotalPrice">
+                    <fmt:formatNumber value="${totalOrderPrice}" type="number" var="pTotalOrderPrice" />
+                <h2>${pTotalOrderPrice}원</h2></p>
+                <input id="hTotalPrice" type="hidden" value="${totalOrderPrice}"/>
             </td>
+
             <td><IMG width="25" alt=""
                      src="${pageContext.request.contextPath}/image/plus.jpg"></td>
             <td>
-                <p id="p_totalDelivery">${total_delivery_price }원</p> <input
-                    id="h_totalDelivery" type="hidden" value="${total_delivery_price}"/>
+                <p id="pTotalDelivery">
+                    <fmt:formatNumber value="${totalDeliveryPrice}" type="number" var="pTotalDeliveryPrice" />
+                <h2>${pTotalDeliveryPrice }원</h2></p>
+                <input id="hTotalDelivery" type="hidden" value="${totalDeliveryPrice}"/>
             </td>
+
+            <td><img width="25" alt="" src="${pageContext.request.contextPath}/image/minus.jpg"></td>
+
             <td>
-                <img width="25" alt="" src="${pageContext.request.contextPath}/image/minus.jpg"></td>
-            <td>
-                <p id="p_totalSalesPrice">${total_discount_price }원</p>
-                <input id="h_total_sales_price" type="hidden" value="${total_discount_price}"/>
+                <p id="pTotalSalesPrice">
+                    <fmt:formatNumber value="${totalOrderPrice-totalDiscountPrice}" type="number" var="pTotalSalesPrice" />
+                <h2>${pTotalSalesPrice}원</h2></p>
+                <input id="hTotalSalesPrice" type="hidden" value="${totalDiscountPrice}"/>
             </td>
+
             <td><img width="25" alt="" src="${pageContext.request.contextPath}/image/equal.jpg"></td>
+
             <td>
-                <p id="p_final_totalPrice">
-                    <font size="15">${final_total_order_price }원 </font>
-                </p> <input id="h_final_total_Price" type="hidden" value="${final_total_order_price}"/>
+                <p id="pFinalTotalPrice">
+                <fmt:formatNumber value="${finalTotalOrderPrice}" type="number" var="pFinalTotalOrderPrice" />
+                <h2>${pFinalTotalOrderPrice }원</h2></p>
+                <input id="hFinalTotalPrice" type="hidden" value="${finalTotalOrderPrice}"/>
             </td>
+
         </tr>
         </tbody>
     </table>
+
     <div class="clear"></div>
+
     <br>
     <br>
     <br>
+
     <h1>4.결제정보</h1>
     <div class="detail_table">
         <table>
             <tbody>
+
             <tr>
                 <td>
-                    <input type="radio" id="pay_method" name="pay_method" value="신용카드" onClick="fn_pay_card()" checked>신용카드
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" id="pay_method" name="pay_method" value="제휴 신용카드">제휴 신용카드 &nbsp;&nbsp;&nbsp;
-                    <input type="radio" id="pay_method" name="pay_method" value="실시간 계좌이체">실시간 계좌이체 &nbsp;&nbsp;&nbsp;
-                    <input type="radio" id="pay_method" name="pay_method" value="무통장 입금">무통장 입금 &nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="payMethod" name="payMethod" value="신용카드" onClick="fnPayCard()" checked>신용카드&nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="payMethod" name="payMethod" value="제휴 신용카드">제휴 신용카드 &nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="payMethod" name="payMethod" value="실시간 계좌이체">실시간 계좌이체 &nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="payMethod" name="payMethod" value="무통장 입금">무통장 입금 &nbsp;&nbsp;&nbsp;
                 </td>
             </tr>
+
             <tr>
                 <td>
-                    <input type="radio" id="pay_method" name="pay_method" value="휴대폰결제" onClick="fn_pay_phone()">휴대폰 결제
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="radio" id="pay_method" name="pay_method" value="카카오페이(간편결제)">카카오페이(간편결제) &nbsp;&nbsp;&nbsp;
-                    <input type="radio" id="pay_method" name="pay_method" value="페이나우(간편결제)">페이나우(간편결제) &nbsp;&nbsp;&nbsp;
-                    <input type="radio" id="pay_method" name="pay_method" value="페이코(간편결제)">페이코(간편결제) &nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="payMethod" name="payMethod" value="휴대폰결제" onClick="fnPayPhone()">휴대폰 결제&nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="payMethod" name="payMethod" value="카카오페이(간편결제)">카카오페이(간편결제) &nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="payMethod" name="payMethod" value="페이나우(간편결제)">페이나우(간편결제) &nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="payMethod" name="payMethod" value="페이코(간편결제)">페이코(간편결제) &nbsp;&nbsp;&nbsp;
                 </td>
             </tr>
+
             <tr>
                 <td>
-                    <input type="radio" id="pay_method" name="pay_method" value="직접입금">직접입금&nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="payMethod" name="payMethod" value="직접입금">직접입금&nbsp;&nbsp;&nbsp;
                 </td>
             </tr>
-            <tr id="tr_pay_card">
+
+            <tr id="trPayCard">
                 <td>
                     <strong>카드 선택<strong>:&nbsp;&nbsp;&nbsp;
-                        <select id="card_com_name" name="card_com_name">
+                        <select id="cardComName" name="cardComName">
                             <option value="삼성" selected>삼성</option>
                             <option value="하나SK">하나SK</option>
                             <option value="현대">현대</option>
@@ -812,9 +860,11 @@
                             <option value="시티">시티</option>
                             <option value="NH농협">NH농협</option>
                         </select>
+
                         <br><Br>
+
                         <strong>할부 기간:<strong> &nbsp;&nbsp;&nbsp;
-                            <select id="card_pay_month" name="card_pay_month">
+                            <select id="cardPayMonth" name="cardPayMonth">
                                 <option value="일시불" selected>일시불</option>
                                 <option value="2개월">2개월</option>
                                 <option value="3개월">3개월</option>
@@ -825,159 +875,133 @@
 
                 </td>
             </tr>
-            <tr id="tr_pay_phone" style="visibility:hidden">
+
+            <tr id="trPayPhone" style="visibility:hidden">
                 <td>
                     <strong>휴대폰 번호 입력: <strong>
-                        <input type="text" size="5" value="" id="pay_order_tel1" name="pay_order_tel1"/>-
-                        <input type="text" size="5" value="" id="pay_order_tel2" name="pay_order_tel2"/>-
-                        <input type="text" size="5" value="" id="pay_order_tel3" name="pay_order_tel3"/>
+                        <input type="text" size="5" value="" id="payOrderTel1" name="payOrderTel1"/>-
+                        <input type="text" size="5" value="" id="payOrderTel2" name="payOrderTel2"/>-
+                        <input type="text" size="5" value="" id="payOrderTel3" name="payOrderTel3"/>
                 </td>
             </tr>
+
             </tbody>
         </table>
     </div>
 </form>
+
 <div class="clear"></div>
+
 <br>
 <br>
 <br>
+
 <center>
     <br>
     <br>
 
-    <a href="javascript:fn_show_order_detail();">
+    <a href="javascript:fnShowOrderDetail();">
     <img width="125" alt="" src="${contextPath}/image/btn_gulje.jpg"></a>
 
     <a href="${contextPath}/main/main.do">
     <img width="75" alt="" src="${contextPath}/image/btn_shoping_continue.jpg"></a>
 
     <div class="clear"></div>
-    <div id="layer" style="visibility:hidden">
-        <!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
-        <div id="popup_order_detail">
-            <!-- 팝업창 닫기 버튼 -->
 
+    <div id="layer" style="visibility:hidden">
+
+        <!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
+        <div id="popupOrderDetail">
+
+            <!-- 팝업창 닫기 버튼 -->
             <a href="javascript:" onClick="javascript:imagePopup('close', '.layer01');">
                 <img src="${contextPath}/image/close.png" id="close"/></a>
 
-            <br/>
+            <br>
 
             <div class="detail_table">
+
                 <h1>최종 주문 사항</h1>
                 <table>
+
                     <tbody align=left>
+
                     <tr>
-                        <td width=200px>
-                            주문상품번호:
-                        </td>
-                        <td>
-                            <p id="p_order_goods_id"> 주문번호 </p>
-                        </td>
+                        <td width=200px>주문상품번호: </td>
+                        <td><p id="pOrderGoodsId"> 주문번호 </p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            주문상품명:
-                        </td>
-                        <td>
-                            <p id="p_order_goods_title"> 주문 상품명 </p>
-                        </td>
+                        <td width=200px>주문상품명:</td>
+                        <td><p id="pOrderGoodsTitle"> 주문 상품명 </p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            주문상품개수:
-                        </td>
-                        <td>
-                            <p id="p_total_order_goods_qty"> 주문 상품개수 </p>
-                        </td>
+                        <td width=200px>주문상품개수:</td>
+                        <td><p id="pTotalOrderGoodsQty"> 주문 상품개수 </p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            주문금액합계:
-                        </td>
-                        <td>
-                            <p id="p_total_order_goods_price">주문금액합계</p>
-                        </td>
+                        <td width=200px>주문금액합계:</td>
+                        <td><p id="pTotalOrderGoodsPrice">주문금액합계</p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            주문자:
-                        </td>
-                        <td>
-                            <p id="p_orderer_name"> 주문자 이름</p>
-                        </td>
+                        <td width=200px>주문자:</td>
+                        <td><p id="pOrdererName"> 주문자 이름</p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            받는사람:
-                        </td>
-                        <td>
-                            <p id="p_receiver_name">받는사람이름</p>
-                        </td>
+                        <td width=200px>받는사람:</td>
+                        <td><p id="pReceiverName">받는사람이름</p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            배송방법:
-                        </td>
-                        <td>
-                            <p id="p_delivery_method">배송방법</p>
-                        </td>
+                        <td width=200px>배송방법:</td>
+                        <td><p id="pDeliveryMethod">배송방법</p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            받는사람 휴대폰번호:
-                        </td>
-                        <td>
-                            <p id="p_receiver_hp_num"></p>
-                        </td>
+                        <td width=200px>받는사람 휴대폰번호:</td>
+                        <td><p id="pReceiverHpNum"></p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            받는사람 유선번화번호:
-                        </td>
-                        <td>
-                            <p id="p_receiver_tel_num">배송방법</p>
-                        </td>
+                        <td width=200px>받는사람 유선번화번호:</td>
+                        <td><p id="pReceiverTelNum">배송방법</p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            배송주소:
-                        </td>
-                        <td align=left>
-                            <p id="p_delivery_address">배송주소</p>
-                        </td>
+                        <td width=200px>배송주소:</td>
+                        <td align=left><p id="pDeliveryAddress">배송주소</p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            배송메시지:
-                        </td>
-                        <td align=left>
-                            <p id="p_delivery_message">배송메시지</p>
-                        </td>
+                        <td width=200px>배송메시지:</td>
+                        <td align=left><p id="pDeliveryMessage">배송메시지</p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            선물포장 여부:
-                        </td>
-                        <td align=left>
-                            <p id="p_gift_wrapping">선물포장</p>
-                        </td>
+                        <td width=200px>선물포장 여부:</td>
+                        <td align=left><p id="pGiftWrapping">선물포장</p></td>
                     </tr>
+
                     <tr>
-                        <td width=200px>
-                            결제방법:
-                        </td>
-                        <td align=left>
-                            <p id="p_pay_method">결제방법</p>
-                        </td>
+                        <td width=200px>결제방법:</td>
+                        <td align=left><p id="pPayMethod">결제방법</p></td>
                     </tr>
+
                     <tr>
                         <td colspan=2 align=center>
-                            <input name="btn_process_pay_order" type="button" onClick="fn_process_pay_order()"
+                            <input name="btnProcessPayOrder" type="button" onClick="fnProcessPayOrder()"
                                    value="최종결제하기">
                         </td>
                     </tr>
+
                     </tbody>
                 </table>
             </div>
+
             <div class="clear"></div>
+
             <br>

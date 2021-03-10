@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+    <resultMap id="memResult" type="memberVO">
+        <result property="memberId" column="member_id"/>
+        <result property="memberPw" column="member_pw"/>
+        <result property="memberName" column="member_name"/>
+        <result property="memberGender" column="member_gender"/>
+        <result property="memberBirthY" column="member_birth_y"/>
+        <result property="memberBirthM" column="member_birth_m"/>
+        <result property="memberBirthD" column="member_birth_d"/>
+        <result property="memberBirthGn" column="member_birth_gn"/>
+        <result property="tel1" column="tel1"/>
+        <result property="tel2" column="tel2"/>
+        <result property="tel3" column="tel3"/>
+        <result property="hp1" column="hp1"/>
+        <result property="hp2" column="hp2"/>
+        <result property="hp3" column="hp3"/>
+        <result property="smsstsYn" column="smssts_yn"/>
+        <result property="email1" column="email1"/>
+        <result property="email2" column="email2"/>
+        <result property="emailstsYn" column="emailsts_yn"/>
+        <result property="zipCode" column="zipcode"/>
+        <result property="roadAddress" column="roadAddress"/>
+        <result property="jibunAddress" column="jibunAddress"/>
+        <result property="namujiAddress" column="namujiAddress"/>
+        <result property="joinDate" column="joinDate"/>
+    </resultMap>
+
+    <select id="login" resultMap="memResult" parameterType="java.util.Map">
+        <![CDATA[
+                                                        select * from t_shopping_member
+                                                        where member_id=#{memberId}
+                                                        and member_pw=#{memberPw}
+        ]]>
+    </select>
+
+    <select id="selectOverlappedID" parameterType="String" resultType="String">
+        <![CDATA[
+                               select decode(count(*),1, 'true', 0, 'false')
+                               from t_shopping_member
+                               where member_id = #{id}
+        ]]>
+    </select>
+
+    <insert id="insertNewMember" parameterType="memberVO">
+  <![CDATA[
+                        insert into t_shopping_member(member_id,
+                                                     member_pw,
+                                                     member_name,
+                                                     member_gender,
+                                                     member_birth_y,
+                                                     member_birth_m,
+                                                     member_birth_d,
+                                                     member_birth_gn,
+                                                     tel1,
+                                                     tel2,
+                                                     tel3,
+                                                     hp1,
+                                                     hp2,
+                                                     hp3,
+                                                     smssts_yn,
+                                                     email1,
+                                                     email2,
+                                                     emailsts_yn,
+                                                     zipcode,
+                                                     roadAddress,
+                                                     jibunAddress,
+                                                     namujiAddress)
+                                             values(#{memberId},
+                                                    #{memberPw},
+                                                    #{memberName},
+                                                     #{memberGender},
+                                                       #{memberBirthY},
+                                                       #{memberBirthM},
+                                                    #{memberBirthD},
+                                                    #{memberBirthGn},
+                                                    #{tel1},
+                                                    #{tel2},
+                                                    #{tel3},
+                                                    #{hp1},
+                                                    #{hp2},
+                                                    #{hp3},
+                                                    #{smsstsYn},
+                                                    #{email1},
+                                                    #{email2},
+                                                    #{emailstsYn},
+                                                    #{zipCode},
+                                                    #{roadAddress},
+                                                    #{jibunAddress},
+                                                    #{namujiAddress})
+        ]]>
+  </insert>
+
+
+</mapper>

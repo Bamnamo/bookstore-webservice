@@ -40,7 +40,7 @@
                     }
 
                     //우편번호와 주소 정보를 해당 필드를 넣는다.
-                    document.getElementById('zipcode').value = data.zonecode;
+                    document.getElementById('zipCode').value = data.zonecode;
                     document.getElementById('roadAddress').value = fullRoadAddr;
                     document.getElementById('jibunAddress').value = data.jibunAddress;
 
@@ -88,106 +88,106 @@
             }
         }
 
-        function fn_modify_member_info(attribute) {
+        function fnModifyMemberInfo(attribute) {
             var value;
-            var frm_mod_member = document.frm_mod_member;
-            if (attribute == 'member_pw') {
-                value = frm_mod_member.member_pw.value;
-            } else if (attribute == 'member_gender') {
-                var member_gender = frm_mod_member.member_gender;
-                for (var i = 0; member_gender.length; i++) {
-                    if (member_gender[i].checked) {
-                        value = member_gender[i].value;
+            var frmModMember = document.frmModMember;
+            if (attribute == 'memberPw') {
+                value = frmModMember.memberPw.value;
+            } else if (attribute == 'memberGender') {
+                var memberGender = frmModMember.memberGender;
+                for (var i = 0; memberGender.length; i++) {
+                    if (memberGender[i].checked) {
+                        value = memberGender[i].value;
                         break;
                     }
                 }
 
-            } else if (attribute == 'member_birth') {
-                var member_birth_y = frm_mod_member.member_birth_y;
-                var member_birth_m = frm_mod_member.member_birth_m;
-                var member_birth_d = frm_mod_member.member_birth_d;
-                var member_birth_gn = frm_mod_member.member_birth_gn;
+            } else if (attribute == 'memberBirth') {
+                var memberBirthY = frmModMember.memberBirthY;
+                var memberBirthM = frmModMember.memberBirthM;
+                var memberBirthD = frmModMember.memberBirthD;
+                var memberBirthGn = frmModMember.memberBirthGn;
 
-                for (var i = 0; member_birth_y.length; i++) {
-                    if (member_birth_y[i].selected) {
-                        value_y = member_birth_y[i].value;
+                for (var i = 0; memberBirthY.length; i++) {
+                    if (memberBirthY[i].selected) {
+                        valueY = memberBirthY[i].value;
                         break;
                     }
                 }
-                for (var i = 0; member_birth_m.length; i++) {
-                    if (member_birth_m[i].selected) {
-                        value_m = member_birth_m[i].value;
+                for (var i = 0; memberBirthM.length; i++) {
+                    if (memberBirthM[i].selected) {
+                        valueM = memberBirthM[i].value;
                         break;
                     }
                 }
 
-                for (var i = 0; member_birth_d.length; i++) {
-                    if (member_birth_d[i].selected) {
-                        value_d = member_birth_d[i].value;
+                for (var i = 0; memberBirthD.length; i++) {
+                    if (memberBirthD[i].selected) {
+                        valueD = memberBirthD[i].value;
                         break;
                     }
                 }
 
                 //alert("수정 년:"+value_y+","+value_m+","+value_d);
-                for (var i = 0; member_birth_gn.length; i++) {
-                    if (member_birth_gn[i].checked) {
-                        value_gn = member_birth_gn[i].value;
+                for (var i = 0; memberBirthGn.length; i++) {
+                    if (memberBirthGn[i].checked) {
+                        valueGn = memberBirthGn[i].value;
                         break;
                     }
                 }
                 //alert("생년 양음년 "+value_gn);
-                value = +value_y + "," + value_m + "," + value_d + "," + value_gn;
+                value = +valueY + "," + valueM + "," + valueD + "," + valueGn;
             } else if (attribute == 'tel') {
-                var tel1 = frm_mod_member.tel1;
-                var tel2 = frm_mod_member.tel2;
-                var tel3 = frm_mod_member.tel3;
+                var tel1 = frmModMember.tel1;
+                var tel2 = frmModMember.tel2;
+                var tel3 = frmModMember.tel3;
 
                 for (var i = 0; tel1.length; i++) {
                     if (tel1[i].selected) {
-                        value_tel1 = tel1[i].value;
+                        valueTel1 = tel1[i].value;
                         break;
                     }
                 }
-                value_tel2 = tel2.value;
-                value_tel3 = tel3.value;
-                value = value_tel1 + "," + value_tel2 + ", " + value_tel3;
+                valueTel2 = tel2.value;
+                valueTel3 = tel3.value;
+                value = valueTel1 + "," + valueTel2 + ", " + valueTel3;
             } else if (attribute == 'hp') {
-                var hp1 = frm_mod_member.hp1;
-                var hp2 = frm_mod_member.hp2;
-                var hp3 = frm_mod_member.hp3;
-                var smssts_yn = frm_mod_member.smssts_yn;
+                var hp1 = frmModMember.hp1;
+                var hp2 = frmModMember.hp2;
+                var hp3 = frmModMember.hp3;
+                var smsstsYn = frmModMember.smsstsYn;
 
                 for (var i = 0; hp1.length; i++) {
                     if (hp1[i].selected) {
-                        value_hp1 = hp1[i].value;
+                        valueHp1 = hp1[i].value;
                         break;
                     }
                 }
-                value_hp2 = hp2.value;
-                value_hp3 = hp3.value;
-                value_smssts_yn = smssts_yn.checked;
-                value = value_hp1 + "," + value_hp2 + ", " + value_hp3 + "," + value_smssts_yn;
+                valueHp2 = hp2.value;
+                valueHp3 = hp3.value;
+                valueSmsstsYn = smsstsYn.checked;
+                value = valueHp1 + "," + valueHp2 + ", " + valueHp3 + "," + valueSmsstsYn;
             } else if (attribute == 'email') {
-                var email1 = frm_mod_member.email1;
-                var email2 = frm_mod_member.email2;
-                var emailsts_yn = frm_mod_member.emailsts_yn;
+                var email1 = frmModMember.email1;
+                var email2 = frmModMember.email2;
+                var emailstsYn = frmModMember.emailstsYn;
 
-                value_email1 = email1.value;
-                value_email2 = email2.value;
-                value_emailsts_yn = emailsts_yn.checked;
-                value = value_email1 + "," + value_email2 + "," + value_emailsts_yn;
+                valueEmail1 = email1.value;
+                valueEmail2 = email2.value;
+                valueEmailstsYn = emailstsYn.checked;
+                value = valueEmail1 + "," + valueEmail2 + "," + valueEmailstsYn;
                 //alert(value);
             } else if (attribute == 'address') {
-                var zipcode = frm_mod_member.zipcode;
-                var roadAddress = frm_mod_member.roadAddress;
-                var jibunAddress = frm_mod_member.jibunAddress;
-                var namujiAddress = frm_mod_member.namujiAddress;
+                var zipCode = frmModMember.zipcode;
+                var roadAddress = frmModMember.roadAddress;
+                var jibunAddress = frmModMember.jibunAddress;
+                var namujiAddress = frmModMember.namujiAddress;
 
-                value_zipcode = zipcode.value;
-                value_roadAddress = roadAddress.value;
-                value_jibunAddress = jibunAddress.value;
-                value_namujiAddress = namujiAddress.value;
-                value = value_zipcode + "," + value_roadAddress + "," + value_jibunAddress + "," + value_namujiAddress;
+                valueZipCode = zipCode.value;
+                valueRoadAddress = roadAddress.value;
+                valueJibunAddress = jibunAddress.value;
+                valueNamujiAddress = namujiAddress.value;
+                value = valueZipCode + "," + valueRoadAddress + "," + valueJibunAddress + "," + valueNamujiAddress;
             }
             console.log(attribute);
 
@@ -220,63 +220,59 @@
 </head>
 
 <body>
+
 <h3>내 상세 정보</h3>
-<form name="frm_mod_member">
+<form name="frmModMember">
+
     <div id="detail_table">
         <table>
             <tbody>
+
             <tr class="dot_line">
                 <td class="fixed_join">아이디</td>
-                <td>
-                    <input name="member_id" type="text" size="20" value="${memberInfo.member_id }" disabled/>
-                </td>
-                <td>
-                </td>
+                <td><input name="memberId" type="text" size="20" value="${memberInfo.memberId }" disabled/></td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">비밀번호</td>
-                <td>
-                    <input name="member_pw" type="password" size="20" value="${memberInfo.member_pw }"/>
-                </td>
-                <td>
-                    <input type="button" value="수정하기" onClick="fn_modify_member_info('member_pw')"/>
-                </td>
+                <td><input name="memberPw" type="password" size="20" value="${memberInfo.memberPw }"/></td>
+                <td><input type="button" value="수정하기" onClick="fnModifyMemberInfo('memberPw')"/></td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">이름</td>
-                <td>
-                    <input name="member_name" type="text" size="20" value="${memberInfo.member_name }" disabled/>
-                </td>
-                <td>
-                </td>
+                <td><input name="memberName" type="text" size="20" value="${memberInfo.memberName }" disabled/></td>
             </tr>
+
             <tr class="dot_line">
+
                 <td class="fixed_join">성별</td>
                 <td>
                     <c:choose>
-                        <c:when test="${memberInfo.member_gender =='101' }">
-                            <input type="radio" name="member_gender" value="102"/>
-                            여성 <span style="padding-left:30px"></span>
-                            <input type="radio" name="member_gender" value="101" checked/>남성
+                        <c:when test="${memberInfo.memberGender =='101' }">
+                            <input type="radio" name="memberGender" value="102"/>여성
+                            <span style="padding-left:30px"></span>
+                            <input type="radio" name="memberGender" value="101" checked/>남성
                         </c:when>
                         <c:otherwise>
-                            <input type="radio" name="member_gender" value="102" checked/>
-                            여성 <span style="padding-left:30px"></span>
-                            <input type="radio" name="member_gender" value="101"/>남성
+                            <input type="radio" name="memberGender" value="102" checked/>여성
+                            <span style="padding-left:30px"></span>
+                            <input type="radio" name="memberGender" value="101"/>남성
                         </c:otherwise>
                     </c:choose>
                 </td>
-                <td>
-                    <input type="button" value="수정하기" onClick="fn_modify_member_info('member_gender')"/>
-                </td>
+
+                <td><input type="button" value="수정하기" onClick="fnModifyMemberInfo('memberGender')"/></td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">법정생년월일</td>
+
                 <td>
-                    <select name="member_birth_y">
+                    <select name="memberBirthY">
                         <c:forEach var="i" begin="1" end="100">
                             <c:choose>
-                                <c:when test="${memberInfo.member_birth_y==1920+i }">
+                                <c:when test="${memberInfo.memberBirthY==1920+i }">
                                     <option value="${ 1920+i}" selected>${ 1920+i} </option>
                                 </c:when>
                                 <c:otherwise>
@@ -285,10 +281,11 @@
                             </c:choose>
                         </c:forEach>
                     </select>년
-                    <select name="member_birth_m">
+
+                    <select name="memberBirthM">
                         <c:forEach var="i" begin="1" end="12">
                             <c:choose>
-                                <c:when test="${memberInfo.member_birth_m==i }">
+                                <c:when test="${memberInfo.memberBirthM==i }">
                                     <option value="${i }" selected>${i }</option>
                                 </c:when>
                                 <c:otherwise>
@@ -298,10 +295,10 @@
                         </c:forEach>
                     </select>월
 
-                    <select name="member_birth_d">
+                    <select name="memberBirthD">
                         <c:forEach var="i" begin="1" end="31">
                             <c:choose>
-                                <c:when test="${memberInfo.member_birth_d==i }">
+                                <c:when test="${memberInfo.memberBirthD==i }">
                                     <option value="${i }" selected>${i }</option>
                                 </c:when>
                                 <c:otherwise>
@@ -309,23 +306,26 @@
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
-                    </select>일 <span style="padding-left:50px"></span>
+                    </select>일
+
+                    <span style="padding-left:40px"></span>
+
                     <c:choose>
-                        <c:when test="${memberInfo.member_birth_gn=='2' }">
-                            <input type="radio" name="member_birth_gn" value="2" checked/>양력
+                        <c:when test="${memberInfo.memberBirthGn=='2' }">
+                            <input type="radio" name="memberBirthGn" value="2" checked/>양력
                             <span style="padding-left:20px"></span>
-                            <input type="radio" name="member_birth_gn" value="1"/>음력
+                            <input type="radio" name="memberBirthGn" value="1"/>음력
                         </c:when>
                         <c:otherwise>
-                            <input type="radio" name="member_birth_gn" value="2"/>양력
-                            <input type="radio" name="member_birth_gn" value="1" checked/>음력
+                            <input type="radio" name="memberBirthGn" value="2"/>양력
+                            <input type="radio" name="memberBirthGn" value="1" checked/>음력
                         </c:otherwise>
                     </c:choose>
                 </td>
-                <td>
-                    <input type="button" value="수정하기" onClick="fn_modify_member_info('member_birth')"/>
-                </td>
+
+                <td><input type="button" value="수정하기" onClick="fnModifyMemberInfo('memberBirth')"/></td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">전화번호</td>
                 <td>
@@ -359,12 +359,15 @@
                     - <input type="text" size=4 name="tel2" value="${memberInfo.tel2 }">
                     - <input type="text" size=4 name="tel3" value="${memberInfo.tel3 }">
                 </td>
+
                 <td>
-                    <input type="button" value="수정하기" onClick="fn_modify_member_info('tel')"/>
+                    <input type="button" value="수정하기" onClick="fnModifyMemberInfo('tel')"/>
                 </td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">휴대폰번호</td>
+
                 <td>
                     <select name="hp1" id="hp1">
                         <option>없음</option>
@@ -378,18 +381,18 @@
                     - <input type="text" name="hp2" size=4 value="${memberInfo.hp2 }">
                     - <input type="text" name="hp3" size=4 value="${memberInfo.hp3 }"><br> <br>
                     <c:choose>
-                        <c:when test="${memberInfo.smssts_yn=='true' }">
-                            <input type="checkbox" name="smssts_yn" value="Y" checked/> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.
+                        <c:when test="${memberInfo.smsstsYn=='true' }">
+                            <input type="checkbox" name="smsstsYn" value="Y" checked/> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" name="smssts_yn" value="N"/> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.
+                            <input type="checkbox" name="smsstsYn" value="N"/> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.
                         </c:otherwise>
                     </c:choose>
                 </td>
-                <td>
-                    <input type="button" value="수정하기" onClick="fn_modify_member_info('hp')"/>
-                </td>
+
+                <td><input type="button" value="수정하기" onClick="fnModifyMemberInfo('hp')"/></td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">이메일<br>(e-mail)</td>
                 <td>
@@ -397,7 +400,7 @@
                                                                                                       size=10
                                                                                                       name="email2"
                                                                                                       value="${memberInfo.email2 }"/>
-                    <select name="select_email2" onChange="" title="직접입력">
+                    <select name="selectEmail2" onChange="" title="직접입력">
                         <option value="non">직접입력</option>
                         <option value="hanmail.net">hanmail.net</option>
                         <option value="naver.com">naver.com</option>
@@ -410,24 +413,30 @@
                         <option value="empal.com">empal.com</option>
                         <option value="korea.com">korea.com</option>
                         <option value="freechal.com">freechal.com</option>
-                    </select><Br><br>
+                    </select>
+
+                    <br>
+                    <br>
+
                     <c:choose>
-                        <c:when test="${memberInfo.emailsts_yn=='true' }">
-                            <input type="checkbox" name="emailsts_yn" value="Y" checked/> 쇼핑몰에서 발송하는 e-mail을 수신합니다.
+                        <c:when test="${memberInfo.emailstsYn=='true' }">
+                            <input type="checkbox" name="emailstsYn" value="Y" checked/> 쇼핑몰에서 발송하는 e-mail을 수신합니다.
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" name="emailsts_yn" value="N"/> 쇼핑몰에서 발송하는 e-mail을 수신합니다.
+                            <input type="checkbox" name="emailstsYn" value="N"/> 쇼핑몰에서 발송하는 e-mail을 수신합니다.
                         </c:otherwise>
                     </c:choose>
+
                 </td>
-                <td>
-                    <input type="button" value="수정하기" onClick="fn_modify_member_info('email')"/>
-                </td>
+
+                <td><input type="button" value="수정하기" onClick="fnModifyMemberInfo('email')"/></td>
             </tr>
+
             <tr class="dot_line">
                 <td class="fixed_join">주소</td>
+
                 <td>
-                    <input type="text" id="zipcode" name="zipcode" size=5 value="${memberInfo.zipcode }"> <a
+                    <input type="text" id="zipCode" name="zipCode" size=5 value="${memberInfo.zipCode }"> <a
                         href="javascript:execDaumPostcode()">우편번호검색</a>
                     <br>
                     <p>
@@ -436,26 +445,33 @@
                         나머지 주소: <input type="text" name="namujiAddress" size="50" value="${memberInfo.namujiAddress }"/>
                     </p>
                 </td>
-                <td>
-                    <input type="button" value="수정하기" onClick="fn_modify_member_info('address')"/>
-                </td>
+
+                <td><input type="button" value="수정하기" onClick="fnModifyMemberInfo('address')"/></td>
             </tr>
+
             </tbody>
         </table>
     </div>
+
     <div class="clear">
-        <br><br>
+
+        <br>
+        <br>
+
         <table align=center>
             <tr>
                 <td>
-                    <input type="hidden" name="command" value="modify_my_info"/>
-                    <input name="btn_cancel_member" type="button" value="수정 취소">
+                    <input type="hidden" name="command" value="modifyMyInfo"/>
+                    <input name="btnCancelMember" type="button" value="수정 취소">
                 </td>
             </tr>
         </table>
+
     </div>
-    <input type="hidden" name="h_tel1" value="${memberInfo.tel1}"/>
-    <input type="hidden" name="h_hp1" value="${memberInfo.hp1}"/>
+
+    <input type="hidden" name="hTel1" value="${memberInfo.tel1}"/>
+    <input type="hidden" name="hHp1" value="${memberInfo.hp1}"/>
+
 </form>
 </body>
 </html>

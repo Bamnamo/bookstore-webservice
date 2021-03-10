@@ -92,33 +92,32 @@
             }
 
 
-            var total_price, final_total_price;
-            var order_goods_qty = document.getElementById("order_goods_qty");
-
+            var totalPrice, finalTotalPrice;
+            var orderGoodsQty = document.getElementById("orderGoodsQty");
             var formObj = document.createElement("form");
-            var i_goods_id = document.createElement("input");
-            var i_goods_title = document.createElement("input");
-            var i_goods_sales_price = document.createElement("input");
-            var i_fileName = document.createElement("input");
-            var i_order_goods_qty = document.createElement("input");
+            var iGoodsId = document.createElement("input");
+            var iGoodsTitle = document.createElement("input");
+            var iGoodsSalesPrice = document.createElement("input");
+            var iFileName = document.createElement("input");
+            var iOrderGoodsQty = document.createElement("input");
 
-            i_goods_id.name = "goodsId";
-            i_goods_title.name = "goodsTitle";
-            i_goods_sales_price.name = "goodsSalesPrice";
-            i_fileName.name = "goodsFileName";
-            i_order_goods_qty.name = "order_goods_qty";
+            iGoodsId.name = "goodsId";
+            iGoodsTitle.name = "goodsTitle";
+            iGoodsSalesPrice.name = "goodsSalesPrice";
+            iFileName.name = "goodsFileName";
+            iOrderGoodsQty.name = "orderGoodsQty";
 
-            i_goods_id.value = goodsId;
-            i_order_goods_qty.value = order_goods_qty.value;
-            i_goods_title.value = goodsTitle;
-            i_goods_sales_price.value = goodsSalesPrice;
-            i_fileName.value = fileName;
+            iGoodsId.value = goodsId;
+            iOrderGoodsQty.value = orderGoodsQty.value;
+            iGoodsTitle.value = goodsTitle;
+            iGoodsSalesPrice.value = goodsSalesPrice;
+            iFileName.value = fileName;
 
-            formObj.appendChild(i_goods_id);
-            formObj.appendChild(i_goods_title);
-            formObj.appendChild(i_goods_sales_price);
-            formObj.appendChild(i_fileName);
-            formObj.appendChild(i_order_goods_qty);
+            formObj.appendChild(iGoodsId);
+            formObj.appendChild(iGoodsTitle);
+            formObj.appendChild(iGoodsSalesPrice);
+            formObj.appendChild(iFileName);
+            formObj.appendChild(iOrderGoodsQty);
             document.body.appendChild(formObj);
             formObj.method = "post";
             formObj.action = "${contextPath}/order/orderEachGoods.do";
@@ -166,8 +165,8 @@
         <tr>
             <td class="fixed">발행일</td>
             <td class="fixed">
-                <c:set var="pub_date" value="${goods.goodsPublishedDate}"/>
-                <c:set var="arr" value="${fn:split(pub_date,' ')}"/>
+                <c:set var="pubDate" value="${goods.goodsPublishedDate}"/>
+                <c:set var="arr" value="${fn:split(pubDate,' ')}"/>
                 <c:out value="${arr[0]}"/>
             </td>
         </tr>
@@ -196,7 +195,7 @@
         <tr>
             <td class="fixed">수량</td>
             <td class="fixed">
-                <select style="width: 60px;" id="order_goods_qty">
+                <select style="width: 60px;" id="orderGoodsQty">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>

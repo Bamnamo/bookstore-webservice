@@ -35,7 +35,7 @@
                         fullRoadAddr += extraRoadAddr;
                     }
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
+                    document.getElementById('zipCode').value = data.zonecode; //5자리 새우편번호 사용
                     document.getElementById('roadAddress').value = fullRoadAddr;
                     document.getElementById('jibunAddress').value = data.jibunAddress;
                     // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
@@ -56,8 +56,8 @@
         }
 
         function fn_overlapped() {
-            var _id = $("#_member_id").val();
-            if (_id == '') {
+            var mId = $("#memId").val();
+            if (mId == '') {
                 alert("ID를 입력하세요");
                 return;
             }
@@ -66,13 +66,13 @@
                 async: false,
                 url: "${contextPath}/member/overlapped.do",
                 dataType: "text",
-                data: {id: _id},
+                data: {id: mId},
                 success: function (data, textStatus) {
                     if (data == 'false') {
                         alert("사용할 수 있는 ID입니다.");
                         $('#btnOverlapped').prop("disabled", true);
-                        $('#_member_id').prop("disabled", true);
-                        $('#member_id').val(_id);
+                        $('#memId').prop("disabled", true);
+                        $('#memberId').val(mId);
                     } else {
                         alert("사용할 수 없는 ID입니다.");
                     }
@@ -97,31 +97,31 @@
             <tr class="dot_line">
                 <td class="fixed_join">아이디</td>
                 <td>
-                    <input type="text" name="_member_id" id="_member_id" size="20"/>
-                    <input type="hidden" name="member_id" id="member_id"/>
+                    <input type="text" name="memId" id="memId" size="20"/>
+                    <input type="hidden" name="memberId" id="memberId"/>
 
                     <input type="button" id="btnOverlapped" value="중복체크" onClick="fn_overlapped()"/>
                 </td>
             </tr>
             <tr class="dot_line">
                 <td class="fixed_join">비밀번호</td>
-                <td><input name="member_pw" type="password" size="20"/></td>
+                <td><input name="memberPw" type="password" size="20"/></td>
             </tr>
             <tr class="dot_line">
                 <td class="fixed_join">이름</td>
-                <td><input name="member_name" type="text" size="20"/></td>
+                <td><input name="memberName" type="text" size="20"/></td>
             </tr>
             <tr class="dot_line">
                 <td class="fixed_join">성별</td>
-                <td><input type="radio" name="member_gender" value="102"/>
+                <td><input type="radio" name="memberGender" value="102"/>
                     여성<span style="padding-left:120px"></span>
-                    <input type="radio" name="member_gender" value="101" checked/>남성
+                    <input type="radio" name="memberGender" value="101" checked/>남성
                 </td>
             </tr>
             <tr class="dot_line">
                 <td class="fixed_join">법정생년월일</td>
                 <td>
-                    <select name="member_birth_y">
+                    <select name="memberBirthY">
 
                         <c:forEach var="year" begin="1" end="100">
                             <c:choose>
@@ -135,7 +135,7 @@
                         </c:forEach>
 
                     </select>년
-                    <select name="member_birth_m">
+                    <select name="memberBirthM">
                         <c:forEach var="month" begin="1" end="12">
                             <c:choose>
                                 <c:when test="${month==5 }">
@@ -147,7 +147,7 @@
                             </c:choose>
                         </c:forEach>
                     </select>월
-                    <select name="member_birth_d">
+                    <select name="memberBirthD">
                         <c:forEach var="day" begin="1" end="31">
                             <c:choose>
                                 <c:when test="${day==10 }">
@@ -159,9 +159,9 @@
                             </c:choose>
                         </c:forEach>
                     </select>일 <span style="padding-left:50px"></span>
-                    <input type="radio" name="member_birth_gn" value="2" checked/>양력
+                    <input type="radio" name="memberBirthGn" value="2" checked/>양력
                     <span style="padding-left:50px"></span>
-                    <input type="radio" name="member_birth_gn" value="1"/>음력
+                    <input type="radio" name="memberBirthGn" value="1"/>음력
                 </td>
             </tr>
             <tr class="dot_line">
@@ -207,7 +207,7 @@
                     <option value="019">019</option>
                 </select> - <input size="10px" type="text" name="hp2"> - <input size="10px" type="text" name="hp3"><br>
                     <br>
-                    <input type="checkbox" name="smssts_yn" value="Y" checked/> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.
+                    <input type="checkbox" name="smsstsYn" value="Y" checked/> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.
                 </td>
             </tr>
             <tr class="dot_line">
@@ -226,14 +226,14 @@
                         <option value="empal.com">empal.com</option>
                         <option value="korea.com">korea.com</option>
                         <option value="freechal.com">freechal.com</option>
-                    </select><br> <br> <input type="checkbox" name="emailsts_yn" value="Y" checked/> 쇼핑몰에서 발송하는 e-mail을
+                    </select><br> <br> <input type="checkbox" name="emailstsYn" value="Y" checked/> 쇼핑몰에서 발송하는 e-mail을
                     수신합니다.
                 </td>
             </tr>
             <tr class="dot_line">
                 <td class="fixed_join">주소</td>
                 <td>
-                    <input type="text" id="zipcode" name="zipcode" size="10"> <a href="javascript:execDaumPostcode()">우편번호검색</a>
+                    <input type="text" id="zipCode" name="zipCode" size="10"> <a href="javascript:execDaumPostcode()">우편번호검색</a>
                     <br>
                     <p>
                         지번 주소:<br><input type="text" id="roadAddress" name="roadAddress" size="50"><br><br>

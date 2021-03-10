@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.cart">
+    <!-- 리절트 맵 정의 -->
+    <resultMap id="cartResult" type="CartVO">
+        <result property="cartId" column="cart_id"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="cartGoodsQty" column="cart_goods_qty"/>
+        <result property="creDate" column="creDate"/>
+    </resultMap>
+
+    <resultMap id="goodsResult" type="GoodsVO">
+        <result property="goodsId" column="goods_id"/>
+        <result property="goodsTitle" column="goods_title"/>
+        <result property="goodsWriter" column="goods_writer"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="goodsPublisher" column="goods_publisher"/>
+
+        <result property="goodsStatus" column="goods_status"/>
+        <result property="goodsSalesPrice" column="goods_sales_price"/>
+        <result property="goodsPublishedDate" column="goods_published_date"/>
+        <result property="goodsTotalPage" column="goods_total_page"/>
+        <result property="goodsIsbn" column="goods_isbn"/>
+        <result property="goodsDeliveryPrice" column="goods_delivery_price"/>
+        <result property="goodsDeliveryDate" column="goods_delivery_date"/>
+
+        <result property="goodsFileName" column="fileName"/>
+        <result property="goodsSort" column="goods_sort"/>
+        <result property="goodsWriterIntro" column="goods_writer_intro"/>
+        <result property="goodsContentsOrder" column="goods_contents_order"/>
+        <result property="goodsIntro" column="goods_intro"/>
+    </resultMap>
+
+    <select id="selectCartList" parameterType="cartVO" resultMap="cartResult">
+	    <![CDATA[
+                select * from t_shopping_cart
+                where member_id=#{memberId}
+        ]]>
+	</select>
+
+    <select id="selectGoodsList" resultMap="goodsResult" parameterType="java.util.Map">
+        <![CDATA[
+          select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
+          where g.goods_id=d.goods_id
+          and d.filetype='main_image'
+           and g.goods_id in
+      ]]>
+        <foreach item="item" collection="list" open="(" separator="," close=")">
+            #{item.goodsId}
+        </foreach>
+        order by g.goods_creDate desc
+    </select>
+
+    <select id="selectCountInCart" resultType="String" parameterType="cartVO">
+	    <![CDATA[
+                    select decode(count(*), 0, 'false', 'true') from t_shopping_cart
+                    where goods_id=#{goodsId}
+                      and member_id=#{memberId}
+        ]]>
+	</select>
+
+    <insert id="insertGoodsInCart" parameterType="cartVO">
+	    <![CDATA[
+                        insert into t_shopping_cart(cart_id,
+                                                   goods_id,
+                                                   member_id)
+                                         values(#{cartId},
+                                                #{goodsId},
+                                                #{memberId})
+        ]]>
+	</insert>
+
+    <update id="updateCartGoodsQty" parameterType="cartVO">
+	    <![CDATA[
+                    update t_shopping_cart
+                           set cart_goods_qty=#{cartGoodsQty}
+                            where member_id=#{memberId}
+                            and goods_id=#{goodsId}
+        ]]>
+	</update>
+
+    <delete id="deleteCartGoods" parameterType="int">
+	    <![CDATA[
+                  delete from t_shopping_cart
+                  where cart_id=#{cartId}
+        ]]>
+	</delete>
+
+    <select id="selectMaxCartId" resultType="int">
+	    <![CDATA[
+                    select nvl(max(cart_id), 0) + 1 from t_shopping_cart
+        ]]>
+	</select>
+
+</mapper>

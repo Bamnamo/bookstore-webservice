@@ -5,7 +5,6 @@
 
 <configuration>
 
-
     <!--
     <settings>
         <setting name="cacheEnabled" value="false"/>
@@ -13,16 +12,15 @@
     </settings>
     -->
 
-
     <mappers>
-        <mapper resource="mybatis/mappers/member.xml"/>
-        <mapper resource="mybatis/mappers/goods.xml"/>
-        <mapper resource="mybatis/mappers/cart.xml"/>
-        <mapper resource="mybatis/mappers/order.xml"/>
-        <mapper resource="mybatis/mappers/mypage.xml"/>
-        <mapper resource="mybatis/mappers/admin_goods.xml"/>
-        <mapper resource="mybatis/mappers/admin_order.xml"/>
-        <mapper resource="mybatis/mappers/admin_member.xml"/>
+        <mapper resource="mybatis/mappers/Member.xml"/>
+        <mapper resource="mybatis/mappers/Goods.xml"/>
+        <mapper resource="mybatis/mappers/Cart.xml"/>
+        <mapper resource="mybatis/mappers/Order.xml"/>
+        <mapper resource="mybatis/mappers/Mypage.xml"/>
+        <mapper resource="mybatis/mappers/AdminGoods.xml"/>
+        <mapper resource="mybatis/mappers/AdminOrder.xml"/>
+        <mapper resource="mybatis/mappers/AdminMember.xml"/>
     </mappers>
 
 </configuration>

@@ -12,7 +12,6 @@
             window.onload = function () {
                 result();
             }
-
             function result() {
                 alert("아이디나  비밀번호가 틀립니다. 다시 로그인해주세요");
             }
@@ -68,13 +67,13 @@
         <div class="row">
             <div class="input-field col s12">
                 <td class="fixed_join">Account</td>
-                <td><input name="member_id" type="text" size="20"></td>
+                <td><input name="memberId" type="text" size="20"></td>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <td class="fixed_join">password</td>
-                <td><input name="member_pw" type="password" size="20"></td>
+                <td><input name="memberPw" type="password" size="20"></td>
             </div>
         </div>
 

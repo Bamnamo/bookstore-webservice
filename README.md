@@ -1,7 +1,7 @@
 BOOKTOPIA(2020)
 ==============
 
-Link: http://13.209.33.41/main/main.do
+Link: http://ebooktopia.co.kr/main/main.do
 
 설명
 ---
